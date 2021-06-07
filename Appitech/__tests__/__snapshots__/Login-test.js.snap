@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Login 1`] = `
+<View
+  style={
+    Object {
+      "left": 130,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../Asset/login.png",
+      }
+    }
+    style={
+      Object {
+        "height": 180,
+        "left": -20,
+        "top": 90,
+        "width": 155,
+      }
+    }
+  />
+  <Text
+    style={
+      Object {
+        "color": "#cdcdcd",
+        "fontSize": 20,
+        "left": -60,
+        "top": 110,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#D20073",
+        }
+      }
+    >
+      Connect
+    </Text>
+     via Imgur to have
+    
+
+     access to new features
+  </Text>
+  <View
+    style={
+      Object {
+        "left": 0,
+        "top": 130,
+        "width": 100,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "borderRadius": 3,
+            "overflow": "hidden",
+          },
+          Object {
+            "borderRadius": 3,
+          },
+          undefined,
+          false,
+        ]
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          Object {
+            "busy": false,
+            "disabled": false,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        nativeBackgroundAndroid={
+          Object {
+            "attribute": "selectableItemBackground",
+            "rippleRadius": undefined,
+            "type": "ThemeAttrAndroid",
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#D20073",
+            "borderColor": "#2089dc",
+            "borderRadius": 3,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "white",
+              "fontFamily": "sans-serif-medium",
+              "fontSize": 16,
+              "paddingVertical": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
