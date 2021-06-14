@@ -16,40 +16,40 @@ import Flag from "./flag";
 import Log from "./log";
 
 const Login = ({ isConnected, onConnected, profil, onProfil }) => {
-    async function init() {}
+    async function init() { }
     async function getProfilInformation() {
         // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
         onProfil(result);
     }
-    
 
-    function renderItems({item, index}) {
+
+    function renderItems({ item, index }) {
         var items = item;
         var img;
         var type = items.type;
         if (type.split("/")[0] === "image") {
             img = (
-                <Card.Image style={styles.tinyLogo} source={{uri: items.link}} onPress={() => Linking.openURL(items.link)}>
-                    </Card.Image>
+                <Card.Image style={styles.tinyLogo} source={{ uri: items.link }} onPress={() => Linking.openURL(items.link)}>
+                </Card.Image>
             );
         } else {
             img = <Video muted={true} source={{
-                        uri: items.mp4
-                    }}style={{ width: 300, height: 300 }}
-                    />
+                uri: items.mp4
+            }} style={{ width: 300, height: 300 }}
+            />
         }
         return (
-        <View>
-            <Card>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                <Card.Title style={{width: '75%', textAlign: "left"}}>
-                    {items.title}
-                </Card.Title>
-                </View>
-                <Card.Divider/>
-                {img}
-            </Card>
-        </View>)
+            <View>
+                <Card>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <Card.Title style={{ width: '75%', textAlign: "left" }}>
+                            {items.title}
+                        </Card.Title>
+                    </View>
+                    <Card.Divider />
+                    {img}
+                </Card>
+            </View>)
 
     }
 
@@ -65,7 +65,7 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
         }
     }
     function useAsync() {
-        useEffect(() => {}, []);
+        useEffect(() => { }, []);
     }
 
     async function logout() {
@@ -79,72 +79,71 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
     // const dateObject = new Date(profil.data.created * 1000);
     // const humanDateFormat = new Date(dateObject);
 
-        return (
-            <View>
-             
-                <ScrollView >
+    return (
+        <View>
 
-                    <View style={styles.container}>
-                            
-                        <View style={styles.body}>
-                             <View style={{marginBottom: 0, flex: 1, flexDirection: "row", alignSelf:"center"}}>
-                                <View style={styles.box}>
-                            <Image source='d' style={styles.avatar}  />
-        
-                                </View>
-                                
-                                <View style={{marginTop: 10}}>
-                                    <Text style={styles.name}>Valentin Lyon</Text>
-                                    <Text style={styles.info}>
-                                         Pré-Msc | Promo 2023
-                                    </Text>
-        
-                                </View>
-                            </View>
-                            <IconButton
-                                    icon="logout"
-                                    color="#0f4c75"
-                                    size={35}
-                                    style={styles.logout}
-                                    onPress={() => console.log('Pressed')}
-                                 
-                                />
-                            <View style={{alignSelf: "center", marginBottom: 20, marginTop: 10}} >
-                                <Text style={styles.description}>Marseille <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
-                                <Text style={styles.description}>France <MaterialCommunityIcons name="earth" color={"grey"} size={15} /></Text>
-                                <Text style={styles.description}></Text>
+            <ScrollView >
+
+                <View style={styles.container}>
+
+                    <View style={styles.body}>
+                        <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
+                            <View style={styles.box}>
+                                <Image source='d' style={styles.avatar} />
 
                             </View>
-                            <View style={styles.myCard}>
-                                <View style={styles.box}>
-                                    <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
-                                    <Text style={styles.description2}>3.70</Text>
-                                </View>
-                                <View style={styles.box}>
-                                    <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
-                                    <Text style={styles.description2}>39</Text>
-                                </View>
-                                <View style={styles.box}>
-                                    <Text style={{ color: "grey", fontSize: 13, textAlign:"center" }}>Recent log</Text>
-                                    <Text style={styles.description2}>  26H</Text>
-                                </View>
-                            </View>
-                            
-                            <Log/>
-                            <View>
 
-                            <Mark/>
-                            <Flag/>
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={styles.name}>Valentin Lyon</Text>
+                                <Text style={styles.info}>
+                                    Pré-Msc | Promo 2023
+                                </Text>
+
                             </View>
-                    
+                        </View>
+                        <IconButton
+                            icon="logout"
+                            color="#0f4c75"
+                            size={35}
+                            style={styles.logout}
+                            onPress={() => console.log('Pressed')}
+
+                        />
+                        <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
+                            <Text style={styles.description}>Marseille <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
+                            <Text style={styles.description}>France <MaterialCommunityIcons name="earth" color={"grey"} size={15} /></Text>
+                            <Text style={styles.description}></Text>
 
                         </View>
+                        <View style={styles.myCard}>
+                            <View style={styles.box}>
+                                <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
+                                <Text style={styles.description2}>3.70</Text>
+                            </View>
+                            <View style={styles.box}>
+                                <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
+                                <Text style={styles.description2}>39</Text>
+                            </View>
+                            <View style={styles.box}>
+                                <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>
+                                <Text style={styles.description2}>  26H</Text>
+                            </View>
+                        </View>
+
+                        <Log />
+                        <View>
+                            <Mark />
+                            <Flag />
+                        </View>
+
 
                     </View>
-                </ScrollView>
-            </View>
 
-        );
+                </View>
+            </ScrollView>
+        </View>
+
+    );
 
 };
 
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
         height: 50,
     },
     myCard: {
-        backgroundColor: "#ffffff", flex: 1, flexDirection: "row", alignSelf: "center", marginBottom: 0, top:-30, maxWidth:380
+        backgroundColor: "#ffffff", flex: 1, flexDirection: "row", alignSelf: "center", marginBottom: 0, top: -30, maxWidth: 380
     },
     box: {
         paddingTop: 10,
@@ -181,9 +180,9 @@ const styles = StyleSheet.create({
         borderColor: "grey",
     },
     body: {
-        paddingTop:30,
-        paddingBottom:0,
-        backgroundColor:'white'
+        paddingTop: 30,
+        paddingBottom: 0,
+        backgroundColor: 'white'
     },
     bodyContent: {
         flex: 1,
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
     description2: {
         fontSize: 40,
         color: "#0f4c75",
-        marginRight:20
+        marginRight: 20
     },
     buttonContainer: {
         marginTop: -130,
@@ -225,9 +224,9 @@ const styles = StyleSheet.create({
         color: "white",
     },
     logout: {
-        position:"absolute",
-        right:0,
-        top:0
+        position: "absolute",
+        right: 0,
+        top: 0
     },
 });
 
