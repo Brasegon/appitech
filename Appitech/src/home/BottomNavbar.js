@@ -2,10 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './Home';
-import SearchBarHome from './searchBar/searchBar';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from '../login/login';
-import Favoris from './favoris/Favoris';
 import Message from '../message/message'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
