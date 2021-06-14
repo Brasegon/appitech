@@ -17,9 +17,8 @@ import Log from "./log";
 
 const Login = ({ isConnected, onConnected, profil, onProfil }) => {
     async function init() {}
-    console.log(profil);
     async function getProfilInformation() {
-        var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
+        // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
         onProfil(result);
     }
     
@@ -83,17 +82,14 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
         return (
             <View>
              
-                <FlatList
-                
-                    data={profil.images}
-                    renderItem={renderItems}
-                    ListHeaderComponent={() => {
-                        return <View style={styles.container}>
+                <ScrollView >
+
+                    <View style={styles.container}>
                             
                         <View style={styles.body}>
                              <View style={{marginBottom: 0, flex: 1, flexDirection: "row", alignSelf:"center"}}>
                                 <View style={styles.box}>
-                            <Image source={''} style={styles.avatar}  />
+                            <Image source='d' style={styles.avatar}  />
         
                                 </View>
                                 
@@ -145,8 +141,7 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
                         </View>
 
                     </View>
-                    }}
-                />
+                </ScrollView>
             </View>
 
         );

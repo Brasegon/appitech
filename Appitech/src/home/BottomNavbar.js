@@ -17,9 +17,6 @@ const BottomNavbar = () => {
 
   const [profil, onProfil] = useState({});
   const [isConnected, onConnected] = useState(false);
-  const [listFavorite, onFavorite] = useState([]);
-  const [search, onSearch] = useState("");
-  const [listImage, onListImage] = useState([]);
 
   useAsync();
   function useAsync() {
@@ -37,26 +34,8 @@ const BottomNavbar = () => {
       }
   }
   async function getProfilInformation() {
-    var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
-    var images = await httpClient("https://api.imgur.com/3/account/me/images", "GET");
-    var data = {data: result.data, images: images.data }
-    console.log(data);
-    onProfil(data);
+    // onProfil(data);
   }
-  async function searchImage() {
-    var result = await httpClient("https://api.imgur.com/3/account/me/favorites", "GET", undefined);
-    onFavorite([]);
-    for (var i = 0; i < result.data.length; i += 1) {
-        onFavorite(listFavorite => [...listFavorite, result.data[i]]);
-    }
-  }
-  async function searchImagev1() {
-    var result = await httpClient("https://api.imgur.com/3/gallery/search/?q=" + search, "GET", undefined);
-    onListImage([]);
-    for (var i = 0; i < result.data.length; i += 1) {
-        onListImage(listImage => [...listImage, result.data[i]]);
-    }
-}
     return (
     <Tab.Navigator tabBarOptions={{
         activeTintColor: '#00ead3',
@@ -68,11 +47,8 @@ const BottomNavbar = () => {
       }}>
     
       <Tab.Screen listeners={({ navigation, route }) => ({
-                tabPress: e => {
-                  searchImagev1();
-                },
             })}
-            name="Calendar" children={() => <Home listImage={listImage} onListImage={onListImage} search={search} onSearch={onSearch} isConnected={isConnected} onConnected={onConnected}/>} options={{
+            name="Calendar" children={() => <Home isConnected={isConnected} onConnected={onConnected}/>} options={{
           tabBarLabel: 'Calendar',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="calendar" color={color} size={30} />
@@ -80,20 +56,14 @@ const BottomNavbar = () => {
         }}
         />
       <Tab.Screen listeners={({ navigation, route }) => ({
-                tabPress: e => {
-                  searchImage();
-                },
-            })} name="Projects" children={() => <Favoris listFavorite={listFavorite} onFavorite={onFavorite} isConnected={isConnected} onConnected={onConnected}/>} options={{
+            })} name="Projects" children={() => <Favoris isConnected={isConnected} onConnected={onConnected}/>} options={{
           tabBarLabel: 'Project',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="code-not-equal-variant" color={color} size={30} />
           ),
         }}/>
         <Tab.Screen listeners={({ navigation, route }) => ({
-                tabPress: e => {
-                  searchImage();
-                },
-            })} name="Home" children={() => <Home listFavorite={listFavorite} onFavorite={onFavorite} isConnected={isConnected} onConnected={onConnected}/>} options={{
+            })} name="Home" children={() => <Home isConnected={isConnected} onConnected={onConnected}/>} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home-circle" color={color} size={30} />
