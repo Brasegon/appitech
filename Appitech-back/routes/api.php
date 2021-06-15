@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post("/register", [ConnectionController::class, "register"]);
+
+Route::post("/login", [ConnectionController::class, "login"]);

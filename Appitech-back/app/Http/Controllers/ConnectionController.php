@@ -55,4 +55,26 @@ class ConnectionController extends Controller
 
         return Message::createMessage(500, "Il manque des informations pour s'inscrire");
     }
+
+     /**
+     * Login a an existing user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login (Request $request) {
+        $login = $request->input("login");
+        $password = $request->input("password");
+        if ($login && $password) {
+            $user = User::firstWhere('login', $login);
+            if (!$user) {
+                return Message::createMessage(500, "Invalid Credentials, please try again"); 
+            }
+            if (Hash::check('plain-text', $hashedPassword)) {
+                $key = env('JWT_SECRET');
+                $jwt = JWT::encode(array($user['login'], $user['autologin']), $key);
+                return Message::createMessage(200, $jwt);
+            }
+        }
+    }
 }
