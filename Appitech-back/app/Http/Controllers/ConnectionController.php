@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Utils\Message;
 use Exception;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +22,7 @@ class ConnectionController extends Controller
         $login = $request->input("login");
         $password = $request->input("password");
         $autologin = $request->input("autologin");
-        $key = "example_key";
+
         if ($login && $password && $autologin) {
 
            $user = User::firstWhere('login', $login);
@@ -65,16 +66,18 @@ class ConnectionController extends Controller
     public function login (Request $request) {
         $login = $request->input("login");
         $password = $request->input("password");
+
         if ($login && $password) {
             $user = User::firstWhere('login', $login);
             if (!$user) {
                 return Message::createMessage(500, "Invalid Credentials, please try again"); 
             }
-            if (Hash::check('plain-text', $hashedPassword)) {
+            if (Hash::check($password, $user['password'])) {
                 $key = env('JWT_SECRET');
-                $jwt = JWT::encode(array($user['login'], $user['autologin']), $key);
-                return Message::createMessage(200, $jwt);
+                $jwt = JWT::encode(array("login" => $user['login'], "autologin" => $user['autologin']), $key);
+                return Message::createMessage(200, array("token" => $jwt));
             }
         }
+        return Message::createMessage(500, "Invalid Credentials, please try again"); 
     }
 }
