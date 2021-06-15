@@ -14,6 +14,7 @@ class User extends Model
     public $fillable = [
         'login',
         'password',
-        'autologin'
+        'autologin',
+        'reset_token'
     ];
 }

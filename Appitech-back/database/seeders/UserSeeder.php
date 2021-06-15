@@ -15,5 +15,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         $post = User::create(['login' => "brandon", 'password' => "dsqfdsf", 'autologin' => "blbllblbl"]);
+
+        $user = User::firstWhere('login', "brandon");
+        $user['reset_token'] = "jdqsjfdjsdjfjdjsgjdhqydauzizoeozarifiisfisqfhdsjgpsdlgldmkqjdjfsfksqjhzaaldd,fvnnf===";
+        $user->save();
     }
 }
