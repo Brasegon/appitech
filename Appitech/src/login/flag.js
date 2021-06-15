@@ -26,7 +26,7 @@ export default function Flag() {
 }
 const styles = StyleSheet.create({
     myCard: {
-        backgroundColor: "#ffffff",  flexDirection: "row", alignSelf: "center", marginBottom: 15, maxWidth:3560, paddingTop: 50, 
+        backgroundColor: "#ffffff",  flexDirection: "row", alignSelf: "center", marginBottom: 15, maxWidth:3560, paddingTop: 10, 
     },
     box: {
         paddingTop: 10,

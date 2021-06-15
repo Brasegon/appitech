@@ -4,23 +4,64 @@ import { DataTable } from 'react-native-paper';
 
 export default function Mark() {
   const [page, setPage] = React.useState(0);
-  const [itemsPerPage, setItemsPerPage] = React.useState(2);
+  const [itemsPerPage, setItemsPerPage] = React.useState(5);
   const data = [
     {
-      name: 'Frozen Yogurt',
+      name: 'T6 - AppDev Epicture',
       grade: 'A',
-      credit: '6.0',
+      credit: '3',
     },
     {
-      name: 'Frozen Yogurt',
+      name: 'T6 - E-Commerce',
       grade: 'A',
-      credit: '6.0',
+      credit: '3',
     },
     {
-      name: 'TEST',
+      name: 'T6 - Devops',
       grade: 'A',
-      credit: '6.0',
+      credit: '3',
     },
+    {
+      name: 'T6 - NSA',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - End Year project',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Binary Security',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Securité web',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Java',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    
   ];
   return (
 
@@ -38,9 +79,9 @@ export default function Mark() {
             )
             .map(row => (
               <DataTable.Row>
-                <DataTable.Cell>{row.name}</DataTable.Cell>
-                <DataTable.Cell>{row.grade}</DataTable.Cell>
-                <DataTable.Cell>{row.credit}</DataTable.Cell>
+                <DataTable.Cell style={{ flex: 3 }}>{row.name}</DataTable.Cell>
+                <DataTable.Cell numeric>{row.grade}</DataTable.Cell>
+                <DataTable.Cell numeric>{row.credit}</DataTable.Cell>
               </DataTable.Row>
             ))}
             <DataTable.Pagination

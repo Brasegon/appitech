@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 export default function Flag() {
     return (
 
-        <View>
+        <View style={{flex:1}}>
 
                 <View style={styles.title}><Text style={styles.titleText}>Messages <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
                 <ScrollView >
