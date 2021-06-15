@@ -107,7 +107,6 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
                             size={35}
                             style={styles.logout}
                             onPress={() => console.log('Pressed')}
-
                         />
                         <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
                             <Text style={styles.description}>Marseille <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>

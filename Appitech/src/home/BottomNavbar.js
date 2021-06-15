@@ -7,6 +7,7 @@ import Login from '../login/login';
 import Message from '../message/message'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import RegisterPage from '../login/register/registerPage';
 
 
 const Tab = createBottomTabNavigator();
@@ -61,7 +62,7 @@ const BottomNavbar = () => {
           ),
         }}/>
         <Tab.Screen listeners={({ navigation, route }) => ({
-            })} name="Home" children={() => <Home isConnected={isConnected} onConnected={onConnected}/>} options={{
+            })} name="Home" children={() => <RegisterPage isConnected={isConnected} onConnected={onConnected}/>} options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home-circle" color={color} size={30} />
