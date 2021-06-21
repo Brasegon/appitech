@@ -4,16 +4,23 @@ import {
   Text,
   View,
   Image,
-  StatusBar,
-  
+  StatusBar
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel from './carousel';
 import CarouselMark from './carousselMarks';
-  
-export default class Home extends React.Component {
-  render() {
+import Login from '../login/connection/connection'
+import { NavigationContainer } from '@react-navigation/native';
+
+const Home = ({route, navigation}) => {
+  const{isConnected} = route.params;
+  console.log(isConnected);
+  if (isConnected == false) {
+    navigation.navigate('Message');
+    return (<View></View>)
+  }
+  else {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View style={styles.top}>
@@ -46,8 +53,9 @@ export default class Home extends React.Component {
       </View>
     );
   }
-  // <MaterialCommunityIcons name="calendar-blank-multiple" color={"#053742"} size={40}></MaterialCommunityIcons>
 }
+  // <MaterialCommunityIcons name="calendar-blank-multiple" color={"#053742"} size={40}></MaterialCommunityIcons>
+
 const styles = StyleSheet.create({
   containerTop: {
     backgroundColor: '#39A2DB',
@@ -102,3 +110,5 @@ const styles = StyleSheet.create({
     left : 25
   }
 });
+
+export default Home;
