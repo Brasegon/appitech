@@ -84,8 +84,8 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
 
             <ScrollView >
 
-                <View style={styles.container}>
-
+                <View style={{flex:1}}>
+                    
                     <View style={styles.body}>
                         <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
                             <View style={styles.box}>
