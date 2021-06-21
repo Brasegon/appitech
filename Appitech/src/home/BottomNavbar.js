@@ -36,27 +36,7 @@ const BottomNavbar = () => {
     // onProfil(data);
   }
 
-  var tab = null;
-  
-  if (isConnected == false) {
-    tab = (<Tab.Screen listeners={({ navigation, route }) => ({ 
-    })} name="Login" component={Login} initialParams={{isConnected:isConnected, onConnected:onConnected}} options={{
-      tabBarLabel: 'Login', 
-      tabBarVisible: true,
-      tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="home-circle" color={color} size={30} />
-      ),
-    }} />)
-  }
-  else {
-    tab = (<Tab.Screen listeners={({ navigation, route }) => ({ 
-    })} name="Home" component={Home} initialParams={{isConnected:isConnected, onConnected:onConnected}} options={{
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ color, size }) => (
-        <MaterialCommunityIcons name="home-circle" color={color} size={30} />
-      ),
-    }} />)
-  }
+
     return (
         <Tab.Navigator initialRouteName='Home'
           tabBarOptions={{
@@ -85,7 +65,21 @@ const BottomNavbar = () => {
               <MaterialCommunityIcons name="code-not-equal-variant" color={color} size={30} />
             ),
           }} />
-          {tab}
+          {isConnected ? <Tab.Screen listeners={({ navigation, route }) => ({ 
+    })} name="Home" children={() => <Home isConnected={isConnected} onConnected={onConnected} />} options={{
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="home-circle" color={color} size={30} />
+      ),
+    }} />: <Tab.Screen listeners={({ navigation, route }) => ({ 
+    })} name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} options={{
+      tabBarLabel: 'Login', 
+      tabBarVisible: true,
+      tabBarIcon: ({ color, size }) => (
+        <MaterialCommunityIcons name="home-circle" color={color} size={30} />
+      ),
+    }} />
+    }
           <Tab.Screen name="Message" children={() => <Message isConnected={isConnected} onConnected={onConnected} />} options={{
             tabBarLabel: 'Message',
             tabBarBadge: 3,

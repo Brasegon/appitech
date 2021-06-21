@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,16 +11,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Carousel from './carousel';
 import CarouselMark from './carousselMarks';
 import Login from '../login/connection/connection'
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
-const Home = ({route, navigation}) => {
-  const{isConnected} = route.params;
-  console.log(isConnected);
-  if (isConnected == false) {
-    navigation.navigate('Message');
-    return (<View></View>)
-  }
-  else {
+const Home = ({isConnected, onConnected}) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (isConnected == false) {
+      navigation.navigate('Login');
+    }
+  }, [])
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View style={styles.top}>
@@ -53,7 +54,6 @@ const Home = ({route, navigation}) => {
       </View>
     );
   }
-}
   // <MaterialCommunityIcons name="calendar-blank-multiple" color={"#053742"} size={40}></MaterialCommunityIcons>
 
 const styles = StyleSheet.create({
