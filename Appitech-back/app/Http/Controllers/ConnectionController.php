@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Utils\EpitechApi;
+use App\Utils\JWT as UtilsJWT;
 use App\Utils\Message;
 use Exception;
 use Firebase\JWT\JWT;
@@ -22,6 +24,7 @@ class ConnectionController extends Controller
         $login = $request->input("login");
         $password = $request->input("password");
         $autologin = $request->input("autologin");
+
 
         if ($login && $password && $autologin) {
 
