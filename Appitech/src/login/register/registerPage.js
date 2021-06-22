@@ -5,21 +5,17 @@ import Btn from 'react-native-micro-animated-button';
 import httpClient from '../../utils/httpClient';
 import config from '../../utils/config';
 
+
 export default function registerPage() {
     const [email, onChangeEmail] = React.useState("");
     const [password, onChangePassword] = React.useState("");
     const [autoLogin, onChangeAutolink] = React.useState("");
     async function successButton() {
-        var result = await httpClient(config.url + '/register', 'post', {email:email, password:password, autoLogin:autoLogin});
-        console.log(result);
+        var result = await httpClient(config.url + '/register', 'post', {login:email, password:password, autologin:autoLogin});
+        console.log(result.message);
     }
     return (
-        <View style={{flex:1, position: 'absolute', 
-        top: 200, left: 0, 
-        right: 0, bottom: 0, 
-        justifyContent: 'center', 
-        alignItems: 'center'}}>
-            {/* <View style={styles.title}><Text style={styles.titleText}>Registration <MaterialCommunityIcons name="account-plus" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View> */}
+        <View style={{backgroundColor:'white', flex : 1}}>
             <ScrollView>
                 <View style={styles.card}>
                     <Image source={require('../../../Asset/logo.png')} style={{ width: 150, height: 120, marginBottom: 10 }} />
@@ -65,11 +61,11 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     card: {
-        backgroundColor: 'white',
-        height : 500,
+        top : 0,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height : 700
     },
     input: {
         textAlign: 'center',
