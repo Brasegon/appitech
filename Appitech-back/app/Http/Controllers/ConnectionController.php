@@ -44,7 +44,7 @@ class ConnectionController extends Controller
                     return Message::createMessage(500, "Mot de passe trop court (min 8)!");
             }
             if ($user) {
-                    return Message::createMessage(500, "User exist !");
+                    return Message::createMessage(500, "Utilisateur déjà existant !");
             }
 
             User::create([
@@ -54,7 +54,7 @@ class ConnectionController extends Controller
                 ]),
                 "autologin" => $autologin
             ]);
-            return Message::createMessage(200, "User created !");
+            return Message::createMessage(200, "Utilisateur Créé !");
         }
 
         return Message::createMessage(500, "Il manque des informations pour s'inscrire");
@@ -72,15 +72,12 @@ class ConnectionController extends Controller
 
         if ($login && $password) {
             $user = User::firstWhere('login', $login);
-            if (!$user) {
-                return Message::createMessage(500, "Invalid Credentials, please try again"); 
-            }
             if (Hash::check($password, $user['password'])) {
                 $key = env('JWT_SECRET');
                 $jwt = JWT::encode(array("login" => $user['login'], "autologin" => $user['autologin']), $key);
                 return Message::createMessage(200, array("token" => $jwt));
             }
         }
-        return Message::createMessage(500, "Invalid Credentials, please try again"); 
+        return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer."); 
     }
 }
