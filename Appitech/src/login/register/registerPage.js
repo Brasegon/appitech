@@ -4,16 +4,31 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Btn from 'react-native-micro-animated-button';
 import httpClient from '../../utils/httpClient';
 import config from '../../utils/config';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import SpinkitButton from 'react-native-spinkit-button';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 
 export default function registerPage() {
     const [email, onChangeEmail] = React.useState("");
     const [password, onChangePassword] = React.useState("");
     const [autoLogin, onChangeAutolink] = React.useState("");
+    const [showAlert, onShowAlert] = React.useState(false);
+    const [errorMessage, onErrorMessage] = React.useState("");
+    const [loading, onLoading] = React.useState(false);
     async function successButton() {
+        onLoading(true);
         var result = await httpClient(config.url + '/register', 'post', {login:email, password:password, autologin:autoLogin});
-        console.log(result.message);
+        if (result.code == '200') {
+            //Redirection
+        }
+        else {
+            onErrorMessage(result.message);
+            onShowAlert(true);
+            onLoading(false);
+        }
     }
+
     return (
         <View style={{backgroundColor:'white', flex : 1}}>
             <ScrollView>
@@ -37,13 +52,44 @@ export default function registerPage() {
                         value={autoLogin}
                         placeholder="AutoLogin Link"
                     />
-                    <Btn
-                        label="Submit"
-                    onPress={() => successButton()}
-                    successIcon="check" style={{marginTop: 30}}
+                   <SpinkitButton
+      width={270}
+      height={40}
+      borderRadius={11}
+      onPress={successButton}
+      buttonStyle={styles.button}
+      label={'TEXT with ICON'}
+      labelStyle={styles.textButtonStyle}
+      loading={loading}
+      labelAndTextContainer={styles.labelAndTextContainer}
+      iconComponent={
+        <Icon name="rocket" size={20} color="#FFFFFF" style={styles.icon} />
+      }
+      size={15}
+      type={'Bounce'}
+      color={'#FFFFFF'}
+      animationDuration={300}
+    />
+                    <Text style={{ color: 'grey', fontSize: 12, fontStyle: 'italic' }}>If you are already registered, <Text style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 14 }}>log in</Text></Text>
+                </View>
+                <AwesomeAlert
+                    show={showAlert}
+                    showProgress={false}
+                    title="Error, account not created"
+                    message={errorMessage}
+                    closeOnTouchOutside={true}
+                    closeOnHardwareBackPress={false}
+                    showCancelButton={false}
+                    showConfirmButton={true}
+                    confirmButtonColor="#0f4c75"
+                    onCancelPressed={() => {
+                        onShowAlert(false);
+                        
+                    }}
+                    onConfirmPressed={() => {
+                        onShowAlert(false);
+                    }}
                 />
-                <Text style={{color:'grey', fontSize:12, fontStyle: 'italic'}}>If you are already registered, <Text style={{textDecorationLine: 'underline', color:'#006DFD', fontSize:14}}>log in</Text></Text>
-            </View>
             </ScrollView>
         </View>
     );
@@ -73,6 +119,9 @@ const styles = StyleSheet.create({
         borderColor: 'grey',
         width : 350,
         marginTop : 10
+    },
+    button: {
+        borderStyle : 'solid'
     }
 });
 

@@ -4,6 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Btn from 'react-native-micro-animated-button';
 import httpClient from '../../utils/httpClient';
 import config from '../../utils/config';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 
 export default function registerPage() {
@@ -38,7 +39,9 @@ export default function registerPage() {
                 />
                 <Text style={{color:'grey', fontSize:12, fontStyle: 'italic'}}>If you don't have an account, <Text style={{textDecorationLine: 'underline', color:'#006DFD', fontSize:14}}>register</Text></Text>
             </View>
+            
             </ScrollView>
+            
         </View>
     );
 };
