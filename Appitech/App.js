@@ -30,7 +30,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Login from './src/login/connection/connection';
 import { createStackNavigator } from '@react-navigation/stack';
-import Register from './src/login/register/registerPage'
+import Register from './src/login/register/registerPage';
+import Splash from './src/splash/Splash'
 
 const Stack = createStackNavigator();
 
@@ -56,12 +57,13 @@ const App: () => React$Node = () => {
   }
 
   
-  console.log(isConnected)
+  console.log("is" + isConnected)
   return (
     <>
       
       <NavigationContainer>
-      <Stack.Navigator headerMode={"none"} initialRouteName={isConnected ? "Home" : "Login"}>
+      <Stack.Navigator headerMode={"none"} initialRouteName={Splash}>
+        <Stack.Screen name="Splash" children={() => <Splash isConnected={isConnected} onConnected={onConnected} />} />
         <Stack.Screen name="Home" children={() => <BottomNavbar isConnected={isConnected} onConnected={onConnected} />} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} />

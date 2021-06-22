@@ -22,23 +22,35 @@
    TouchableOpacity,
    Linking,
  } from 'react-native'
- 
- export default class example extends Component {
-   componentDidMount(){
-     this.timeoutHandle = setTimeout(()=>{
-     }, 5000);
- }
- componentWillUnmount(){
-   clearTimeout(this.timeoutHandle);
- }
-   render() {
+ import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
+
+const Splash = ({isConnected, onConnected}) => {
+const navigation = useNavigation();
+console.log("coucuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+setTimeout(() => {
+  redirect();
+  }, 1500);
+
+function redirect () {
+if (isConnected == true) {
+  navigation.navigate('Home');
+}
+else {
+  navigation.navigate('Login');
+}
+}
      return (
-       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
-         <Image source={require('./Asset/Splash2.gif')} />
+       <View style={{backgroundColor:'white', flex : 1}}>
+         <Image style={{ top:250, width: 250, flexDirection: 'column',
+justifyContent: 'center',
+alignSelf: 'center',
+height: '26%'}} source={require('../../Asset/Splash2.gif')} />
        </View>
      )
    }
- }
  const styles = StyleSheet.create({
  
  })
+
+ export default Splash;
