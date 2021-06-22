@@ -6,17 +6,31 @@ import httpClient from '../../utils/httpClient';
 import config from '../../utils/config';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function registerPage() {
+export default function registerPage({isConnected, onConnected}) {
+
     const [email, onChangeEmail] = React.useState("");
     const [password, onChangePassword] = React.useState("");
     const navigation = useNavigation();
     const [loading, onLoading] = React.useState(false);
+    const [showAlert, onShowAlert] = React.useState(false);
+    const [errorMessage, onErrorMessage] = React.useState("");
 
     async function successButton() {
-        var result = await httpClient(config.url + '/register', 'post', {login:email, password:password});
-        console.log(result);
+        onLoading(true);
+        var result = await httpClient(config.url + '/login', 'post', {login:email, password:password});
+        if (result.code == '200') {
+            await AsyncStorage.setItem('@account', JSON.stringify(result.message));
+            onConnected(true);
+            navigation.navigate('Home');
+        }
+        else {
+            onErrorMessage(result.message);
+            onShowAlert(true);
+            onLoading(false);
+        }
     }
     return (
         <View style={{backgroundColor:'white', flex : 1}}>
@@ -56,7 +70,24 @@ export default function registerPage() {
                 <Text onPress={()=>navigation.navigate('Register')} style={{textDecorationLine: 'underline', color:'#006DFD', fontSize:14}}> register</Text>
                 </Text>
             </View>
-            
+            <AwesomeAlert
+                    show={showAlert}
+                    showProgress={false}
+                    title="Error, account not created"
+                    message={errorMessage}
+                    closeOnTouchOutside={true}
+                    closeOnHardwareBackPress={false}
+                    showCancelButton={false}
+                    showConfirmButton={true}
+                    confirmButtonColor="#0f4c75"
+                    onCancelPressed={() => {
+                        onShowAlert(false);
+                        
+                    }}
+                    onConfirmPressed={() => {
+                        onShowAlert(false);
+                    }}
+                />
             </ScrollView>
             
         </View>
