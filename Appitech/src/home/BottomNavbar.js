@@ -8,6 +8,7 @@ import Message from '../message/message'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RegisterPage from '../login/register/registerPage';
+import Profile from '../login/login'
 
 
 const Tab = createBottomTabNavigator();
@@ -64,7 +65,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
         ),
       }}
       />
-      <Tab.Screen name="Profil" children={() => <Login isConnected={isConnected} onConnected={onConnected} profil={profil} onProfil={onProfil} />} options={{
+      <Tab.Screen name="Profil" children={() => <Profile isConnected={isConnected} onConnected={onConnected} profil={profil} onProfil={onProfil} />} options={{
         tabBarLabel: 'Profil',
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="badge-account-outline" color={color} size={30} />
