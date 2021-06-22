@@ -16,7 +16,7 @@ export default function registerPage() {
 
     async function successButton() {
         var result = await httpClient(config.url + '/register', 'post', {login:email, password:password});
-        console.log(result.message);
+        console.log(result);
     }
     return (
         <View style={{backgroundColor:'white', flex : 1}}>

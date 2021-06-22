@@ -22,7 +22,7 @@ export default function registerPage() {
         onLoading(true);
         var result = await httpClient(config.url + '/register', 'post', {login:email, password:password, autologin:autoLogin});
         if (result.code == '200') {
-            //Redirection
+            navigation.navigate('Login');
         }
         else {
             onErrorMessage(result.message);
