@@ -6,7 +6,7 @@
  * @flow strict-local
  */
  import 'react-native-gesture-handler'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -27,15 +27,41 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './src/home/Home';
 import BottomNavbar from './src/home/BottomNavbar';
 import { NavigationContainer } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import registerPage from './src/login/connection/connection';
+import { createStackNavigator } from '@react-navigation/stack';
 
+
+const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
+  const [isConnected, onConnected] = useState(false);
+
+  async function getLogin() {
+    var info;
+    info = await AsyncStorage.getItem('@account')
+    info = JSON.parse(info);
+    if (info && info.accessToken) {
+        // getProfilInformation();
+        onConnected(true);
+    }
+  }
+
+  useAsync();
+  function useAsync() {
+      useEffect(() => {
+          getLogin();
+      }, []);
+  }
+  console.log(isConnected)
   return (
     <>
       
       <NavigationContainer>
-      <StatusBar />
-          <BottomNavbar/>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" children={() => <BottomNavbar isConnected={isConnected} onConnected={onConnected} />} />
+        <Stack.Screen name="Login" component={registerPage} />
+      </Stack.Navigator>
       </NavigationContainer>
     </>
   );

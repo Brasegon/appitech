@@ -16,11 +16,11 @@ import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navig
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false)
   const navigation = useNavigation();
-
+  
   useEffect(() => {
-    if (isConnected == false) {
-      navigation.navigate('Login');
-    }
+    // if (isConnected == false) {
+    //   navigation.navigate('Login');
+    // }
   }, [])
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>

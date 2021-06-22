@@ -17,10 +17,10 @@ import Log from "./log";
 
 const Login = ({ isConnected, onConnected, profil, onProfil }) => {
     async function init() { }
-    async function getProfilInformation() {
-        // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
-        onProfil(result);
-    }
+    // async function getProfilInformation() {
+    //     // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
+    //     // onProfil(result);
+    // }
 
 
     function renderItems({ item, index }) {
@@ -58,7 +58,7 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
         try {
             const result = await authorize(Config.oauth);
             await AsyncStorage.setItem("@account", JSON.stringify(result));
-            getProfilInformation();
+            // getProfilInformation();
             onConnected(true);
         } catch (error) {
             console.log(error);
