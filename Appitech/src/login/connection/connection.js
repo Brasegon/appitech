@@ -18,6 +18,9 @@ export default function registerPage({isConnected, onConnected}) {
     const [showAlert, onShowAlert] = React.useState(false);
     const [errorMessage, onErrorMessage] = React.useState("");
 
+    if (isConnected == true) {
+        navigation.navigate('Home');
+    }
     async function successButton() {
         onLoading(true);
         var result = await httpClient(config.url + '/login', 'post', {login:email, password:password});

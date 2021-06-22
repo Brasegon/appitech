@@ -26,18 +26,16 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './src/home/Home';
 import BottomNavbar from './src/home/BottomNavbar';
+import { NavigationContainer } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Login from './src/login/connection/connection';
-import { createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import Register from './src/login/register/registerPage'
-import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
-
 
 const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
   const [isConnected, onConnected] = useState(false);
-  const navigation = useNavigation();
 
   async function getLogin() {
     var info;
@@ -46,9 +44,7 @@ const App: () => React$Node = () => {
     if (info && info.token) {
         // getProfilInformation();
         onConnected(true);
-        if (isConnected == true) {
-          navigation.navigate('Home');
-      }
+        
     }
   }
 
