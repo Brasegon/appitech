@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Text, StyleSheet, View, TextInput, Button, Image, ScrollView} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Btn from 'react-native-micro-animated-button';
 import httpClient from '../../utils/httpClient';
 import config from '../../utils/config';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -55,23 +54,23 @@ export default function registerPage() {
                         value={autoLogin}
                         placeholder="AutoLogin Link"
                     />
-                   <SpinkitButton
-      width={270}
-      height={40}
-      borderRadius={11}
-      onPress={successButton}
-      buttonStyle={styles.button}
-      label={'Submit'}
-      labelStyle={styles.textButtonStyle}
-      loading={loading}
-      labelAndTextContainer={styles.labelAndTextContainer}
+                    <SpinkitButton
+                        width={270}
+                        height={40}
+                        borderRadius={11}
+                        onPress={successButton}
+                        buttonStyle={styles.button}
+                        label={'Submit'}
+                        labelStyle={styles.textButtonStyle}
+                        loading={loading}
+                        labelAndTextContainer={styles.labelAndTextContainer}
 
-      size={15}
-      type={'Bounce'}
-      color={'#FFFFFF'}
-      animationDuration={300}
-    />
-                    <Text style={{ color: 'grey', fontSize: 12, fontStyle: 'italic' }}>If you are already registered, <Text style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 14 }}>log in</Text></Text>
+                        size={15}
+                        type={'Bounce'}
+                        color={'#FFFFFF'}
+                        animationDuration={300}
+                    />
+                    <Text style={{ color: 'grey', fontSize: 12, fontStyle: 'italic' }}>If you are already registered, <Text onPress={() => navigation.navigate('Login')} style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 14 }}> log in</Text></Text>
                 </View>
                 <AwesomeAlert
                     show={showAlert}
@@ -122,14 +121,21 @@ const styles = StyleSheet.create({
         marginTop : 10
     },
     button: {
-        borderWidth: 1,
-        borderColor: "#2887CB",
-        borderRadius: 40,
         marginTop : 30,
         marginBottom: 10,
     },
+    textButtonStyle: {
+        flex : 1,
+        color : "#2887CB",
+        textAlign : 'center',
+        textAlignVertical: 'center'
+    },
     labelAndTextContainer: {
-        color : "#2887CB"
+        borderWidth: 1,
+        width : 250,
+        height : 40,
+        borderColor: "#2887CB",
+        borderRadius: 40,
     }
 });
 
