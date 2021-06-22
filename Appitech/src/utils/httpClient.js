@@ -7,8 +7,6 @@ export default httpClient = (url, method, data) => {
         info = JSON.parse(info);
         if (info && info.accessToken) {
             authorization =  "Bearer " + info.accessToken 
-        } else {
-            authorization = "Client-ID 57fa350242c3839"
         }
 
         return fetch(url, {
