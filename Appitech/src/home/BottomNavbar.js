@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './Home';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from '../login/register/registerPage';
-import Favoris from '../project/Favoris';
 import Message from '../message/message'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
@@ -74,7 +73,7 @@ const BottomNavbar = () => {
       ),
     }} />: <Tab.Screen listeners={({ navigation, route }) => ({ 
     })} name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} options={{
-      tabBarLabel: 'Login', 
+      tabBarLabel: 'Home', 
       tabBarVisible: true,
       tabBarIcon: ({ color, size }) => (
         <MaterialCommunityIcons name="home-circle" color={color} size={30} />

@@ -7,6 +7,7 @@ import config from '../../utils/config';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import SpinkitButton from 'react-native-spinkit-button';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
 
 export default function registerPage() {
@@ -16,6 +17,8 @@ export default function registerPage() {
     const [showAlert, onShowAlert] = React.useState(false);
     const [errorMessage, onErrorMessage] = React.useState("");
     const [loading, onLoading] = React.useState(false);
+    const navigation = useNavigation();
+
     async function successButton() {
         onLoading(true);
         var result = await httpClient(config.url + '/register', 'post', {login:email, password:password, autologin:autoLogin});
@@ -58,13 +61,11 @@ export default function registerPage() {
       borderRadius={11}
       onPress={successButton}
       buttonStyle={styles.button}
-      label={'TEXT with ICON'}
+      label={'Submit'}
       labelStyle={styles.textButtonStyle}
       loading={loading}
       labelAndTextContainer={styles.labelAndTextContainer}
-      iconComponent={
-        <Icon name="rocket" size={20} color="#FFFFFF" style={styles.icon} />
-      }
+
       size={15}
       type={'Bounce'}
       color={'#FFFFFF'}
@@ -121,7 +122,14 @@ const styles = StyleSheet.create({
         marginTop : 10
     },
     button: {
-        borderStyle : 'solid'
+        borderWidth: 1,
+        borderColor: "#2887CB",
+        borderRadius: 40,
+        marginTop : 30,
+        marginBottom: 10,
+    },
+    labelAndTextContainer: {
+        color : "#2887CB"
     }
 });
 
