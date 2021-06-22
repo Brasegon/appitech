@@ -72,6 +72,9 @@ class ConnectionController extends Controller
 
         if ($login && $password) {
             $user = User::firstWhere('login', $login);
+            if (!$user) {
+                return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer."); 
+            }
             if (Hash::check($password, $user['password'])) {
                 $key = env('JWT_SECRET');
                 $jwt = JWT::encode(array("login" => $user['login'], "autologin" => $user['autologin']), $key);
