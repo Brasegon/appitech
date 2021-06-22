@@ -35,16 +35,16 @@ class ConnectionController extends Controller
 
             switch ($ulength) {
                 case ($ulength < 5):
-                    return Message::createMessage(500, "Login trop court (min 5)!");
+                    return Message::createMessage(500, "Login too court (min 5)!");
                 case ($ulength > 20):
-                    return Message::createMessage(500, "Login trop long (max 20)!");
+                    return Message::createMessage(500, "Login too long (max 20)!");
             }
             switch ($password) {
                 case ($plength < 8):
-                    return Message::createMessage(500, "Mot de passe trop court (min 8)!");
+                    return Message::createMessage(500, "Password too short (min 8)!");
             }
             if ($user) {
-                    return Message::createMessage(500, "Utilisateur déjà existant !");
+                    return Message::createMessage(500, "User already exists");
             }
 
             User::create([
@@ -54,10 +54,10 @@ class ConnectionController extends Controller
                 ]),
                 "autologin" => $autologin
             ]);
-            return Message::createMessage(200, "Utilisateur Créé !");
+            return Message::createMessage(200, "Successuflly registered!");
         }
 
-        return Message::createMessage(500, "Il manque des informations pour s'inscrire");
+        return Message::createMessage(500, "Missing informations to register");
     }
 
      /**
@@ -78,6 +78,6 @@ class ConnectionController extends Controller
                 return Message::createMessage(200, array("token" => $jwt));
             }
         }
-        return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer."); 
+        return Message::createMessage(500, "Invalid credentials, please try again."); 
     }
 }
