@@ -15,16 +15,19 @@ export default class carousel extends React.Component {
           activeIndex:0,
           carouselItems: [
           {
-              title:"Bernstein",
-              text: "T6 - Devops",
+              title:"E-Commerce",
+              module: "T6 - PHP Framework",
+              credits: "6 available credits"
           },
           {
               title:"Epicture",
-              text: "T6 - App Development",
+              module: "T6 - App Development",
+              credits: "6 available credits"
           },
           {
               title:"E-Commerce",
-              text: "T6 - Php Symfony development",
+              module: "T6 - Php Symfony development",
+              credits: "6 available credits"
           }
         ]
       }
@@ -33,14 +36,47 @@ export default class carousel extends React.Component {
     _renderItem({item,index}){
         return (
           <View style={{
-              backgroundColor:'#39A2DB',
-              borderRadius: 30,
-              height: 150,
+              flex : 1,
+              backgroundColor:'#2ca9e7',
+              borderRadius: 15,
+              height : 0,
               padding: 50,
               marginLeft: 20,
-              marginRight: 0, }}>
-            <Text style={{fontSize: 25, color: 'white', top : -25}}>{item.title}</Text>
-            <Text style={{width : 180, top : -10}}>{item.text}</Text>
+            marginRight: 0,
+          }}>
+            <Text style={{ fontSize: 25, color: 'white', top: -28, left: -20, fontWeight: 'bold' }}>{item.title}</Text>
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 4,
+                left: -20,
+                top : -10,
+                width : 50,
+                opacity : 0.3
+              }}
+            />
+            <Text style={{width : 230, top : 10, left: -20, color :'white', opacity:0.8}}>{item.module}</Text>
+            <View
+              style={{
+                borderBottomColor: 'white',
+                borderBottomWidth: 2,
+                left: -20,
+                top : 20,
+                width : 300,
+                opacity : 0.3
+              }}
+            />
+            <Text style={{width : 180, top : 40, left: -20, color :'white', opacity:0.8}}>{item.credits}</Text>
+            <View
+              style={{
+                borderBottomColor: 'white',
+                borderBottomWidth: 2,
+                left: -20,
+                top : 50,
+                width : 300,
+                opacity : 0.3
+              }}
+            />
           </View>
 
         )
@@ -48,7 +84,7 @@ export default class carousel extends React.Component {
 
     render() {
         return (
-          <SafeAreaView style={{flex: 1, paddingTop: 20, }}>
+          <SafeAreaView style={{paddingTop: 0, height : 200}}>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}

@@ -1,65 +1,114 @@
-import * as React from 'react';
-import {
-  Text, 
-  View,
-  SafeAreaView } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { DataTable } from 'react-native-paper';
 
-import Carousel from 'react-native-snap-carousel';
+export default function Mark() {
+  const [page, setPage] = React.useState(0);
+  const [itemsPerPage, setItemsPerPage] = React.useState(5);
+  const data = [
+    {
+      name: 'T6 - AppDev Epicture',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - E-Commerce',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Devops',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - NSA',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - End Year project',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Binary Security',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Securité web',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Java',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    {
+      name: 'T6 - Web Pool',
+      grade: 'A',
+      credit: '3',
+    },
+    
+  ];
+  return (
 
-export default class carousel extends React.Component {
-
- 
-    constructor(props){
-        super(props);
-        this.state = {
-          activeIndex:0,
-          carouselItems: [
-          {
-              title:"Java Pool",
-              text: "B",
-          },
-          {
-              title:"Web Pool",
-              text: "A",
-          },
-          {
-              title:"NSA Pool",
-              text: "B",
-          }
-        ]
-      }
-    }
-
-    _renderItem({item,index}){
-        return (
-          <View style={{
-              backgroundColor:'#39A2DB',
-              borderRadius: 30,
-              height: 150,
-              padding: 50,
-              marginLeft: 20,
-              marginRight: 0, }}>
-            <Text style={{fontSize: 25, color: 'white', top : -25}}>{item.title}</Text>
-            <Text style={{width : 180, top : -10}}>{item.text}</Text>
-          </View>
-
-        )
-    }
-
-    render() {
-        return (
-          <SafeAreaView style={{flex: 1, paddingTop: 20, }}>
-            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
-                <Carousel
-                  layout={"default"}
-                  ref={ref => this.carousel = ref}
-                  data={this.state.carouselItems}
-                  sliderWidth={300}
-                  itemWidth={300}
-                  renderItem={this._renderItem}
-                  onSnapToItem = { index => this.setState({activeIndex:index}) } />
-            </View>
-          </SafeAreaView>
-        );
-    }
+    <View style={styles.container}>
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title style={{ flex: 3 }}>Titre</DataTable.Title>
+          <DataTable.Title numeric>Grade</DataTable.Title>
+          <DataTable.Title numeric>Crédits</DataTable.Title>
+        </DataTable.Header>
+        {data
+            .slice(
+              page * itemsPerPage,
+              page * itemsPerPage + itemsPerPage,
+            )
+            .map(row => (
+              <DataTable.Row>
+                <DataTable.Cell style={{ flex: 3 }}>{row.name}</DataTable.Cell>
+                <DataTable.Cell numeric>{row.grade}</DataTable.Cell>
+                <DataTable.Cell numeric>{row.credit}</DataTable.Cell>
+              </DataTable.Row>
+            ))}
+            <DataTable.Pagination
+              page={page}
+              numberOfPages={Math.ceil(data.length / itemsPerPage)}
+              onPageChange={(page) => setPage(page)}
+              label={page}
+              numberOfItemsPerPage={data.length}
+              setItemsPerPage={setItemsPerPage}
+            />
+      </DataTable>
+    </View>
+  );
 }
+const styles = StyleSheet.create({
+  container: {
+    height: 350
+  },
+  row: {
+    paddingTop: 20,
+    paddingBottom: 20,
+
+  },
+  rowVariante: {
+    backgroundColor: '#FBFBFC',
+    paddingTop: 20,
+    paddingBottom: 20,
+
+  },
+});

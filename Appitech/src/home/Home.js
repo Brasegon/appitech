@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Image,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,46 +24,44 @@ const Home = ({isConnected, onConnected}) => {
     // }
   }, [])
     return (
+      <ScrollView >   
       <View style={{ backgroundColor: 'white', flex: 1 }}>
-        <View style={styles.top}>
+        <View >
+        <LinearGradient colors={['#2F80ED', '#56CCF2']} style={styles.top}>
           <Text style={styles.title}>Hey Valentin,</Text>
           <Text style={styles.subTitle}>Have a good day!</Text>
+          </LinearGradient>
         </View>
         <View style={styles.containerTop}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', top: 20, left: 25 }}> Next Activity</Text>
-          <View style={{ top: -25 }}>
-            <Text style={styles.title}>Prochaine activité</Text>
-            <View style={{
-              backgroundColor: "#F2F1F7",
-              width: 350, left: 15, borderBottomLeftRadius: 30,
-              borderBottomRightRadius: 30,
-              borderTopRightRadius: 30,
-              borderTopLeftRadius: 30, height: 100
-            }}>
+          <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
+            <View style={{top:15}}>
               <MaterialCommunityIcons name="calendar-blank-multiple" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 20, left: 20 }} />
               <Text style={{ fontSize: 17, left: 90, top: 15, width: 250, paddingBottom: 5 }}>Review projet de fin d'année</Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>Salle Scifi <MaterialCommunityIcons name="sign-direction" color={"grey"} size={15} /></Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>11h30 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
-            </View>
           </View>
         </View>
-        <Text style={styles.partTitle}>Current projects</Text>
-        <Carousel />
+        <View style={{top:-45}}>
+          <Text style={styles.partTitle}>Current projects</Text>
+          <Carousel/>
+          </View>
         <Text style={styles.partTitle}>Last Marks</Text>
         <CarouselMark />
-
       </View>
+      </ScrollView>
     );
   }
   // <MaterialCommunityIcons name="calendar-blank-multiple" color={"#053742"} size={40}></MaterialCommunityIcons>
 
 const styles = StyleSheet.create({
   containerTop: {
-    backgroundColor: '#39A2DB',
-    height: 200,
-    marginRight: 15,
+    position:'relative',
+    backgroundColor: 'white',
+    top : -80,
+    height: 150,
     marginLeft: 15,
-    borderRadius: 30,
+    marginRight: 15,
+    borderRadius: 20,
     shadowColor: "#39A2DB",
     shadowOffset: {
       width: 0,
@@ -70,19 +69,20 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1,
     shadowRadius: 16.00,
-
-    elevation: 20,
-
+      elevation: 20
   },
   partTitle: {
     color : '#053742',
     fontSize : 25,
     marginLeft : 30,
-    marginTop : 35,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom:20
   },
   top: {
-      height : 120
+      height : 220,
+      backgroundColor : 'blue',
+      borderBottomLeftRadius: 25,
+      borderBottomRightRadius: 25
   },
   container: {
     backgroundColor: '#7cb1c1',
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
     borderRadius : 25
   },
   title: {
-    color : '#39A2DB',
+    color : 'white',
     fontSize : 20,
     marginLeft : 30,
-    marginTop : 35,
+    marginTop : 45,
     fontWeight: 'bold'
   },
   subTitle : {

@@ -15,7 +15,7 @@ import Mark from "./mark";
 import Flag from "./flag";
 import Log from "./log";
 
-const Login = ({ isConnected, onConnected, profil, onProfil }) => {
+export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     async function init() { }
     // async function getProfilInformation() {
     //     // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
@@ -23,47 +23,6 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
     // }
 
 
-    function renderItems({ item, index }) {
-        var items = item;
-        var img;
-        var type = items.type;
-        if (type.split("/")[0] === "image") {
-            img = (
-                <Card.Image style={styles.tinyLogo} source={{ uri: items.link }} onPress={() => Linking.openURL(items.link)}>
-                </Card.Image>
-            );
-        } else {
-            img = <Video muted={true} source={{
-                uri: items.mp4
-            }} style={{ width: 300, height: 300 }}
-            />
-        }
-        return (
-            <View>
-                <Card>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <Card.Title style={{ width: '75%', textAlign: "left" }}>
-                            {items.title}
-                        </Card.Title>
-                    </View>
-                    <Card.Divider />
-                    {img}
-                </Card>
-            </View>)
-
-    }
-
-
-    async function loginImgur() {
-        try {
-            const result = await authorize(Config.oauth);
-            await AsyncStorage.setItem("@account", JSON.stringify(result));
-            // getProfilInformation();
-            onConnected(true);
-        } catch (error) {
-            console.log(error);
-        }
-    }
     function useAsync() {
         useEffect(() => { }, []);
     }
@@ -73,11 +32,13 @@ const Login = ({ isConnected, onConnected, profil, onProfil }) => {
         onConnected(false);
     }
 
-    useAsync();
-    init();
-
+    async function getInfo() {
+    var result = await httpClient(config.url + '/profile', 'get');
+    console.log(result);
+    }
     // const dateObject = new Date(profil.data.created * 1000);
     // const humanDateFormat = new Date(dateObject);
+    getInfo();
 
     return (
         <View>
@@ -228,5 +189,3 @@ const styles = StyleSheet.create({
         top: 0
     },
 });
-
-export default Login;

@@ -1,15 +1,3 @@
-/**
- * SplashScreen
- * 启动屏
- * from：http://www.devio.org
- * Author:CrazyCodeBoy
- * GitHub:https://github.com/crazycodeboy
- * Email:crazycodeboy@gmail.com
- * @flow
- */
- 'use strict';
-
-
  import React, { Component } from 'react';
  import {
    StyleSheet,
@@ -26,7 +14,6 @@
 
 const Splash = ({isConnected, onConnected}) => {
 const navigation = useNavigation();
-console.log("coucuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
 setTimeout(() => {
   redirect();
