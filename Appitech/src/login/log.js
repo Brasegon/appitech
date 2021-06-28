@@ -10,14 +10,7 @@ import {
     chartConfig,
   } from 'react-native-chart-kit'
 
-  const barData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-      },
-    ],
-  };
+
 export default function Log() {
     const linedata = {
         labels: ['24/05', '25/05', '26/05', '27/05', '28/05', '29/05', "30/05"],

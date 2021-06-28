@@ -62,7 +62,10 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                                 <Text style={styles.info}>
                                     {result.school_title} | Promo {result.promo}
                                 </Text>
-
+                            <View style={{marginBottom : 50}}>
+                                <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
+                            <Text style={styles.description}>{result.location} <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
+                            </View>
                             </View>
                         </View>
                         <IconButton
@@ -72,12 +75,6 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             style={styles.logout}
                             onPress={logout}
                         />
-                        <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
-                            <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
-                            <Text style={styles.description}>{result.location} <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
-                            <Text style={styles.description}></Text>
-
-                        </View>
                         <View style={styles.myCard}>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
         height: 80,
         top: 5,
         borderRadius: 30,
-        borderWidth: 4,
+        borderWidth: 2,
         borderColor: "grey",
     },
     body: {
@@ -153,10 +150,13 @@ const styles = StyleSheet.create({
         padding: 30,
     },
     name: {
+        
         fontSize: 25,
+        maxWidth : 180,
         left: -34,
         color: "#0f4c75",
         fontWeight: "600",
+        
     },
     info: {
         fontSize: 13,
@@ -165,9 +165,8 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 11,
-        left: 22,
-        top: -48,
-        color: "grey",
+        left: -30,
+        color: "grey"
     },
     description2: {
         fontSize: 40,
