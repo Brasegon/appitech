@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Utils\EpitechApi;
 use Firebase\JWT\JWT;
@@ -13,12 +14,13 @@ class ProfileController extends Controller {
      *
      */
     public function getProfile(Request $request) {
-        $path = "user/";
+        $path = "/user";
         $jwtData = UtilsJWT::authorize($request);
-         if (is_null($jwtData)) {
-            return Message::createMessage(403, "Pas autorisé");
-         }
-        $data = get_object_vars($jwtData);
-        return Message::createMessage(500, EpitechApi::get($path, $data));
+        if (is_null($jwtData)) {
+        return Message::createMessage(403, "Pas autorisé");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        return Message::createMessage(200, EpitechApi::get($path, $user->autologin));
     }
 }
