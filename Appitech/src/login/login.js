@@ -14,12 +14,12 @@ import Mark from "./mark";
 import Flag from "./flag";
 import Log from "./log";
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
-
+import AnimatedLoader from "react-native-animated-loader";
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     const navigation = useNavigation();
     const [result, onResult] = React.useState({});
     const [gpa, onGPA] = React.useState(0);
-
+    const [loading, onLoading] = React.useState(true);
     useAsync();
     function useAsync() {
         useEffect(() => { 
@@ -35,6 +35,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
 
     async function getInfo() {
     var res = await httpClient('/profile', 'get');
+    onLoading(false);
     onResult(res.message);
     console.log(res.message);
     console.log(result, 'ddddddd');
@@ -45,7 +46,15 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
 
     return (
         <View>
-
+            {loading &&
+            <AnimatedLoader
+        visible={loading}
+        overlayColor="rgba(255,255,255,0.75)"
+        source={require("./loader.json")}
+        animationStyle={styles.lottie}
+        speed={1}
+      />}
+            {!loading &&
             <ScrollView >
 
                 <View style={{flex:1}}>
@@ -101,6 +110,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
 
                 </View>
             </ScrollView>
+            }
         </View>
 
     );
@@ -108,6 +118,10 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
 };
 
 const styles = StyleSheet.create({
+    lottie: {
+        width: 100,
+        height: 100
+    },
     title: {
         textAlign: "center",
         fontSize: 40,

@@ -9,8 +9,8 @@ import Projects from '../project/Projects'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RegisterPage from '../login/register/registerPage';
-import Profile from '../login/login';
-import Calendar from '../calendar/calendar';
+import Profile from '../login/login'
+import Calendar from '../calendar/calendar'
 
 
 
