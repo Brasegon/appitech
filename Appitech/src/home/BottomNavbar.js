@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RegisterPage from '../login/register/registerPage';
 import Profile from '../login/login'
+import Calendar from '../calendar/Calendar'
+
 
 
 const Tab = createBottomTabNavigator();
@@ -37,7 +39,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
 
       <Tab.Screen listeners={({ navigation, route }) => ({
       })}
-        name="Calendar" children={() => <Home isConnected={isConnected} onConnected={onConnected} />} options={{
+        name="Calendar" children={() => <Calendar isConnected={isConnected} onConnected={onConnected} />} options={{
           tabBarLabel: 'Calendar',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="calendar" color={color} size={30} />
