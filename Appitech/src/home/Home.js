@@ -10,7 +10,6 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel from './carousel';
-import CarouselMark from './carousselMarks';
 import Login from '../login/connection/connection'
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -46,12 +45,10 @@ const Home = ({isConnected, onConnected}) => {
           <Carousel/>
           </View>
         <Text style={styles.partTitle}>Last Marks</Text>
-        <CarouselMark />
       </View>
       </ScrollView>
     );
   }
-  // <MaterialCommunityIcons name="calendar-blank-multiple" color={"#053742"} size={40}></MaterialCommunityIcons>
 
 const styles = StyleSheet.create({
   containerTop: {
