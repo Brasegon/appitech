@@ -8,22 +8,21 @@ use Firebase\JWT\JWT;
 use App\Utils\JWT as UtilsJWT;
 use App\Utils\Message;
 
-class ProfileController extends Controller {
+class DashboardController extends Controller {
     /**
      * Gets the logged user's profile from Epitech API
      *
      */
-    public function getProfile(Request $request) {
-        $path = "/user";
+    public function getDashboard(Request $request) {
+        $path = "";
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {
-        return Message::createMessage(403, "Pas autorisé");
+            return Message::createMessage(403, "Pas autorisé");
         }
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
-        $info = EpitechApi::get($path, $user->autologin);
-        $info = (array) $info;
-        $info['picture'] = "https://intra.epitech.eu/".$user->autologin.$info['picture'];
-        return Message::createMessage(200, $info);
+        $request1 = (array) EpitechApi::get($path, $user->autologin);
+        
+        return Message::createMessage(200, $request1);
     }
 }

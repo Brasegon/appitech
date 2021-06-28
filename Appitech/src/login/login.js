@@ -13,9 +13,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Mark from "./mark";
 import Flag from "./flag";
 import Log from "./log";
+import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
+    const navigation = useNavigation();
     const [result, onResult] = React.useState({});
+    const [gpa, onGPA] = React.useState(0);
+
     useAsync();
     function useAsync() {
         useEffect(() => { 
@@ -26,12 +30,15 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     async function logout() {
         await AsyncStorage.removeItem("@account");
         onConnected(false);
+        navigation.navigate('Splash');
     }
 
     async function getInfo() {
     var res = await httpClient('/profile', 'get');
     onResult(res.message);
     console.log(res.message);
+    console.log(result, 'ddddddd');
+    onGPA(res.message.gpa[res.message.gpa.length-1].gpa);
     }
     // const dateObject = new Date(profil.data.created * 1000);
     // const humanDateFormat = new Date(dateObject);
@@ -46,7 +53,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                     <View style={styles.body}>
                         <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
                             <View style={styles.box}>
-                                <Image source={{uri:'https://intra.epitech.eu/file/userprofil/profilview/valentin.lyon.jpg'}} style={styles.avatar} />
+                                <Image source={{uri: result.picture}} style={styles.avatar} />
 
                             </View>
 
@@ -63,7 +70,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             color="#0f4c75"
                             size={35}
                             style={styles.logout}
-                            onPress={() => console.log('Pressed')}
+                            onPress={logout}
                         />
                         <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
                             <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
@@ -74,11 +81,11 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                         <View style={styles.myCard}>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
-                                <Text style={styles.description2}>3.70</Text>
+                                <Text style={styles.description2}>{gpa}</Text>
                             </View>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
-                                <Text style={styles.description2}>39</Text>
+                                <Text style={styles.description2}>{result.credits}</Text>
                             </View>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>

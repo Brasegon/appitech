@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -20,5 +21,8 @@ use App\Http\Controllers\ProfileController;
 Route::post("/register", [ConnectionController::class, "register"]);
 
 Route::post("/login", [ConnectionController::class, "login"]);
+
+Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
+
 
 Route::get("/profile", [ProfileController::class, "getProfile"]);
