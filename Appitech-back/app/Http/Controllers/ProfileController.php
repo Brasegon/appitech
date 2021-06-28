@@ -21,6 +21,9 @@ class ProfileController extends Controller {
         }
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
-        return Message::createMessage(200, EpitechApi::get($path, $user->autologin));
+        $info = EpitechApi::get($path, $user->autologin);
+        $info = (array) $info;
+        $info['picture'] = "https://intra.epitech.eu/".$user->autologin.$info['picture'];
+        return Message::createMessage(200, $info);
     }
 }

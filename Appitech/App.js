@@ -59,15 +59,24 @@ const App: () => React$Node = () => {
 
   return (
     <>
+        {isConnected &&
       <NavigationContainer>
       <Stack.Navigator headerMode={"none"} initialRouteName={Splash}>
         <Stack.Screen name="Splash" children={() => <Splash isConnected={isConnected} onConnected={onConnected} />} />
         <Stack.Screen name="Home" children={() => <BottomNavbar isConnected={isConnected} onConnected={onConnected} />} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} />
       </Stack.Navigator>
       </NavigationContainer>
-      <View></View>
+      }
+      {!isConnected &&
+      <NavigationContainer>
+      <Stack.Navigator headerMode={"none"} initialRouteName={Splash}>
+        <Stack.Screen name="Splash" children={() => <Splash isConnected={isConnected} onConnected={onConnected} />} />
+        <Stack.Screen name="Home" children={() => <BottomNavbar isConnected={isConnected} onConnected={onConnected} />} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} />
+      </Stack.Navigator>
+      </NavigationContainer>
+      }
     </>
   );
 };

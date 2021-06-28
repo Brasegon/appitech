@@ -13,8 +13,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Mark from "./mark";
 import Flag from "./flag";
 import Log from "./log";
+import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
+    const navigation = useNavigation();
     const [result, onResult] = React.useState({});
     const [gpa, onGPA] = React.useState(0);
 
@@ -28,6 +30,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     async function logout() {
         await AsyncStorage.removeItem("@account");
         onConnected(false);
+        navigation.navigate('Splash');
     }
 
     async function getInfo() {
@@ -50,7 +53,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                     <View style={styles.body}>
                         <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
                             <View style={styles.box}>
-                                <Image source={{uri:'https://www.cregybad.org/wp-content/uploads/2017/10/user.png'}} style={styles.avatar} />
+                                <Image source={{uri: result.picture}} style={styles.avatar} />
 
                             </View>
 
@@ -67,7 +70,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             color="#0f4c75"
                             size={35}
                             style={styles.logout}
-                            onPress={() => console.log('Pressed')}
+                            onPress={logout}
                         />
                         <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
                             <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
