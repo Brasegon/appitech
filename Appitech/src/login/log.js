@@ -11,7 +11,7 @@ import {
   } from 'react-native-chart-kit'
 
 
-export default function Log() {
+export default function Log({log}) {
     const linedata = {
         labels: ['24/05', '25/05', '26/05', '27/05', '28/05', '29/05', "30/05"],
         datasets: [
@@ -26,7 +26,7 @@ export default function Log() {
 
         <View>
         <LineChart
-          data={linedata}
+          data={log}
           width={Dimensions.get('window').width} // from react-native
           height={200}
           yAxisLabel={''}

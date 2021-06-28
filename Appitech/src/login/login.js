@@ -15,10 +15,12 @@ import Flag from "./flag";
 import Log from "./log";
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AnimatedLoader from "react-native-animated-loader";
+
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     const navigation = useNavigation();
     const [result, onResult] = React.useState({});
     const [gpa, onGPA] = React.useState(0);
+    const [log, onLog] = React.useState({});
     const [loading, onLoading] = React.useState(true);
     useAsync();
     function useAsync() {
@@ -38,11 +40,9 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     onLoading(false);
     onResult(res.message);
     console.log(res.message);
-    console.log(result, 'ddddddd');
     onGPA(res.message.gpa[res.message.gpa.length-1].gpa);
+    onLog(res.message.logtime);
     }
-    // const dateObject = new Date(profil.data.created * 1000);
-    // const humanDateFormat = new Date(dateObject);
 
     return (
         <View>
@@ -99,7 +99,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             </View>
                         </View>
 
-                        <Log />
+                        <Log log={log} />
                         <View>
                             <Mark />
                             <Flag />
