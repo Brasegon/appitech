@@ -5,12 +5,12 @@ import Home from './Home';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from '../login/register/registerPage';
 import Message from '../message/message'
-import Favoris from '../project/Projects'
+import Projects from '../project/Projects'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RegisterPage from '../login/register/registerPage';
-import Profile from '../login/login'
-import Calendar from '../calendar/Calendar'
+import Profile from '../login/login';
+import Calendar from '../calendar/calendar';
 
 
 
@@ -47,7 +47,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
         }}
       />
       <Tab.Screen listeners={({ navigation, route }) => ({
-      })} name="Projects" children={() => <Favoris isConnected={isConnected} onConnected={onConnected} />} options={{
+      })} name="Projects" children={() => <Projects isConnected={isConnected} onConnected={onConnected} />} options={{
         tabBarLabel: 'Project',
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="code-not-equal-variant" color={color} size={30} />
