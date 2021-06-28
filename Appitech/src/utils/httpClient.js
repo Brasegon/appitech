@@ -1,15 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from '../../config';
 export default httpClient = (url, method, data) => {
     async function getAuthorization() {
         var info; 
         var authorization
         info = await AsyncStorage.getItem('@account')
+        console.log(info)
         info = JSON.parse(info);
-        if (info && info.accessToken) {
-            authorization =  "Bearer " + info.accessToken 
+        if (info && info.token) {
+            authorization =  "Bearer " + info.token 
         }
 
-        return fetch(url, {
+        return fetch(Config.url + url, {
             method: method,
             headers: {
                 Accept: 'application/json',

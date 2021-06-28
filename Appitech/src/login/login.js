@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, FlatList, Linking } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authorize } from "react-native-app-auth";
-import Config from "../../config";
 import httpClient from "../utils/httpClient";
 import { Button, Card } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
@@ -33,7 +32,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     }
 
     async function getInfo() {
-    var result = await httpClient(config.url + '/profile', 'get');
+    var result = await httpClient('/profile', 'get');
     console.log(result);
     }
     // const dateObject = new Date(profil.data.created * 1000);

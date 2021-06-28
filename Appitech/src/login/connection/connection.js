@@ -3,7 +3,6 @@ import {Text, StyleSheet, View, TextInput, Button, Image, ScrollView, TouchableO
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SpinkitButton from 'react-native-spinkit-button';
 import httpClient from '../../utils/httpClient';
-import config from '../../utils/config';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,7 +22,7 @@ export default function registerPage({isConnected, onConnected}) {
     }
     async function successButton() {
         onLoading(true);
-        var result = await httpClient(config.url + '/login', 'post', {login:email, password:password});
+        var result = await httpClient('/login', 'post', {login:email, password:password});
         if (result.code == '200') {
             await AsyncStorage.setItem('@account', JSON.stringify(result.message));
             onConnected(true);

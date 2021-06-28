@@ -13,7 +13,7 @@ class ProfileController extends Controller {
      *
      */
     public function getProfile(Request $request) {
-        $path = "/user/?format=json";
+        $path = "user/";
         $jwtData = UtilsJWT::authorize($request);
          if (is_null($jwtData)) {
             return Message::createMessage(403, "Pas autorisé");

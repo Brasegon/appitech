@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Text, StyleSheet, View, TextInput, Button, Image, ScrollView} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import httpClient from '../../utils/httpClient';
-import config from '../../utils/config';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import SpinkitButton from 'react-native-spinkit-button';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -20,7 +19,7 @@ export default function registerPage() {
 
     async function successButton() {
         onLoading(true);
-        var result = await httpClient(config.url + '/register', 'post', {login:email, password:password, autologin:autoLogin});
+        var result = await httpClient('/register', 'post', {login:email, password:password, autologin:autoLogin});
         if (result.code == '200') {
             navigation.navigate('Login');
         }
