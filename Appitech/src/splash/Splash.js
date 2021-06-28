@@ -17,7 +17,7 @@ const navigation = useNavigation();
 
 setTimeout(() => {
   redirect();
-  }, 1500);
+  }, 1000);
 
 function redirect () {
 if (isConnected == true) {
@@ -29,10 +29,10 @@ else {
 }
      return (
        <View style={{backgroundColor:'white', flex : 1}}>
-         <Image style={{ top:250, width: 250, flexDirection: 'column',
+         <Image style={{ top:200, width: 370, flexDirection: 'column',
 justifyContent: 'center',
 alignSelf: 'center',
-height: '26%'}} source={require('../../Asset/Splash2.gif')} />
+height: '45%'}} source={require('../../Asset/Splash2.gif')} />
        </View>
      )
    }
