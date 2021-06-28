@@ -1,62 +1,33 @@
-// Example of Calendar with Events Listed in React Native
-// https://aboutreact.com/example-of-calendar-with-events-listed-in-react-native/
-
-// import React in our code
 import React, {useState} from 'react';
-
-// import all the components we are going to use
+import AwesomeAlert from 'react-native-awesome-alerts';
 import {
   SafeAreaView,
   StyleSheet,
   View,
   Dimensions
 } from 'react-native';
-
-//import EventCalendar component
 import EventCalendar from 'react-native-events-calendar';
 
 //get the size of device
 let {width} = Dimensions.get('window');
 
-const App = () => {
-  const [events, setEvents] = useState([
-    {
-      start: '2020-01-01 00:00:00',
-      end: '2020-01-01 02:00:00',
-      title: 'New Year Party',
-      summary: 'xyz Location',
-    },
-    {
-      start: '2020-01-01 01:00:00',
-      end: '2020-01-01 02:00:00',
-      title: 'New Year Wishes',
-      summary: 'Call to every one',
-    },
-    {
-      start: '2020-01-02 00:30:00',
-      end: '2020-01-02 01:30:00',
-      title: 'Parag Birthday Party',
-      summary: 'Call him',
-    },
-    {
-      start: '2020-01-03 01:30:00',
-      end: '2020-01-03 02:20:00',
-      title: 'My Birthday Party',
-      summary: 'Lets Enjoy',
-    },
-    {
-      start: '2020-02-04 04:10:00',
-      end: '2020-02-04 04:40:00',
-      title: 'Engg Expo 2020',
-      summary: 'Expoo Vanue not confirm',
-    },
-  ]);
+const Calendar = () => {
+    const events = [
+        { start: '2021-06-22 00:30:00', end: '2021-06-22 01:30:00', title: 'Follow up', summary: 'Cousteau' },
+        { start: '2021-06-22 01:30:00', end: '2021-06-22 02:20:00', title: 'Boostrap', summary: 'Sci-fi' },
+        { start: '2021-06-22 04:10:00', end: '2021-06-22 04:40:00', title: 'Hackaton trop chiant', summary: 'BDE' },
+        { start: '2021-06-22 01:05:00', end: '2021-06-22 01:45:00', title: 'Alpha Workshop', summary: 'Guiness' },
+        { start: '2021-06-22 14:30:00', end: '2021-06-22 16:30:00', title: 'Hub Talk', summary: 'Hub' },
+        { start: '2021-06-23 01:20:00', end: '2021-06-23 02:20:00', title: 'Workshop 1', summary: 'Cousteau' },
+        { start: '2021-06-23 04:10:00', end: '2021-06-23 04:40:00', title: 'Workshop 2', summary: 'Sci-fi' },
+        { start: '2021-06-23 00:45:00', end: '2021-06-23 01:45:00', title: 'Workshop 3', summary: 'Retro' },
+        { start: '2021-06-23 11:00:00', end: '2021-06-23 12:30:00', title: 'PCP', summary: 'Cousteau' },
+  ];
 
   const eventClicked = (event) => {
-    //On Click of event showing alert from here
+    //On Click oC a event showing alert from here
     alert(JSON.stringify(event));
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -68,19 +39,15 @@ const App = () => {
           width={width}
           // Container width
           size={60}
-          // number of date will render before and after initDate
-          // (default is 30 will render 30 day before initDate
-          // and 29 day after initDate)
-          initDate={'2020-01-01'}
-          // Show initial date (default is today)
-          scrollToFirst
+          initDate={new Date()}
+          //scrollToFirst
           // Scroll to first event of the day (default true)
         />
       </View>
     </SafeAreaView>
   );
 };
-export default App;
+export default Calendar;
 
 const styles = StyleSheet.create({
   container: {
