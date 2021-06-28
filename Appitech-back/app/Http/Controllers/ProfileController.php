@@ -30,13 +30,15 @@ class ProfileController extends Controller {
         $datasets = [
             array(
                 "data" => [],
-                "strokeWidth" => 2
+                "strokeWidth" => 2,
+                "total" => 0
             )
             ];
         for ($i = $len - 7, $z = 0; $z < 7; $i += 1, $z += 1) {
             $time = new \Moment\Moment($logTime[$i][0]);
             array_push($labels, $time->format("DD/MM", new \Moment\CustomFormats\MomentJs()));
             array_push($datasets[0]['data'], $logTime[$i][1] / 3600);
+            $datasets[0]['total'] += $logTime[$i][1] / 3600;
         }
         $info['logtime'] = array(
             "labels" => $labels,
