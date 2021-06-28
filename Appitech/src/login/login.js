@@ -16,6 +16,8 @@ import Log from "./log";
 
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     const [result, onResult] = React.useState({});
+    const [gpa, onGPA] = React.useState(0);
+
     useAsync();
     function useAsync() {
         useEffect(() => { 
@@ -32,6 +34,8 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     var res = await httpClient('/profile', 'get');
     onResult(res.message);
     console.log(res.message);
+    console.log(result, 'ddddddd');
+    onGPA(res.message.gpa[res.message.gpa.length-1].gpa);
     }
     // const dateObject = new Date(profil.data.created * 1000);
     // const humanDateFormat = new Date(dateObject);
@@ -46,7 +50,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                     <View style={styles.body}>
                         <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
                             <View style={styles.box}>
-                                <Image source={{uri:'https://intra.epitech.eu/file/userprofil/profilview/valentin.lyon.jpg'}} style={styles.avatar} />
+                                <Image source={{uri:'https://www.cregybad.org/wp-content/uploads/2017/10/user.png'}} style={styles.avatar} />
 
                             </View>
 
@@ -74,11 +78,11 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                         <View style={styles.myCard}>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
-                                <Text style={styles.description2}>3.70</Text>
+                                <Text style={styles.description2}>{gpa}</Text>
                             </View>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
-                                <Text style={styles.description2}>39</Text>
+                                <Text style={styles.description2}>{result.credits}</Text>
                             </View>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>

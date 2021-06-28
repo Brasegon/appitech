@@ -59,7 +59,6 @@ const App: () => React$Node = () => {
 
   return (
     <>
-      {isConnected &&
       <NavigationContainer>
       <Stack.Navigator headerMode={"none"} initialRouteName={Splash}>
         <Stack.Screen name="Splash" children={() => <Splash isConnected={isConnected} onConnected={onConnected} />} />
@@ -68,9 +67,7 @@ const App: () => React$Node = () => {
         <Stack.Screen name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} />
       </Stack.Navigator>
       </NavigationContainer>
-      }
-      {!isConnected &&
-      <View></View>}
+      <View></View>
     </>
   );
 };
