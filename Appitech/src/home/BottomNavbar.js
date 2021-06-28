@@ -5,6 +5,7 @@ import Home from './Home';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from '../login/register/registerPage';
 import Message from '../message/message'
+import Favoris from '../project/Projects'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import RegisterPage from '../login/register/registerPage';
