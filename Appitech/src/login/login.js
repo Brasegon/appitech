@@ -15,15 +15,12 @@ import Flag from "./flag";
 import Log from "./log";
 
 export default function Login ({ isConnected, onConnected, profil, onProfil }) {
-    async function init() { }
-    // async function getProfilInformation() {
-    //     // var result = await httpClient("https://api.imgur.com/3/account/me", "GET");
-    //     // onProfil(result);
-    // }
-
-
+    const [result, onResult] = React.useState({});
+    useAsync();
     function useAsync() {
-        useEffect(() => { }, []);
+        useEffect(() => { 
+            getInfo();
+        }, []);
     }
 
     async function logout() {
@@ -32,12 +29,12 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     }
 
     async function getInfo() {
-    var result = await httpClient('/profile', 'get');
-    console.log(result);
+    var res = await httpClient('/profile', 'get');
+    onResult(res.message);
+    console.log(res.message);
     }
     // const dateObject = new Date(profil.data.created * 1000);
     // const humanDateFormat = new Date(dateObject);
-    getInfo();
 
     return (
         <View>
@@ -49,14 +46,14 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                     <View style={styles.body}>
                         <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
                             <View style={styles.box}>
-                                <Image source='d' style={styles.avatar} />
+                                <Image source={{uri:'https://intra.epitech.eu/file/userprofil/profilview/valentin.lyon.jpg'}} style={styles.avatar} />
 
                             </View>
 
                             <View style={{ marginTop: 10 }}>
-                                <Text style={styles.name}>Valentin Lyon</Text>
+                                <Text style={styles.name}>{result.firstname} {result.lastname}</Text>
                                 <Text style={styles.info}>
-                                    Pré-Msc | Promo 2023
+                                    {result.school_title} | Promo {result.promo}
                                 </Text>
 
                             </View>
@@ -69,8 +66,8 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             onPress={() => console.log('Pressed')}
                         />
                         <View style={{ alignSelf: "center", marginBottom: 20, marginTop: 10 }} >
-                            <Text style={styles.description}>Marseille <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
-                            <Text style={styles.description}>France <MaterialCommunityIcons name="earth" color={"grey"} size={15} /></Text>
+                            <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
+                            <Text style={styles.description}>{result.location} <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
                             <Text style={styles.description}></Text>
 
                         </View>
@@ -161,8 +158,8 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 11,
-        left: -12,
-        top: -45,
+        left: 22,
+        top: -48,
         color: "grey",
     },
     description2: {
