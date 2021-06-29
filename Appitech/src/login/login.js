@@ -96,7 +96,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             </View>
                             <View style={styles.box}>
                                 <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>
-                                <Text style={styles.description2}>  26H</Text>
+                                {log && log.datasets &&<Text style={styles.description2}> {Math.round((log.datasets[0].total) * 10) / 10}H</Text>}
                             </View>
                         </View>
 
