@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, FlatList, Linking } from "react-native";
 
-export default function Flag() {
+export default function Flag({flags}) {
+
+
     return (
 
         <View style={styles.myCard}>
         <View style={styles.box}>
         <Image source = {require('../../Asset/fantome.png')}  style = {{ width: 40, height: 40}}/>
-            <Text style={styles.description2}>0</Text>
+            <Text style={styles.description2}>{flags.ghost}</Text>
         </View>
         <View style={styles.box}>
         <Image source = {require('../../Asset/bouet.png')}  style = {{ width: 40, height: 40}}/>
-            <Text style={styles.description2}>0</Text>
+            <Text style={styles.description2}>{flags.difficulty}</Text>
         </View>
         <View style={styles.box}>
         <Image source = {require('../../Asset/pouce.png')}  style = {{ width: 40, height: 40}}/>
-            <Text style={styles.description2}>2</Text>
+            <Text style={styles.description2}>{flags.remarkable}</Text>
         </View>
         <View style={styles.box}>
         <Image source = {require('../../Asset/medaille.png')}  style = {{ width: 40, height: 40}}/>
-            <Text style={styles.description2}>6</Text>
+            <Text style={styles.description2}>{flags.medal}</Text>
         </View>
     </View>
     );

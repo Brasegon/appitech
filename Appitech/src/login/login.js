@@ -22,6 +22,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     const [gpa, onGPA] = React.useState(0);
     const [log, onLog] = React.useState({});
     const [notes, onNotes] = React.useState([]);
+    const [flags, onFlags] = React.useState({});
     const [loading, onLoading] = React.useState(true);
     useAsync();
     function useAsync() {
@@ -45,6 +46,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     onLog(res.message.logtime);
     onNotes(res.message.notes);
     console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
+    onFlags(res.message.flags);
     }
 
     return (
@@ -105,7 +107,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                         {log && log.datasets && <Log log={log} />}
                         <View>
                             {notes && notes.length > 0 && <Mark notes={notes}/>}
-                            <Flag />
+                            {flags && flags.ghost && <Flag flags={flags}/>}
                         </View>
 
 
