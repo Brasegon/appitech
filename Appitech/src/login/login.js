@@ -119,8 +119,8 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
 
 const styles = StyleSheet.create({
     lottie: {
-        width: 100,
-        height: 100
+        width: 350,
+        height: 350
     },
     title: {
         textAlign: "center",

@@ -9,6 +9,7 @@
    Action,
    TouchableOpacity,
    Linking,
+   Dimensions
  } from 'react-native'
  import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -29,10 +30,10 @@ else {
 }
      return (
        <View style={{backgroundColor:'white', flex : 1}}>
-         <Image style={{ top:200, width: 370, flexDirection: 'column',
+         <Image style={{ top:200, width: Dimensions.get('window').width, flexDirection: 'column',
 justifyContent: 'center',
 alignSelf: 'center',
-height: '45%'}} source={require('../../Asset/Splash2.gif')} />
+height: '50%'}} source={require('../../Asset/Splash2.gif')} />
        </View>
      )
    }

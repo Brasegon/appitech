@@ -12,18 +12,8 @@ import {
 
 
 export default function Log({log}) {
-    const linedata = {
-        labels: ['24/05', '25/05', '26/05', '27/05', '28/05', '29/05', "30/05"],
-        datasets: [
-          {
-            data: [4, 5, 6, 4, 7, 0, 0],
-            strokeWidth: 2, // optional
-          },
-        ],
-      };
 
     return (
-
         <View>
         <LineChart
           data={log}
