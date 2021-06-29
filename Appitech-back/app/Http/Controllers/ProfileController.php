@@ -13,6 +13,21 @@ class ProfileController extends Controller {
      * Gets the logged user's profile from Epitech API
      *
      */
+
+    public function getNotes($info, $user) {
+        $notes = (array) EpitechApi::get('/user/'.$info['login']."/notes", $user->autologin);
+        $modules = $notes['modules'];
+        $modules1 = [];
+        foreach(array_reverse($modules) as $module) {
+            array_push($modules1, array(
+                "name" => $module['title'],
+                "grade" => $module['grade'],
+                "credit" => $module['credits']
+            ));
+        }
+        return $modules1;
+    }
+
     public function getProfile(Request $request) {
         $path = "/user";
         $jwtData = UtilsJWT::authorize($request);
@@ -26,6 +41,7 @@ class ProfileController extends Controller {
         $logTime = EpitechApi::get('/user/'.$info['login']."/netsoul", $user->autologin);
         $len = count($logTime);
         $info['logtime'] = [];
+        $info['notes'] = $this->getNotes($info, $user);
         $labels = [];
         $datasets = [
             array(

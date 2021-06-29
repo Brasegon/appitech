@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { DataTable } from 'react-native-paper';
 
-export default function Mark() {
+export default function Mark({notes}) {
   const [page, setPage] = React.useState(0);
   const [itemsPerPage, setItemsPerPage] = React.useState(5);
   const data = [
@@ -72,13 +72,13 @@ export default function Mark() {
           <DataTable.Title numeric>Grade</DataTable.Title>
           <DataTable.Title numeric>Crédits</DataTable.Title>
         </DataTable.Header>
-        {data
+        {notes
             .slice(
               page * itemsPerPage,
               page * itemsPerPage + itemsPerPage,
             )
             .map(row => (
-              <DataTable.Row>
+              <DataTable.Row key={row.name}>
                 <DataTable.Cell style={{ flex: 3 }}>{row.name}</DataTable.Cell>
                 <DataTable.Cell numeric>{row.grade}</DataTable.Cell>
                 <DataTable.Cell numeric>{row.credit}</DataTable.Cell>
@@ -86,10 +86,10 @@ export default function Mark() {
             ))}
             <DataTable.Pagination
               page={page}
-              numberOfPages={Math.ceil(data.length / itemsPerPage)}
+              numberOfPages={Math.ceil(notes.length / itemsPerPage)}
               onPageChange={(page) => setPage(page)}
               label={page}
-              numberOfItemsPerPage={data.length}
+              numberOfItemsPerPage={notes.length}
               setItemsPerPage={setItemsPerPage}
             />
       </DataTable>
