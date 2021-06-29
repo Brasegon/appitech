@@ -12,7 +12,6 @@ import {
 
 
 export default function Log({log}) {
-
     return (
         <View>
         <LineChart

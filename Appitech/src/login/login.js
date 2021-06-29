@@ -42,6 +42,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     console.log(res.message);
     onGPA(res.message.gpa[res.message.gpa.length-1].gpa);
     onLog(res.message.logtime);
+    console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
     }
 
     return (
@@ -99,7 +100,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
                             </View>
                         </View>
 
-                        <Log log={log} />
+                        {log && log.datasets && <Log log={log} />}
                         <View>
                             <Mark />
                             <Flag />
