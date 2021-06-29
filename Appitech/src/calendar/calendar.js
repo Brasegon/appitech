@@ -39,14 +39,15 @@ export default class Calendar extends Component {
   
   
    eventClicked = (events) => {
-    this.showAlert();
-    alert(JSON.stringify(events));
+    this.showAlert(events);
   };
   
   
- showAlert = () => {
+ showAlert = (events) => {
   this.setState({
     showAlert: true,
+    titre: events.title,
+    description: `${events.summary}\n${events.start} ${events.end}`
   });
 };
 
@@ -58,6 +59,8 @@ export default class Calendar extends Component {
  
   render() {
     const { showAlert } = this.state;
+    const { titre } = this.state;
+    const {description} = this.state;
   return (
     
     <SafeAreaView style={styles.container}>
@@ -76,14 +79,14 @@ export default class Calendar extends Component {
       <AwesomeAlert
           show={showAlert}
           showProgress={false}
-          title="titre"
-          message="text ici "
+          title={titre}
+          message={description}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Close"
-          confirmButtonColor="#008080"
+          confirmButtonColor="#2ca9e7"
           onConfirmPressed={() => {
             this.hideAlert();
           }}
