@@ -12,6 +12,7 @@
    Dimensions
  } from 'react-native'
  import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
+ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Splash = ({isConnected, onConnected}) => {
 const navigation = useNavigation();
@@ -30,10 +31,10 @@ else {
 }
      return (
        <View style={{backgroundColor:'white', flex : 1}}>
-         <Image style={{ top:200, width: Dimensions.get('window').width, flexDirection: 'column',
+         <Image style={{ top:200, width: wp('100%'), flexDirection: 'column',
 justifyContent: 'center',
 alignSelf: 'center',
-height: '50%'}} source={require('../../Asset/Splash2.gif')} />
+height: hp('50%')}} source={require('../../Asset/Splash2.gif')} />
        </View>
      )
    }
