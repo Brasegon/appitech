@@ -43,7 +43,7 @@ export default class Craigslist extends Component {
       showAlert: true
     });
   };
- 
+
   hideAlert = () => {
     this.setState({
       showAlert: false
@@ -53,26 +53,25 @@ export default class Craigslist extends Component {
   clickEventListener = (item) => {
     Alert.alert('Current activities : ' + item.name, 'NOOB debriefing : 17/05/2021, 08:42 & 23/05/2021, 14:00\n---\nNOOB : 03/05/2021, 08:42 & 16/05/2021, 23:42\n---\nKick-off - Binary Security : 26/04/2021, 08:42 & 18/05/2021, 23:42');
   }
-  Registered = (item) => {
-//    Alert.alert('Registered/NoRegistered');
-  }
-
+    
   render() {
-    const {showAlert} = this.state;
+    const { showAlert } = this.state;
+    const itemname = this.name;
+
     return (
       <View style={styles.container}>
         <View style={styles.title}><Text style={styles.titleText}>Project <MaterialCommunityIcons name="calendar-text" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
-          title="Cool Alert"
-          message="I Got a message!"
+          title="Project Name"
+          message="You are Not Registered"
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={true}
           showConfirmButton={true}
-          cancelText="No, cancel"
-          confirmText="Yes, delete it"
+          cancelText="Ok"
+          confirmText="Register Me"
           confirmButtonColor="#008080"
           onCancelPressed={() => {
             this.hideAlert();
@@ -96,16 +95,9 @@ export default class Craigslist extends Component {
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.count}>{item.count} crédit(s)</Text>
-                  <TouchableOpacity style={styles.followButton} onPress={() => this.clickEventListener(item)}>
-                    <Text style={styles.followButtonText}>Explore now</Text>
+                  <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlert();}}>
+                      <Text style={styles.followButtonText}>Details</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => {
-          this.showAlert();
-        }}>
-          <View style={styles.button}>
-            <Text style={styles.text}>Click Please!</Text>
-          </View>
-        </TouchableOpacity>
 
                 </View>
               </TouchableOpacity>
