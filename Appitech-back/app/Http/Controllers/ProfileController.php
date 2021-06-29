@@ -45,13 +45,15 @@ class ProfileController extends Controller {
             "datasets" => $datasets
         );
         $info['picture'] = "https://intra.epitech.eu/".$user->autologin.$info['picture'];
+        
         $flagsRequest = EpitechApi::get('/user/'.$info['login']."/flags", $user->autologin);
         $flags = (array) $flagsRequest;
+        
         $info["flags"] = array(
-            "ghost" => $flags["flags"]["ghost"]["value"],
-            "difficulty" =>  $flags["flags"]["difficulty"]["value"],
-            "remarkable" => $flags["flags"]["remarkable"]["value"],
-            "medal" => $flags["flags"]["medal"]["value"]
+            "ghost" => count($flags["flags"]["ghost"]["modules"]),
+            "difficulty" =>  count($flags["flags"]["difficulty"]["modules"]),
+            "remarkable" => count($flags["flags"]["remarkable"]["modules"]),
+            "medal" => count($flags["flags"]["medal"]["modules"])
         );
         return Message::createMessage(200, $info);
     }
