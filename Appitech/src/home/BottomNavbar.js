@@ -28,7 +28,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
   return (
     <Tab.Navigator initialRouteName='Home'
       tabBarOptions={{
-        activeTintColor: '#00ead3',
+        activeTintColor: '#56CCF2',
         inactiveTintColor: 'white',
         showLabel: true,
         style: {

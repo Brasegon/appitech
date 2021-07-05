@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Carousel from './carousel';
 import Login from '../login/connection/connection'
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
+import LastMessage from './LastMessage';
 
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -44,7 +45,8 @@ const Home = ({isConnected, onConnected}) => {
           <Text style={styles.partTitle}>Current projects</Text>
           <Carousel/>
           </View>
-        <Text style={styles.partTitle}>Last Marks</Text>
+        <Text style={styles.partTitle}>Last message</Text>
+        <LastMessage/>
       </View>
       </ScrollView>
     );

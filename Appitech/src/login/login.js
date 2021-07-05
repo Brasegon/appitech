@@ -16,7 +16,7 @@ import Log from "./log";
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AnimatedLoader from "react-native-animated-loader";
 
-export default function Login ({ isConnected, onConnected, profil, onProfil }) {
+export default function Login({ isConnected, onConnected, profil, onProfil }) {
     const navigation = useNavigation();
     const [result, onResult] = React.useState({});
     const [gpa, onGPA] = React.useState(0);
@@ -26,7 +26,7 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     const [loading, onLoading] = React.useState(true);
     useAsync();
     function useAsync() {
-        useEffect(() => { 
+        useEffect(() => {
             getInfo();
         }, []);
     }
@@ -38,83 +38,83 @@ export default function Login ({ isConnected, onConnected, profil, onProfil }) {
     }
 
     async function getInfo() {
-    var res = await httpClient('/profile', 'get');
-    onLoading(false);
-    onResult(res.message);
-    console.log(res.message);
-    onGPA(res.message.gpa[res.message.gpa.length-1].gpa);
-    onLog(res.message.logtime);
-    onNotes(res.message.notes);
-    console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
-    onFlags(res.message.flags);
+        var res = await httpClient('/profile', 'get');
+        onLoading(false);
+        onResult(res.message);
+        console.log(res.message);
+        onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
+        onLog(res.message.logtime);
+        onNotes(res.message.notes);
+        console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
+        onFlags(res.message.flags);
     }
 
     return (
         <View>
             {loading &&
-            <AnimatedLoader
-        visible={loading}
-        overlayColor="rgba(255,255,255,0.75)"
-        source={require("./loader.json")}
-        animationStyle={styles.lottie}
-        speed={1}
-      />}
+                <AnimatedLoader
+                    visible={loading}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />}
             {!loading &&
-            <ScrollView >
+                <ScrollView >
 
-                <View style={{flex:1}}>
-                    
-                    <View style={styles.body}>
-                        <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
-                            <View style={styles.box}>
-                                <Image source={{uri: result.picture}} style={styles.avatar} />
+                    <View style={{ flex: 1 }}>
 
+                        <View style={styles.body}>
+                            <View style={{ marginBottom: 0, flex: 1, flexDirection: "row", alignSelf: "center" }}>
+                                <View style={styles.box}>
+                                    <Image source={{ uri: result.picture }} style={styles.avatar} />
+
+                                </View>
+
+                                <View style={{ marginTop: 10 }}>
+                                    <Text style={styles.name}>{result.firstname} {result.lastname}</Text>
+                                    <Text style={styles.info}>
+                                        {result.school_title} | Promo {result.promo}
+                                    </Text>
+                                    <View style={{ marginBottom: 50 }}>
+                                        <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
+                                        <Text style={styles.description}>{result.location} <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <IconButton
+                                icon="logout"
+                                color="#0f4c75"
+                                size={35}
+                                style={styles.logout}
+                                onPress={logout}
+                            />
+                            <View style={styles.myCard}>
+                                <View style={styles.box}>
+                                    <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
+                                    <Text style={styles.description2}>{gpa}</Text>
+                                </View>
+                                <View style={styles.box}>
+                                    <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
+                                    <Text style={styles.description2}>{result.credits}</Text>
+                                </View>
+                                <View style={styles.box}>
+                                    <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>
+                                    {log && log.datasets && <Text style={styles.description2}> {Math.round((log.datasets[0].total) * 10) / 10}H</Text>}
+                                </View>
                             </View>
 
-                            <View style={{ marginTop: 10 }}>
-                                <Text style={styles.name}>{result.firstname} {result.lastname}</Text>
-                                <Text style={styles.info}>
-                                    {result.school_title} | Promo {result.promo}
-                                </Text>
-                            <View style={{marginBottom : 50}}>
-                                <Text style={styles.description}>{result.internal_email} <MaterialCommunityIcons name="email-outline" color={"grey"} size={15} /></Text>
-                            <Text style={styles.description}>{result.location} <MaterialCommunityIcons name="city-variant-outline" color={"grey"} size={15} /></Text>
+                            {log && log.datasets && <Log log={log} />}
+                            <View>
+                                {notes && notes.length > 0 && <Mark notes={notes} />}
+                                {flags !== '' && flags.ghost !== '' && <Flag flags={flags} />}
                             </View>
-                            </View>
+
+
                         </View>
-                        <IconButton
-                            icon="logout"
-                            color="#0f4c75"
-                            size={35}
-                            style={styles.logout}
-                            onPress={logout}
-                        />
-                        <View style={styles.myCard}>
-                            <View style={styles.box}>
-                                <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
-                                <Text style={styles.description2}>{gpa}</Text>
-                            </View>
-                            <View style={styles.box}>
-                                <Text style={{ color: "grey", fontSize: 13 }}>Crédits</Text>
-                                <Text style={styles.description2}>{result.credits}</Text>
-                            </View>
-                            <View style={styles.box}>
-                                <Text style={{ color: "grey", fontSize: 13, textAlign: "center" }}>Recent log</Text>
-                                {log && log.datasets &&<Text style={styles.description2}> {Math.round((log.datasets[0].total) * 10) / 10}H</Text>}
-                            </View>
-                        </View>
-
-                        {log && log.datasets && <Log log={log} />}
-                        <View>
-                            {notes && notes.length > 0 && <Mark notes={notes}/>}
-                            {flags && flags.ghost && <Flag flags={flags}/>}
-                        </View>
-
 
                     </View>
-
-                </View>
-            </ScrollView>
+                </ScrollView>
             }
         </View>
 
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
         padding: 30,
     },
     name: {
-        
+
         fontSize: 25,
-        maxWidth : 180,
+        maxWidth: 180,
         left: -34,
         color: "#0f4c75",
         fontWeight: "600",
-        
+
     },
     info: {
         fontSize: 13,
