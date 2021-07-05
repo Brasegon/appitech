@@ -1,113 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, FlatList, Linking } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from "react-native-gesture-handler";
+import AnimatedLoader from "react-native-animated-loader";
 
 export default function Flag() {
+    const [html, onHtml] = React.useState([]);
+    const [loading, onLoading] = React.useState(true);
+
+    useAsync();
+    function useAsync() {
+        useEffect(() => {
+            getInfo();
+        }, []);
+    }
+
+    async function getInfo() {
+        var res = await httpClient('/messages', 'get');
+        for(i = 0 ; res.message.length > i ; i++ ) {
+            var message = res.message[i];
+            onHtml(html => [...html,
+                <View style={styles.content}>
+                        <Image source={{uri: message.img}} style={styles.avatar} />
+                        <Text style={styles.name}>{message.message}</Text>
+                        <Text style={styles.informations}>{message.user} <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
+                        <Text style={styles.informations}>{message.date} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
+                </View>]);
+        }
+        onLoading(false);
+        console.log(res);
+    }
+
     return (
-
         <View style={{flex:1}}>
+            {loading &&
+                <AnimatedLoader
+                    visible={loading}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("../login/loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />}
 
-                <View style={styles.title}><Text style={styles.titleText}>Messages <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
+
+            {!loading &&
+            <View>
+             <View style={styles.title}><Text style={styles.titleText}>Messages <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"}
+             size={30}></MaterialCommunityIcons></Text></View>
                 <ScrollView >
-
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
-
-                        </View>
-                    </View>
-
-                </View>
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
-
-                        </View>
-                    </View>
-
-                </View>
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
-
-                        </View>
-                    </View>
-                </View>
-
-
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12} /></Text>
-
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12} /></Text>
-
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12} /></Text>
-
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12} /></Text>
-
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.content}>
-                    <View style={styles.messageCard}>
-                        <View style={styles.box}>
-                            <Image source={''} style={styles.avatar} />
-                            <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                            <Text style={styles.informations}>Brandon Segers <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                            <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12} /></Text>
-
-                        </View>
-                    </View>
-                </View>
+                {html}
             </ScrollView >
-
+            </View>
+            }
         </View>
+    
     );
 }
 const styles = StyleSheet.create({
@@ -125,7 +71,7 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 8,
         backgroundColor: 'white',
-        height: 130
+        height: 150
     },
     messageCard: {
         backgroundColor : 'white'
@@ -134,7 +80,7 @@ const styles = StyleSheet.create({
         width: 60,
         left: 20,
         height: 60,
-        top: 20,
+        top: 35,
         borderRadius: 30,
         borderWidth: 1,
         borderColor: "grey",
