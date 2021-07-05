@@ -38,7 +38,7 @@ export default function registerPage({isConnected, onConnected}) {
     }
 
     async function goBack() {
-        navigation.navigate('Choose');
+        navigation.navigate('Login');
     }
     return (
         <View style={{backgroundColor:'white', flex : 1}}>
@@ -52,19 +52,12 @@ export default function registerPage({isConnected, onConnected}) {
                             />
                 <View style={styles.card}>
                     <Image source={require('../../../Asset/logo.png')} style={{ width: 150, height: 120, marginBottom: 10 }} />
-                    <Text style={styles.titleText}>Log in <MaterialCommunityIcons name="account-arrow-right-outline" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text>
+                    <Text style={styles.titleText}>Enter your email adress <MaterialCommunityIcons name="at" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text>
 
                     <TextInput style={styles.input}
                         onChangeText={onChangeEmail}
                         value={email}
-                        placeholder="Email" />
-
-                    <TextInput style={styles.input}
-                        secureTextEntry={true}
-                        onChangeText={onChangePassword}
-                        value={password}
-                        placeholder="Password"
-                    />
+                        placeholder="Recovery email address" />
                      <SpinkitButton
                         width={270}
                         height={40}
@@ -81,8 +74,6 @@ export default function registerPage({isConnected, onConnected}) {
                         color={'#FFFFFF'}
                         animationDuration={300}
                     />
-
-                    <Text onPress={() => navigation.navigate('EmailPswd')} style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 12 }}>Forgot password ?</Text>
 
                 </View>
             <AwesomeAlert
@@ -107,8 +98,8 @@ export default function registerPage({isConnected, onConnected}) {
                 <AwesomeAlert
                     show={showAlertPswd}
                     showProgress={false}
-                    title="Reset password"
-                    message="Write your email adress"
+                    title="Check your Email !"
+                    message="A temporary password has been send, enter it with your email address to connect "
                     closeOnTouchOutside={true}
                     closeOnHardwareBackPress={false}
                     showCancelButton={false}

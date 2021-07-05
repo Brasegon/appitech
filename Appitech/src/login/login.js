@@ -45,7 +45,6 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
         onLog(res.message.logtime);
         onNotes(res.message.notes);
-        console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
         onFlags(res.message.flags);
     }
 
