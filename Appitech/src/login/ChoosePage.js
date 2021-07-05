@@ -33,11 +33,11 @@ async function redirectLogin () {
 
     return (
       <View style={{backgroundColor:'white', flex : 1}}>
-        <Image style={{ top:100, width: wp('75%'), flexDirection: 'column',
+        <Image style={{ top:150, width: wp('50%'), flexDirection: 'column',
 justifyContent: 'center',
 alignSelf: 'center',
-height: hp('40%')}} source={require('../../Asset/splash.png')} />
-                <View style={{top : 150}}>
+height: hp('25')}} source={require('../../Asset/splash.png')} />
+                <View style={{top : 190}}>
                     <SpinkitButton
                         borderRadius={11}
                         onPress={redirectLogin}
@@ -52,7 +52,7 @@ height: hp('40%')}} source={require('../../Asset/splash.png')} />
                         animationDuration={300}
                     />
                 </View>
-                <View style={{top : 190}}>
+                <View style={{top : 230}}>
                     <SpinkitButton
 
                         borderRadius={11}
