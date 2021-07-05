@@ -13,19 +13,41 @@ import Carousel from './carousel';
 import Login from '../login/connection/connection'
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import LastMessage from './LastMessage';
+import AnimatedLoader from "react-native-animated-loader";
 
 const Home = ({isConnected, onConnected}) => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const [resMessage, setResMessage] = useState([])
   const navigation = useNavigation();
-  
-  useEffect(() => {
-    // if (isConnected == false) {
-    //   navigation.navigate('Login');
-    // }
-  }, [])
+  const [loading, onLoading] = React.useState(true);
+
+  useAsync();
+    function useAsync() {
+        useEffect(() => {
+            getInfo();
+        }, []);
+    }
+
+    async function getInfo() {
+        var message = await httpClient('/messages', 'get');
+        setResMessage(message.message);
+        onLoading(false);
+    }
     return (
-      <ScrollView >   
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <View>
+        {loading &&
+                <AnimatedLoader
+                    visible={loading}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("../login/loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />}
+
+      {!loading &&
+        <View >
+          <ScrollView >
+        <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View >
         <LinearGradient colors={['#2F80ED', '#56CCF2']} style={styles.top}>
           <Text style={styles.title}>Hey Valentin,</Text>
@@ -46,9 +68,13 @@ const Home = ({isConnected, onConnected}) => {
           <Carousel/>
           </View>
         <Text style={styles.partTitle}>Last message</Text>
-        <LastMessage/>
+        <LastMessage resMessage={resMessage}/>
       </View>
       </ScrollView>
+      </View>
+
+    }
+      </View>
     );
   }
 

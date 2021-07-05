@@ -9,15 +9,16 @@ import {
   } from 'react-native';
   import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-  const LastMessage = () => {
+  const LastMessage = ({resMessage}) => {
+
 
       return (
           <View>
               <View style={styles.container}>
-                  <Image source={{ uri: 'https://pbs.twimg.com/profile_images/2784222174/2e6b2dbbf9f52bc9051afad78a454c4c_400x400.jpeg' }} style={styles.avatar} />
-                  <Text style={styles.name}>Votre groupe a été inscrit au créneau de Follow-up Follow-up - Bernstein #2</Text>
-                  <Text style={styles.informations}>Jacouille <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
-                  <Text style={styles.informations}>01/06 • 11h09 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
+                  <Image source={{ uri: resMessage[0].img }} style={styles.avatar} />
+                  <Text style={styles.name}>{resMessage[0].message}</Text>
+                  <Text style={styles.informations}>{resMessage[0].user} <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
+                  <Text style={styles.informations}>{resMessage[0].date} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={12}></MaterialCommunityIcons></Text>
               </View>
           </View>
       );
@@ -37,7 +38,7 @@ import {
         width: 60,
         left: 20,
         height: 60,
-        top: 20,
+        top: 35,
         borderRadius: 30,
         borderWidth: 1,
         borderColor: "grey",
@@ -49,6 +50,7 @@ import {
         left: 90,
         color: "grey",
         fontWeight: "600",
+        maxWidth : 280
     },
 
     informations: {

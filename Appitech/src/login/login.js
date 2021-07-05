@@ -41,7 +41,6 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         var res = await httpClient('/profile', 'get');
         onLoading(false);
         onResult(res.message);
-        console.log(res.message);
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
         onLog(res.message.logtime);
         onNotes(res.message.notes);
