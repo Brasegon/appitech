@@ -6,6 +6,7 @@ import httpClient from '../../utils/httpClient';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IconButton, Colors } from 'react-native-paper';
 
 
 export default function registerPage({isConnected, onConnected}) {
@@ -34,9 +35,20 @@ export default function registerPage({isConnected, onConnected}) {
             onLoading(false);
         }
     }
+
+    async function goBack() {
+        navigation.navigate('Choose');
+    }
     return (
         <View style={{backgroundColor:'white', flex : 1}}>
             <ScrollView>
+            <IconButton
+                                icon="arrow-left-thick"
+                                color="#0f4c75"
+                                size={35}
+                                style={styles.logout}
+                                onPress={goBack}
+                            />
                 <View style={styles.card}>
                     <Image source={require('../../../Asset/logo.png')} style={{ width: 150, height: 120, marginBottom: 10 }} />
                     <Text style={styles.titleText}>Log in <MaterialCommunityIcons name="account-arrow-right-outline" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text>
@@ -68,10 +80,10 @@ export default function registerPage({isConnected, onConnected}) {
                         color={'#FFFFFF'}
                         animationDuration={300}
                     />
-                <Text style={{color:'grey', fontSize:12, fontStyle: 'italic'}}>If you don't have an account, 
-                <Text onPress={()=>navigation.navigate('Register')} style={{textDecorationLine: 'underline', color:'#006DFD', fontSize:14}}> register</Text>
-                </Text>
-            </View>
+
+                    <Text onPress={() => navigation.navigate('Register')} style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 12 }}>Forgot password ?</Text>
+
+                </View>
             <AwesomeAlert
                     show={showAlert}
                     showProgress={false}

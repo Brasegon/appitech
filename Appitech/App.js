@@ -32,6 +32,7 @@ import Login from './src/login/connection/connection';
 import { createStackNavigator } from '@react-navigation/stack';
 import Register from './src/login/register/registerPage';
 import Splash from './src/splash/Splash'
+import Choose from './src/login/ChoosePage'
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,7 @@ const App: () => React$Node = () => {
         <Stack.Screen name="Home" children={() => <BottomNavbar isConnected={isConnected} onConnected={onConnected} />} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" children={() => <Login isConnected={isConnected} onConnected={onConnected} />} />
+          <Stack.Screen name="Choose" children={() => <Choose isConnected={isConnected} onConnected={onConnected}/>} />
       </Stack.Navigator>
       </NavigationContainer>
       }

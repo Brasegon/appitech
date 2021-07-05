@@ -26,7 +26,7 @@ if (isConnected == true) {
   navigation.navigate('Home');
 }
 else {
-  navigation.navigate('Login');
+  navigation.navigate('Choose');
 }
 }
      return (

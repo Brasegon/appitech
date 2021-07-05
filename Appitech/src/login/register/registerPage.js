@@ -6,6 +6,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import SpinkitButton from 'react-native-spinkit-button';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
+import { IconButton, Colors } from 'react-native-paper';
 
 
 export default function registerPage() {
@@ -30,9 +31,20 @@ export default function registerPage() {
         }
     }
 
+    async function goBack() {
+        navigation.navigate('Choose');
+    }
+
     return (
         <View style={{backgroundColor:'white', flex : 1}}>
             <ScrollView>
+            <IconButton
+                                icon="arrow-left-thick"
+                                color="#0f4c75"
+                                size={35}
+                                style={styles.logout}
+                                onPress={goBack}
+                            />
                 <View style={styles.card}>
                     <Image source={require('../../../Asset/logo.png')} style={{ width: 150, height: 120, marginBottom: 10 }} />
                     <Text style={styles.titleText}>Registration <MaterialCommunityIcons name="account-plus" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text>
