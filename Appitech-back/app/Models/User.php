@@ -15,6 +15,7 @@ class User extends Model
         'login',
         'password',
         'autologin',
+        'epitech_mail',
         'reset_token'
     ];
 }

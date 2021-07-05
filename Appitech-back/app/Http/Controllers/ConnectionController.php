@@ -46,13 +46,18 @@ class ConnectionController extends Controller
             if ($user) {
                     return Message::createMessage(500, "User already exists");
             }
-
+            $userExist = EpitechApi::get("user", $autologin);
+            $userExist = (array) $userExist;
+            if ($userExist && !isset($userExist['login'])) {
+                return Message::createMessage(400, "Wrong Autologin");
+            } 
             User::create([
                 "login" => $login,
                 "password" => Hash::make($password, [
                     'rounds' => 10,
                 ]),
-                "autologin" => $autologin
+                "autologin" => EpitechApi::encrypt($autologin),
+                "epitech_mail" => $userExist['login']
             ]);
             return Message::createMessage(200, "Successuflly registered!");
         }

@@ -17,4 +17,27 @@ class EpitechApi
     public static function post() {
 
     }
+
+    public static function encrypt($autologin) {
+        $ciphering = "AES-128-CTR";
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+        $encryption_iv = '1234567891011121';
+        $encryption_key = "appitech";
+
+        $encryption = openssl_encrypt($autologin, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $encryption;
+    }
+    public static function decrypt($autologin) {
+        $ciphering = "AES-128-CTR";
+        $iv_length = openssl_cipher_iv_length($ciphering);
+        $options = 0;
+        $encryption_iv = '1234567891011121';
+        $encryption_key = "appitech";
+
+        $encryption = openssl_decrypt($autologin, $ciphering,
+            $encryption_key, $options, $encryption_iv);
+        return $encryption;
+    }
 }

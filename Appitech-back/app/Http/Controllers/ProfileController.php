@@ -15,7 +15,7 @@ class ProfileController extends Controller {
      */
 
     public function getNotes($info, $user) {
-        $notes = (array) EpitechApi::get('/user/'.$info['login']."/notes", $user->autologin);
+        $notes = (array) EpitechApi::get('/user/'.$info['login']."/notes", EpitechApi::decrypt($user->autologin));
         $modules = $notes['modules'];
         $modules1 = [];
         foreach(array_reverse($modules) as $module) {
@@ -32,13 +32,14 @@ class ProfileController extends Controller {
         $path = "/user";
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {
-        return Message::createMessage(403, "Pas autorisé");
+            return Message::createMessage(403, "Pas autorisé");
         }
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
-        $info = EpitechApi::get($path, $user->autologin);
+        $autologin = EpitechApi::decrypt($user->autologin);
+        $info = EpitechApi::get($path, $autologin);
         $info = (array) $info;
-        $logTime = EpitechApi::get('/user/'.$info['login']."/netsoul", $user->autologin);
+        $logTime = EpitechApi::get('/user/'.$info['login']."/netsoul", $autologin);
         $len = count($logTime);
         $info['logtime'] = [];
         $info['notes'] = $this->getNotes($info, $user);
@@ -60,9 +61,9 @@ class ProfileController extends Controller {
             "labels" => $labels,
             "datasets" => $datasets
         );
-        $info['picture'] = "https://intra.epitech.eu/".$user->autologin.$info['picture'];
+        $info['picture'] = "https://intra.epitech.eu/".$autologin.$info['picture'];
         
-        $flagsRequest = EpitechApi::get('/user/'.$info['login']."/flags", $user->autologin);
+        $flagsRequest = EpitechApi::get('/user/'.$info['login']."/flags", $autologin);
         $flags = (array) $flagsRequest;
         
         $info["flags"] = array(

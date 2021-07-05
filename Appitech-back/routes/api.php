@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -24,5 +25,6 @@ Route::post("/login", [ConnectionController::class, "login"]);
 
 Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
 
+Route::get("/messages", [MessageController::class, "getMessages"]);
 
 Route::get("/profile", [ProfileController::class, "getProfile"]);

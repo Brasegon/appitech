@@ -21,7 +21,7 @@ class DashboardController extends Controller {
         }
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
-        $request1 = (array) EpitechApi::get($path, $user->autologin);
+        $request1 = (array) EpitechApi::get($path, EpitechApi::decrypt($user->autologin));
         
         return Message::createMessage(200, $request1);
     }
