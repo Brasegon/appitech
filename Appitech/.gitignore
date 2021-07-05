@@ -4,6 +4,7 @@ config.js
 .DS_Store
 # Xcode
 #
+config.js
 build/
 *.pbxuser
 !default.pbxuser
