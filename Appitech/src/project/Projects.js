@@ -38,9 +38,14 @@ export default class Craigslist extends Component {
     };
   }
 
-  showAlert = () => {
+  eventClicked = (data) => {
+    this.showAlert(data);
+  };
+
+  showAlert = (data) => {
     this.setState({
-      showAlert: true
+      showAlert: true,
+      titre: data.name
     });
   };
 
@@ -56,15 +61,16 @@ export default class Craigslist extends Component {
     
   render() {
     const { showAlert } = this.state;
-    const itemname = this.name;
-
+    const { titre } = this.state;
+    
     return (
       <View style={styles.container}>
         <View style={styles.title}><Text style={styles.titleText}>Project <MaterialCommunityIcons name="calendar-text" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
-          title="Project Name"
+          data={this.state.data}
+          title={titre}
           message="You are Not Registered"
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
@@ -95,7 +101,7 @@ export default class Craigslist extends Component {
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.count}>{item.count} crédit(s)</Text>
-                  <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlert();}}>
+                  <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlert(item);}}>
                       <Text style={styles.followButtonText}>Details</Text>
                   </TouchableOpacity>
 
@@ -149,11 +155,13 @@ const styles = StyleSheet.create({
 
   name: {
     fontSize: 18,
+    maxWidth: 180,
     flex: 1,
     alignSelf: 'center',
     color: "#3399ff",
     fontWeight: 'bold'
   },
+
   count: {
     fontSize: 15,
     alignSelf: 'auto',
