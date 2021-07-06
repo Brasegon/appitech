@@ -15,6 +15,7 @@ import Login from '../login/connection/connection'
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import LastMessage from './LastMessage';
 import AnimatedLoader from "react-native-animated-loader";
+import Down from "../down/IntraDown"
 
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -93,7 +94,8 @@ const Home = ({isConnected, onConnected}) => {
 }{!loading &&
       intra &&
         <View >
-          <Text>Intra is DOWN</Text>
+          <Down/>
+          <Text>Saluuuuuuuuut</Text>
       </View>
 
 }
