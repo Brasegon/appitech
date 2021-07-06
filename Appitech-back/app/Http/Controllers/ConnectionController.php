@@ -47,6 +47,9 @@ class ConnectionController extends Controller
                     return Message::createMessage(500, "User already exists");
             }
             $userExist = EpitechApi::get("user", $autologin);
+            if (is_null($userExist)) {
+                return Message::createMessage(5000, "Intra is down");
+            }
             $userExist = (array) $userExist;
             if ($userExist && !isset($userExist['login'])) {
                 return Message::createMessage(400, "Wrong Autologin");
