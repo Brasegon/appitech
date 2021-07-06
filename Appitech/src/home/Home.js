@@ -5,7 +5,8 @@ import {
   View,
   Image,
   StatusBar,
-  ScrollView
+  ScrollView,
+  RefreshControl
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,9 +18,17 @@ import AnimatedLoader from "react-native-animated-loader";
 
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [resMessage, setResMessage] = useState([])
+  const [resMessage, setResMessage] = useState([]);
+  const [intra, onIntra] = useState(false);
   const navigation = useNavigation();
   const [loading, onLoading] = React.useState(true);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(false);
+    onLoading(true);
+    getInfo();
+  }, []);
 
   useAsync();
     function useAsync() {
@@ -30,11 +39,19 @@ const Home = ({isConnected, onConnected}) => {
 
     async function getInfo() {
         var message = await httpClient('/messages', 'get');
+        if (message.code === 5000) {
+          onIntra(true);
+        }
         setResMessage(message.message);
         onLoading(false);
     }
     return (
-      <View>
+      <ScrollView refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
         {loading &&
                 <AnimatedLoader
                     visible={loading}
@@ -45,8 +62,9 @@ const Home = ({isConnected, onConnected}) => {
                 />}
 
       {!loading &&
+      !intra &&
         <View >
-          <ScrollView >
+          
         <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View >
         <LinearGradient colors={['#2F80ED', '#56CCF2']} style={styles.top}>
@@ -68,13 +86,18 @@ const Home = ({isConnected, onConnected}) => {
           <Carousel/>
           </View>
         <Text style={styles.partTitle}>Last message</Text>
-        <LastMessage resMessage={resMessage}/>
+        {resMessage.length > 0 && <LastMessage resMessage={resMessage}/>}
       </View>
-      </ScrollView>
       </View>
 
-    }
+}{!loading &&
+      intra &&
+        <View >
+          <Text>Intra is DOWN</Text>
       </View>
+
+}
+</ScrollView>
     );
   }
 

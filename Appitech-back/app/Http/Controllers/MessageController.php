@@ -26,6 +26,9 @@ class MessageController extends Controller
         $autologin = EpitechApi::decrypt($user->autologin);
         $path = "user/".$user->login."/notification/message";
         $info = EpitechApi::get($path, $autologin);
+        if (is_null($info)) {
+            return Message::createMessage(5000, "Intra is down");
+        }
         $info = (array) $info;
         $messages = [];
         foreach ($info as $message) {

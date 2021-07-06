@@ -22,6 +22,9 @@ class DashboardController extends Controller {
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
         $request1 = (array) EpitechApi::get($path, EpitechApi::decrypt($user->autologin));
+        if (is_null($request1)) {
+            return Message::createMessage(5000, "Intra is down");
+        }
         
         return Message::createMessage(200, $request1);
     }

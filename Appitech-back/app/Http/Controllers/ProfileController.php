@@ -38,6 +38,9 @@ class ProfileController extends Controller {
         $user = User::firstWhere('login', $jwtData['login']);
         $autologin = EpitechApi::decrypt($user->autologin);
         $info = EpitechApi::get($path, $autologin);
+        if (is_null($info)) {
+            return Message::createMessage(5000, "Intra is down");
+        }
         $info = (array) $info;
         $logTime = EpitechApi::get('/user/'.$info['login']."/netsoul", $autologin);
         $len = count($logTime);
