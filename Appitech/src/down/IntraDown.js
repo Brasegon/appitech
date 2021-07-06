@@ -21,14 +21,16 @@ const [loading, onLoading] = React.useState(true);
     console.log(width)
     return (
         <View>
+            <Text style={{alignSelf: 'center', fontSize : 30, width:260, color: '#2ca9e7',fontWeight: 'bold',}}>Intranet is down, it will be back soon!</Text>
             <LottieView style={styles.lottie}source={require('./down.json')} autoPlay loop />
         </View>
     )
 }
 const styles = StyleSheet.create({
     lottie: {
-        width: 200,
-        height: 200,
+        top : 20,
+        width: 300,
+        height: 300,
         alignItems: 'center' 
     }
 })

@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, Image, FlatList, Linking, RefreshControl } from
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from "react-native-gesture-handler";
 import AnimatedLoader from "react-native-animated-loader";
+import { Dimensions } from 'react-native';
+const { height } = Dimensions.get('window');
+import Down from "../down/IntraDown"
 
 export default function Flag() {
     const [html, onHtml] = React.useState([]);
@@ -68,16 +71,23 @@ export default function Flag() {
             </View>
             }
             {!loading && intra &&
-            <View>
-                <Text>Intra is down</Text>
-            </View>
+             <View style={styles.test} >
+             <Down/>
+         </View>
             }
             </ScrollView>
         </View>
     );
 }
 const styles = StyleSheet.create({
-    title: {
+    test: {
+        backgroundColor: "#fff",
+        height: height - 50,
+        justifyContent: 'center', //Centered vertically
+           alignItems: 'center', // Centered horizontally
+           flex:1
+      },
+      title: {
         backgroundColor : '#f6f9fb',
         height:70,
  

@@ -15,7 +15,9 @@ import Flag from "./flag";
 import Log from "./log";
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AnimatedLoader from "react-native-animated-loader";
-
+import { Dimensions } from 'react-native';
+const { height } = Dimensions.get('window');
+import Down from "../down/IntraDown"
 export default function Login({ isConnected, onConnected, profil, onProfil }) {
     const navigation = useNavigation();
     const [result, onResult] = React.useState({});
@@ -132,9 +134,9 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                 </View>
             }
             {!loading && intra && 
-            <View>
-                <Text>Intra is Down</Text>
-            </View>
+             <View style={styles.test} >
+             <Down/>
+         </View>
             }
         </ScrollView>
 
@@ -143,7 +145,14 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
 };
 
 const styles = StyleSheet.create({
-    lottie: {
+    test: {
+        backgroundColor: "#fff",
+        height: height - 50,
+        justifyContent: 'center', //Centered vertically
+           alignItems: 'center', // Centered horizontally
+           flex:1
+      },
+      lottie: {
         width: 350,
         height: 350
     },
