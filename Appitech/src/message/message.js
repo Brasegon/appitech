@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Linking } from "react-native";
+import { StyleSheet, View, Text, Image, FlatList, Linking, RefreshControl } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from "react-native-gesture-handler";
 import AnimatedLoader from "react-native-animated-loader";
@@ -7,7 +7,13 @@ import AnimatedLoader from "react-native-animated-loader";
 export default function Flag() {
     const [html, onHtml] = React.useState([]);
     const [loading, onLoading] = React.useState(true);
-
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [intra, onIntra] = useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(false);
+        onLoading(true);
+        getInfo();
+    }, []);
     useAsync();
     function useAsync() {
         useEffect(() => {
@@ -17,10 +23,13 @@ export default function Flag() {
 
     async function getInfo() {
         var res = await httpClient('/messages', 'get');
+        if (res.code === 5000) {
+            onIntra(true);
+        }
         for(i = 0 ; res.message.length > i ; i++ ) {
             var message = res.message[i];
             onHtml(html => [...html,
-                <View style={styles.content}>
+                <View style={styles.content} key={i}>
                         <Image source={{uri: message.img}} style={styles.avatar} />
                         <Text style={styles.name}>{message.message}</Text>
                         <Text style={styles.informations}>{message.user} <MaterialCommunityIcons name="account" color={"grey"} size={12} /></Text>
@@ -33,6 +42,12 @@ export default function Flag() {
 
     return (
         <View style={{flex:1}}>
+            <ScrollView refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                />
+              }>
             {loading &&
                 <AnimatedLoader
                     visible={loading}
@@ -43,17 +58,22 @@ export default function Flag() {
                 />}
 
 
-            {!loading &&
+            {!loading && !intra &&
             <View>
              <View style={styles.title}><Text style={styles.titleText}>Messages <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"}
              size={30}></MaterialCommunityIcons></Text></View>
-                <ScrollView >
+             <View>
                 {html}
-            </ScrollView >
+             </View>
             </View>
             }
+            {!loading && intra &&
+            <View>
+                <Text>Intra is down</Text>
+            </View>
+            }
+            </ScrollView>
         </View>
-    
     );
 }
 const styles = StyleSheet.create({

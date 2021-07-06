@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Linking } from "react-native";
+import { StyleSheet, View, Text, Image, FlatList, Linking, RefreshControl } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authorize } from "react-native-app-auth";
 import httpClient from "../utils/httpClient";
@@ -24,6 +24,13 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
     const [notes, onNotes] = React.useState([]);
     const [flags, onFlags] = React.useState({});
     const [loading, onLoading] = React.useState(true);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [intra, onIntra] = useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(false);
+        onLoading(true);
+        getInfo();
+    }, []);
     useAsync();
     function useAsync() {
         useEffect(() => {
@@ -39,6 +46,11 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
 
     async function getInfo() {
         var res = await httpClient('/profile', 'get');
+        if (res.code === 5000) {
+            onIntra(true);
+            onLoading(false);
+            return;
+        }
         onLoading(false);
         onResult(res.message);
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
@@ -48,7 +60,12 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
     }
 
     return (
-        <View>
+        <ScrollView refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }>
             {loading &&
                 <AnimatedLoader
                     visible={loading}
@@ -57,8 +74,8 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                     animationStyle={styles.lottie}
                     speed={1}
                 />}
-            {!loading &&
-                <ScrollView >
+            {!loading && !intra &&
+                <View >
 
                     <View style={{ flex: 1 }}>
 
@@ -112,9 +129,14 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                         </View>
 
                     </View>
-                </ScrollView>
+                </View>
             }
-        </View>
+            {!loading && intra && 
+            <View>
+                <Text>Intra is Down</Text>
+            </View>
+            }
+        </ScrollView>
 
     );
 
