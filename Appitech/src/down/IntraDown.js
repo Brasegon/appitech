@@ -11,26 +11,26 @@ import {
   Linking,
   Dimensions
 } from 'react-native'
+const { height, width } = Dimensions.get('window');
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AnimatedLoader from "react-native-animated-loader";
-
+import LottieView from 'lottie-react-native';
 const Down = ({isConnected, onConnected}) => {
 const [loading, onLoading] = React.useState(true);
-
+    console.log(width)
     return (
         <View>
-            <AnimatedLoader
-                visible={loading}
-                overlayColor="rgba(255,255,255,0.75)"
-                source={require("./down.json")}
-                animationStyle={styles.lottie}
-                speed={1} />
+            <LottieView style={styles.lottie}source={require('./down.json')} autoPlay loop />
         </View>
     )
 }
 const styles = StyleSheet.create({
-
+    lottie: {
+        width: 200,
+        height: 200,
+        alignItems: 'center' 
+    }
 })
 
 export default Down;

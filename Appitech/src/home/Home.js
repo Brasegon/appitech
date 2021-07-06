@@ -16,7 +16,8 @@ import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navig
 import LastMessage from './LastMessage';
 import AnimatedLoader from "react-native-animated-loader";
 import Down from "../down/IntraDown"
-
+import { Dimensions } from 'react-native';
+const { height } = Dimensions.get('window');
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [resMessage, setResMessage] = useState([]);
@@ -35,6 +36,7 @@ const Home = ({isConnected, onConnected}) => {
     function useAsync() {
         useEffect(() => {
             getInfo();
+            console.log(height)
         }, []);
     }
 
@@ -92,10 +94,9 @@ const Home = ({isConnected, onConnected}) => {
       </View>
 
 }{!loading &&
-      intra &&
-        <View >
+      intra && 
+        <View style={styles.test} >
           <Down/>
-          <Text>Saluuuuuuuuut</Text>
       </View>
 
 }
@@ -104,6 +105,13 @@ const Home = ({isConnected, onConnected}) => {
   }
 
 const styles = StyleSheet.create({
+  test: {
+    backgroundColor: "#fff",
+    height: height - 50,
+    justifyContent: 'center', //Centered vertically
+       alignItems: 'center', // Centered horizontally
+       flex:1
+  },
   containerTop: {
     position:'relative',
     backgroundColor: 'white',
