@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, FlatList, Linking, RefreshControl } from "react-native";
+import { StyleSheet, View, Text, Image, FlatList, Linking, RefreshControl, Alert, TextInput, Modal, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authorize } from "react-native-app-auth";
 import httpClient from "../utils/httpClient";
@@ -15,6 +15,8 @@ import Flag from "./flag";
 import Log from "./log";
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AnimatedLoader from "react-native-animated-loader";
+
+import SpinkitButton from 'react-native-spinkit-button';
 import { Dimensions } from 'react-native';
 const { height } = Dimensions.get('window');
 import Down from "../down/IntraDown"
@@ -33,6 +35,10 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         onLoading(true);
         getInfo();
     }, []);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [email, onChangeEmail] = React.useState("");
+    const [password, onChangePassword] = React.useState("");
+    const [autoLogin, onChangeAutolink] = React.useState("");
     useAsync();
     function useAsync() {
         useEffect(() => {
@@ -55,9 +61,11 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         }
         onLoading(false);
         onResult(res.message);
+        console.log(res.message);
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
         onLog(res.message.logtime);
         onNotes(res.message.notes);
+        console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
         onFlags(res.message.flags);
     }
 
@@ -77,7 +85,7 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                     speed={1}
                 />}
             {!loading && !intra &&
-                <View >
+             <View >
 
                     <View style={{ flex: 1 }}>
 
@@ -106,6 +114,81 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                                 style={styles.logout}
                                 onPress={logout}
                             />
+                            <IconButton
+                                icon="account-cog"
+                                color="#0f4c75"
+                                size={35}
+                                style={styles.settings}
+                                onPress={() => setModalVisible(!modalVisible)}
+                            />
+
+
+                            <Modal
+                                animationType="slide"
+                                transparent={false}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal has been closed.");
+                                    setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalView}>
+                                        <Text style={styles.modalText}>Profile settings</Text>
+
+
+                                        <TextInput style={styles.input}
+                                            onChangeText={onChangeEmail}
+                                            value={email}
+                                            placeholder="New Email" />
+
+                                        <TextInput style={styles.input}
+                                            secureTextEntry={true}
+                                            onChangeText={onChangePassword}
+                                            value={password}
+                                            placeholder="New Password"
+                                        />
+                                        <TextInput style={styles.input}
+                                            onChangeText={onChangeAutolink}
+                                            value={autoLogin}
+                                            placeholder="New AutoLogin Link"
+                                        />
+
+                                        <SpinkitButton
+                                            width={200}
+                                            height={40}
+                                            borderRadius={11}
+                                            onPress={() => setModalVisible(!modalVisible)}
+                                            buttonStyle={styles.button}
+                                            label={'Confirm'}
+                                            labelStyle={styles.textButtonStyle}
+                                            loading={loading}
+                                            labelAndTextContainer={styles.labelAndTextContainer}
+                                            size={15}
+                                            type={'Bounce'}
+                                            color={'#FFFFFF'}
+                                            animationDuration={300}
+                                        />
+
+                                        <SpinkitButton
+                                            width={200}
+                                            height={40}
+                                            borderRadius={11}
+                                            onPress={() => setModalVisible(!modalVisible)}
+                                            buttonStyle={styles.button}
+                                            label={'Close'}
+                                            labelStyle={styles.textButtonStyle}
+                                            loading={loading}
+                                            labelAndTextContainer={styles.labelAndTextContainer}
+                                            size={15}
+                                            type={'Bounce'}
+                                            color={'#FFFFFF'}
+                                            animationDuration={300}
+                                        />
+                                    </View>
+                                </View>
+                            </Modal>
+
                             <View style={styles.myCard}>
                                 <View style={styles.box}>
                                     <Text style={{ color: "grey", fontSize: 13 }}>GPA</Text>
@@ -133,7 +216,7 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                     </View>
                 </View>
             }
-            {!loading && intra && 
+        {!loading && intra && 
              <View style={styles.test} >
              <Down/>
          </View>
@@ -188,7 +271,7 @@ const styles = StyleSheet.create({
         borderColor: "grey",
     },
     body: {
-        paddingTop: 30,
+        paddingTop: 40,
         paddingBottom: 0,
         backgroundColor: 'white'
     },
@@ -198,13 +281,11 @@ const styles = StyleSheet.create({
         padding: 30,
     },
     name: {
-
         fontSize: 25,
         maxWidth: 180,
         left: -34,
         color: "#0f4c75",
         fontWeight: "600",
-
     },
     info: {
         fontSize: 13,
@@ -221,21 +302,63 @@ const styles = StyleSheet.create({
         color: "#0f4c75",
         marginRight: 20
     },
-    buttonContainer: {
-        marginTop: -130,
-        height: 45,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 20,
-        width: 250,
-        borderRadius: 30,
-        backgroundColor: "#0f4c75",
-        color: "white",
+    settings: {
+        position: "absolute",
+        right: 50,
+        top: 0
     },
     logout: {
         position: "absolute",
         right: 0,
         top: 0
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        marginTop: 20,
+    },
+    textButtonStyle: {
+        flex: 1,
+        color: "#2887CB",
+        textAlign: 'center',
+        textAlignVertical: 'center'
+    },
+    labelAndTextContainer: {
+        borderWidth: 1,
+        width: 200,
+        height: 40,
+        borderColor: "#2887CB",
+        borderRadius: 40,
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    input: {
+        textAlign: 'center',
+        borderWidth: 0.3,
+        borderColor: 'grey',
+        width: 200,
+        marginTop: 10
     },
 });
