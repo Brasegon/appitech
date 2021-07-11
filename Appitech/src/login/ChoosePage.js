@@ -23,7 +23,6 @@ const [loading, onLoading] = React.useState(false);
 
 async function redirectLogin () {
     onLoading(true);
-    console.log("couocu");
   navigation.navigate('Login');
  }
 

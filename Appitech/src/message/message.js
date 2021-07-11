@@ -40,7 +40,6 @@ export default function Flag() {
                 </View>]);
         }
         onLoading(false);
-        console.log(res);
     }
 
     return (

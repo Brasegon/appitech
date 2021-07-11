@@ -36,7 +36,6 @@ const Home = ({isConnected, onConnected}) => {
     function useAsync() {
         useEffect(() => {
             getInfo();
-            console.log(height)
         }, []);
     }
 

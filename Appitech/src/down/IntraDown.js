@@ -18,7 +18,6 @@ import AnimatedLoader from "react-native-animated-loader";
 import LottieView from 'lottie-react-native';
 const Down = ({isConnected, onConnected}) => {
 const [loading, onLoading] = React.useState(true);
-    console.log(width)
     return (
         <View>
             <Text style={{alignSelf: 'center', fontSize : 30, width:260, color: '#2ca9e7',fontWeight: 'bold',}}>Intranet is down, it will be back soon!</Text>

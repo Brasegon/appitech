@@ -59,7 +59,6 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
     {
         onLoading(true);
         var res = await httpClient('/editProfile', 'put', {login:email, password:password, autologin:autoLogin});
-        console.log(res);
         if (res.code == '200') {
             setModalVisible(!modalVisible);
             onLoading(false);
