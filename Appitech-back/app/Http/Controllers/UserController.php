@@ -96,7 +96,17 @@ class UserController extends Controller
             USER::whereId($userId)->update(array('password' => Hash::make($request->password, ['rounds' => 10])));
         }
 
-        $request->autologin ? USER::whereId($userId)->update(array('autologin' => EpitechApi::encrypt($request->autologin))) : 0;
+        if ($request->autologin) {
+        $userExist = EpitechApi::get("user", $request->autologin);
+            if (is_null($userExist)) {
+                return Message::createMessage(5000, "Intra is down");
+            }
+            $userExist = (array) $userExist;
+            if ($userExist && !isset($userExist['login'])) {
+                return Message::createMessage(400, "Wrong Autologin");
+            }
+            USER::whereId($userId)->update(array('autologin' => EpitechApi::encrypt($request->autologin)));
+        }
         return Message::createMessage(200, "Profile edited !");
     }
 
