@@ -13,6 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Mark from "./mark";
 import Flag from "./flag";
 import Log from "./log";
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { NavigationContainer, useFocusEffect, useNavigation } from '@react-navigation/native';
 import AnimatedLoader from "react-native-animated-loader";
 
@@ -27,7 +28,9 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
     const [log, onLog] = React.useState({});
     const [notes, onNotes] = React.useState([]);
     const [flags, onFlags] = React.useState({});
+    const [showAlert, onShowAlert] = React.useState(false);
     const [loading, onLoading] = React.useState(true);
+    const [errorMessage, onErrorMessage] = React.useState("");
     const [refreshing, setRefreshing] = React.useState(false);
     const [intra, onIntra] = useState(false);
     const onRefresh = React.useCallback(() => {
@@ -52,6 +55,22 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         navigation.navigate('Splash');
     }
 
+    async function editProfile()
+    {
+        onLoading(true);
+        var res = await httpClient('/editProfile', 'put', {login:email, password:password, autologin:autoLogin});
+        console.log(res);
+        if (res.code == '200') {
+            setModalVisible(!modalVisible);
+            onLoading(false);
+        }
+        else {
+            onErrorMessage(res.message);
+            onShowAlert(true);
+            onLoading(false);
+        }
+    }
+
     async function getInfo() {
         var res = await httpClient('/profile', 'get');
         if (res.code === 5000) {
@@ -65,7 +84,6 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
         onLog(res.message.logtime);
         onNotes(res.message.notes);
-        console.log(res.message.logtime, "taaaaaaaaaaaaaaaaaaille")
         onFlags(res.message.flags);
     }
 
@@ -158,7 +176,7 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
                                             width={200}
                                             height={40}
                                             borderRadius={11}
-                                            onPress={() => setModalVisible(!modalVisible)}
+                                            onPress={editProfile}
                                             buttonStyle={styles.button}
                                             label={'Confirm'}
                                             labelStyle={styles.textButtonStyle}
@@ -206,12 +224,29 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
 
                             {log && log.datasets && <Log log={log} />}
                             <View>
-                                {notes && notes.length > 0 && <Mark notes={notes} />}
-                                {flags !== '' && flags.ghost !== '' && <Flag flags={flags} />}
-                            </View>
-
-
+                            {notes && notes.length > 0 && <Mark notes={notes} />}
+                            {flags !== '' && flags.ghost !== '' && <Flag flags={flags} />}
                         </View>
+                        <AwesomeAlert
+                            show={showAlert}
+                            showProgress={false}
+                            title="Error, account not edited"
+                            message={errorMessage}
+                            closeOnTouchOutside={true}
+                            closeOnHardwareBackPress={false}
+                            showCancelButton={false}
+                            showConfirmButton={true}
+                            confirmButtonColor="#0f4c75"
+                            onCancelPressed={() => {
+                                onShowAlert(false);
+
+                            }}
+                            onConfirmPressed={() => {
+                                onShowAlert(false);
+                            }}
+                        />
+
+                    </View>
 
                     </View>
                 </View>
