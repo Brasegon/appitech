@@ -5,7 +5,6 @@ export default httpClient = (url, method, data) => {
         var info; 
         var authorization
         info = await AsyncStorage.getItem('@account')
-        console.log(info)
         info = JSON.parse(info);
         if (info && info.token) {
             authorization =  "Bearer " + info.token 
