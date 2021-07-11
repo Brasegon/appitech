@@ -80,7 +80,6 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         }
         onLoading(false);
         onResult(res.message);
-        console.log(res.message);
         onGPA(res.message.gpa[res.message.gpa.length - 1].gpa);
         onLog(res.message.logtime);
         onNotes(res.message.notes);
@@ -114,7 +113,7 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
 
                                 </View>
 
-                                <View style={{ marginTop: 10 }}>
+                                <View style={{ marginTop: 30 }}>
                                     <Text style={styles.name}>{result.firstname} {result.lastname}</Text>
                                     <Text style={styles.info}>
                                         {result.school_title} | Promo {result.promo}
@@ -300,7 +299,7 @@ const styles = StyleSheet.create({
         width: 80,
         left: -30,
         height: 80,
-        top: 5,
+        top: 25,
         borderRadius: 30,
         borderWidth: 2,
         borderColor: "grey",
