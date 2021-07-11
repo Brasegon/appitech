@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Utils\Message;
+use App\Utils\JWT as UtilsJWT;
+use Illuminate\Support\Facades\Hash;
+use App\Utils\EpitechApi;
 
 class UserController extends Controller
 {
@@ -52,12 +57,47 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Request $request)
     {
-        //
+        // $jwtData = UtilsJWT::authorize($request);
+        // if (is_null($jwtData)) {
+        //     return Message::createMessage(403, "Pas autorisé");
+        // }
+        // $jwtData = (array) $jwtData;
+        // $user = User::firstWhere('login', $jwtData['login']);
+        $userId = 11;
+
+        if ($request->login) {
+            $expectedUser = User::firstWhere('login', $request->login);
+            $ulength = strlen($request->login);
+
+            switch ($ulength) {
+                case ($ulength < 5):
+                    return Message::createMessage(500, "Login too short (min 5)!");
+                case ($ulength > 20):
+                    return Message::createMessage(500, "Login too long (max 20)!");
+            }
+            if ($expectedUser)
+                return Message::createMessage(500, "User already exists");
+
+            USER::whereId($userId)->update(array('login' => $request->login));
+        }
+
+        if ($request->password) {
+            $plength = strlen($request->password);
+
+            switch ($request->password) {
+                case ($plength < 8):
+                    return Message::createMessage(500, "Password too short (min 8)!");
+            }
+            USER::whereId($userId)->update(array('password' => Hash::make($request->password, ['rounds' => 10])));
+        }
+
+        $request->autologin ? USER::whereId($userId)->update(array('autologin' => EpitechApi::encrypt($request->autologin))) : 0;
+        return Message::createMessage(200, "Profile edited !");
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -28,3 +29,6 @@ Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
 Route::get("/messages", [MessageController::class, "getMessages"]);
 
 Route::get("/profile", [ProfileController::class, "getProfile"]);
+
+Route::put("/editProfile", [UserController::class, "edit"]);
+
