@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
@@ -25,6 +26,8 @@ Route::post("/register", [ConnectionController::class, "register"]);
 Route::post("/login", [ConnectionController::class, "login"]);
 
 Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
+
+Route::get("/calendar", [CalendarController::class, "getCalendar"]); 
 
 Route::get("/messages", [MessageController::class, "getMessages"]);
 
