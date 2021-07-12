@@ -31,5 +31,6 @@ Route::get("/messages", [MessageController::class, "getMessages"]);
 Route::get("/profile", [ProfileController::class, "getProfile"]);
 
 Route::put("/editProfile", [UserController::class, "edit"]);
+Route::get("/modules", [DashboardController::class, "getModules"]);
 Route::post("/update", [UserController::class, "updateUserInfo"]);
 

@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Http;
 
 class EpitechApi
 {
-    public static function get($path, String $data) {
-        $url = "https://intra.epitech.eu/".$data."/".$path."?format=json";
+    public static function get($path, String $data, String $params = "") {
+        $url = "https://intra.epitech.eu/".$data."/".$path."?format=json".$params;
         $response = Http::withOptions([
             'verify' => false,
         ])->get($url);
