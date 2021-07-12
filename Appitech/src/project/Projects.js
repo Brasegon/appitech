@@ -24,16 +24,16 @@ export default class Craigslist extends Component {
       modalVisible: false,
       userSelected: [],
       data: [
-        { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00', count: 0, register: false},
-        { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 1, register: false },
-        { id: 3, project: "Noob", start_project: '2021-06-29 00:30:00', end_project: '2021-06-29 01:30:00', name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 2, register: true},
-        { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00', count: 3, register: false},
-        { id: 5, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-        { id: 6, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-        { id: 7, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-        { id: 8, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-        { id: 9, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-        { id: 10, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
+        { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 0, register: false},
+        { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 1, register: false },
+        { id: 3, project: "Noob", start_project: '2021-06-29', end_project: '2021-06-29', name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 2, register: true},
+        { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 3, register: false},
+        { id: 5, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+        { id: 6, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+        { id: 7, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+        { id: 8, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+        { id: 9, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+        { id: 10, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
       ]
     };
   }
@@ -146,16 +146,18 @@ export default class Craigslist extends Component {
                 </TouchableOpacity>
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.count}>{item.count} crédit(s)</Text>
-                  <Text style={styles.calendar}>Start : {item.start}</Text>
+                  <Text style={styles.count}>{item.count} credit(s)</Text>
                   <View style={progressStyles.containerStyle}>
 <ProgressBarAndroid
+style={styles.bar}
 styleAttr="Horizontal"
 indeterminate={false}
 progress={0.80}
+color="#2196F3"
 />
 </View>
-<Text style={styles.calendar}>End : {item.end}</Text>
+<Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20}/></Text>
+<Text style={styles.calendarEnd}>{item.end}</Text>
                   <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item);}}>
                       <Text style={styles.followButtonText}>Project(s)</Text>
                   </TouchableOpacity>
@@ -207,19 +209,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 30,
   },
-
+  time: {
+    left : 70
+  },  
   name: {
     fontSize: 18,
-    maxWidth: 180,
+    maxWidth: 200,
     flex: 1,
-    alignSelf: 'center',
+    alignSelf: 'auto',
     color: "#3399ff",
     fontWeight: 'bold'
   },
-
-  calendar: {
+  bar: {
+    paddingTop: 20,
+    marginBottom : -10,
+    width : 180
+  },
+  calendarStart: {
+    top : 0,
     fontSize: 15,
-    alignSelf: 'auto',
+  },
+  calendarEnd: {
+    top : -20,
+    left : 105,
+    fontSize: 15,
+    marginBottom : -15,
   },
 
   count: {
