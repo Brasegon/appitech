@@ -78,8 +78,8 @@ class UserController extends Controller
             switch ($ulength) {
                 case ($ulength < 5):
                     return Message::createMessage(500, "Login too short (min 5)!");
-                case ($ulength > 20):
-                    return Message::createMessage(500, "Login too long (max 20)!");
+                case ($ulength > 40):
+                    return Message::createMessage(500, "Login too long (max 40)!");
             }
             if ($expectedUser)
                 return Message::createMessage(500, "User already exists");
@@ -135,7 +135,7 @@ class UserController extends Controller
                 "version" => Version::$version,
             ));
         }
-        
+
         return Message::createMessage(200, "good");
     }
 

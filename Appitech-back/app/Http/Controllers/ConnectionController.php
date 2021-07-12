@@ -36,8 +36,8 @@ class ConnectionController extends Controller
             switch ($ulength) {
                 case ($ulength < 5):
                     return Message::createMessage(500, "Login too court (min 5)!");
-                case ($ulength > 20):
-                    return Message::createMessage(500, "Login too long (max 20)!");
+                case ($ulength > 40):
+                    return Message::createMessage(500, "Login too long (max 40)!");
             }
             switch ($password) {
                 case ($plength < 8):
@@ -53,7 +53,7 @@ class ConnectionController extends Controller
             $userExist = (array) $userExist;
             if ($userExist && !isset($userExist['login'])) {
                 return Message::createMessage(400, "Wrong Autologin");
-            } 
+            }
             User::create([
                 "login" => $login,
                 "password" => Hash::make($password, [
@@ -81,7 +81,7 @@ class ConnectionController extends Controller
         if ($login && $password) {
             $user = User::firstWhere('login', $login);
             if (!$user) {
-                return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer."); 
+                return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer.");
             }
             if (Hash::check($password, $user['password'])) {
                 $key = env('JWT_SECRET');
@@ -89,6 +89,6 @@ class ConnectionController extends Controller
                 return Message::createMessage(200, array("token" => $jwt));
             }
         }
-        return Message::createMessage(500, "Invalid credentials, please try again."); 
+        return Message::createMessage(500, "Invalid credentials, please try again.");
     }
 }

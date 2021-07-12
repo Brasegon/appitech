@@ -48,7 +48,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
       />
       <Tab.Screen listeners={({ navigation, route }) => ({
       })} name="Projects" children={() => <Projects isConnected={isConnected} onConnected={onConnected} />} options={{
-        tabBarLabel: 'Project',
+        tabBarLabel: 'Modules',
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="code-not-equal-variant" color={color} size={30} />
         ),
@@ -69,7 +69,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
       }}
       />
       <Tab.Screen name="Profil" children={() => <Profile isConnected={isConnected} onConnected={onConnected} profil={profil} onProfil={onProfil} />} options={{
-        tabBarLabel: 'Profil',
+        tabBarLabel: 'Profile',
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="badge-account-outline" color={color} size={30} />
         ),
