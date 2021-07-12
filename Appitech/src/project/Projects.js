@@ -23,20 +23,34 @@ export default class Craigslist extends Component {
     this.state = {
       modalVisible: false,
       userSelected: [],
-      data: [
-        { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 0, register: false},
-        { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 1, register: false },
-        { id: 3, project: "Noob", start_project: '2021-06-29', end_project: '2021-06-29', name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 2, register: true},
-        { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 3, register: false},
-        { id: 5, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-        { id: 6, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-        { id: 7, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-        { id: 8, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-        { id: 9, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-        { id: 10, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
-      ]
+       data: [
+      //   { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 0, register: false},
+      //   { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 1, register: false },
+      //   { id: 3, project: "Noob", start_project: '2021-06-29', end_project: '2021-06-29', name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 2, register: true},
+      //   { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 3, register: false},
+      //   { id: 5, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+      //   { id: 6, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+      //   { id: 7, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+      //   { id: 8, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+      //   { id: 9, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+      //   { id: 10, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 3, register: false },
+       ]
     };
   }
+  
+
+  componentDidMount() {
+    this.getInfo();
+  }
+
+  async getInfo() {
+    var res = await httpClient('/modules', 'get');
+    this.setState(
+      {
+        data: res.message
+      }
+    )
+    }
 
   showAlertRegister = (data) => {
     this.setState({
@@ -141,25 +155,26 @@ export default class Craigslist extends Component {
             return (
 
               <TouchableOpacity style={styles.card} onPress={() => { this.clickEventListener(item) }}>
-                                  <TouchableOpacity onPress={() => { this.showAlertRegister(item);}}>
-                <Image style={styles.image} source={{ uri: item.image }} />
+                <TouchableOpacity onPress={() => { this.showAlertRegister(item); }}>
+                  {item.register && <View><Image style={styles.image} source={{uri: "https://img.icons8.com/clouds/1000/000000/module.png"}}/><Text style={{fontSize:10, color:'#85CFCC', alignSelf:'center'}}>Registered</Text></View>}
+                  {!item.register && <View><Image style={styles.image} source={{uri: "https://img.icons8.com/bubbles/1000/000000/module.png"}}/><Text style={{fontSize:10, color:'#FBCD59', alignSelf:'center'}}>Not Registered</Text></View>}
                 </TouchableOpacity>
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.count}>{item.count} credit(s)</Text>
                   <View style={progressStyles.containerStyle}>
-<ProgressBarAndroid
-style={styles.bar}
-styleAttr="Horizontal"
-indeterminate={false}
-progress={0.80}
-color="#2196F3"
-/>
-</View>
-<Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20}/></Text>
-<Text style={styles.calendarEnd}>{item.end}</Text>
-                  <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item);}}>
-                      <Text style={styles.followButtonText}>Project(s)</Text>
+                    <ProgressBarAndroid
+                      style={styles.bar}
+                      styleAttr="Horizontal"
+                      indeterminate={false}
+                      progress={0.80}
+                      color="#2196F3"
+                    />
+                  </View>
+                  <Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20} /></Text>
+                  <Text style={styles.calendarEnd}>{item.end}</Text>
+                  <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item); }}>
+                    <Text style={styles.followButtonText}>Project(s)</Text>
                   </TouchableOpacity>
 
                 </View>
