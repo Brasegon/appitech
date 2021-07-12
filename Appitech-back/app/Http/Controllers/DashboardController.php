@@ -26,7 +26,7 @@ class DashboardController extends Controller {
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }
-        
+
         return Message::createMessage(200, $request1);
     }
 
@@ -43,7 +43,9 @@ class DashboardController extends Controller {
         $modules = (array) EpitechApi::get($path, $autologin, "&course=".$user['course_code']."&scolaryear=".$user['scolaryear']);
         $listModules = [];
         $i = 0;
+
         foreach($modules as $module) {
+            $advance = $this->getAdvance($module['begin'], $module['end']);
             array_push($listModules, array(
                 "id" => $i,
                 "name" => $module['title'],
@@ -54,6 +56,7 @@ class DashboardController extends Controller {
                 "scolaryear" => $module['scolaryear'],
                 "code" => $module['code'],
                 "codeinstance" => $module['codeinstance'],
+                "advance" => $advance
             ));
             $i += 1;
         }
@@ -61,7 +64,22 @@ class DashboardController extends Controller {
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }
-        
+
         return Message::createMessage(200, $listModules);
+    }
+
+    public function getAdvance($start, $end)
+    {
+        $now1 = strtotime($start);
+        $your_date1 = strtotime($end);
+        $datediff1 = $now1 - $your_date1;
+        $day1 = round($datediff1 / (60 * 60 * 24));
+
+        $now2 = strtotime($start);
+        $your_date2 = time();
+        $datediff2 = $now2 - $your_date2;
+        $day2 = round($datediff2 / (60 * 60 * 24));
+
+        return $day2 / $day1;
     }
 }
