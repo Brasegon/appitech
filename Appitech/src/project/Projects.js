@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
+  ProgressBarAndroid,
   Alert,
   ScrollView
 } from 'react-native';
@@ -25,22 +26,17 @@ export default class Craigslist extends Component {
       data: [
         { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00', count: 0, register: false},
         { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 1, register: false },
-        { id: 3, name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 2, register: true},
-        { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00', project: "Noob",  count: 3, register: false},
+        { id: 3, project: "Noob", start_project: '2021-06-29 00:30:00', end_project: '2021-06-29 01:30:00', name: "T6 - Binary Security", image: "https://img.icons8.com/clouds/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 2, register: true},
+        { id: 4, name: "T6 - PHP Framework & REST API", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00', count: 3, register: false},
         { id: 5, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
         { id: 6, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
         { id: 7, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
         { id: 8, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
         { id: 9, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
         { id: 10, name: "T6 - Organizational Theory", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29 00:30:00', end: '2021-06-29 01:30:00',  count: 3, register: false },
-
       ]
     };
   }
-
-  eventClicked = (data) => {
-    this.showAlertRegister(data);
-  };
 
   showAlertRegister = (data) => {
     this.setState({
@@ -59,7 +55,9 @@ export default class Craigslist extends Component {
     this.setState({
       showAlertModule: true,
       titre: data.name,
-      projects: data.project
+      project_titre: data.project,
+      project_start: data.start_project,
+      project_end: data.end_project
     });
   };
 
@@ -77,7 +75,16 @@ export default class Craigslist extends Component {
     const { showAlertRegister } = this.state;
     const { showAlertModule } = this.state;
     const { titre } = this.state;
-    const { projects } = this.state;
+    const { project_titre } = this.state;
+    const { project_start } = this.state;
+    const { project_end } = this.state;
+    const progressStyles = StyleSheet.create({
+      containerStyle: {
+      flex: 1,
+      justifyContent: 'space-evenly',
+      },
+      });
+
 
     
     return (
@@ -108,14 +115,14 @@ export default class Craigslist extends Component {
           showProgress={false}
           data={this.state.data}
           title={titre}
-          message="Include Project"
+          message={"Project : "+ project_titre + "\n\tStart : " + project_start + "\n\tEnd : " + project_end}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={true}
           showConfirmButton={true}
           cancelText="Ok"
-          confirmText="Module Me"
-          confirmButtonColor="#008080"
+          confirmText="Unregister"
+          confirmButtonColor="#800000"
           onCancelPressed={() => {
             this.hideAlertModule();
           }}
@@ -139,9 +146,16 @@ export default class Craigslist extends Component {
                 </TouchableOpacity>
                 <View style={styles.cardContent}>
                   <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.calendar}>Start : {item.start}</Text>
-                  <Text style={styles.calendar}>End : {item.end}</Text>
                   <Text style={styles.count}>{item.count} crédit(s)</Text>
+                  <Text style={styles.calendar}>Start : {item.start}</Text>
+                  <View style={progressStyles.containerStyle}>
+<ProgressBarAndroid
+styleAttr="Horizontal"
+indeterminate={false}
+progress={0.80}
+/>
+</View>
+<Text style={styles.calendar}>End : {item.end}</Text>
                   <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item);}}>
                       <Text style={styles.followButtonText}>Project(s)</Text>
                   </TouchableOpacity>
