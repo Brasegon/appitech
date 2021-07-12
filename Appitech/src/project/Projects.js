@@ -167,7 +167,7 @@ export default class Craigslist extends Component {
                       style={styles.bar}
                       styleAttr="Horizontal"
                       indeterminate={false}
-                      progress={0.80}
+                      progress={item.advance}
                       color="#2196F3"
                     />
                   </View>
