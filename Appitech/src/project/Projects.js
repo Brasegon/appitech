@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry } from "react-native";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AnimatedLoader from "react-native-animated-loader";
 import {
   StyleSheet,
   Text,
@@ -16,12 +17,12 @@ import {
 } from 'react-native';
 
 export default class Craigslist extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { showAlertRegister: false };
     this.state = {
+      showAlertRegister: false,
       modalVisible: false,
+      loading: true,
       userSelected: [],
        data: [
       //   { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 0, register: false},
@@ -47,9 +48,11 @@ export default class Craigslist extends Component {
     var res = await httpClient('/modules', 'get');
     this.setState(
       {
-        data: res.message
+        data: res.message,
       }
     )
+    this.setState({loading: false});
+    console.log(this.state.loading, 'loadign');
     }
 
   showAlertRegister = (data) => {
@@ -103,7 +106,17 @@ export default class Craigslist extends Component {
     
     return (
       <View style={styles.container}>
-        <View style={styles.title}><Text style={styles.titleText}>Project <MaterialCommunityIcons name="calendar-text" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
+        {this.state.loading &&
+                <AnimatedLoader
+                    visible={this.state.loading}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("../login/loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />}
+
+      {!this.state.loading && this.state.data.length > 0 && <View> 
+        <View style={styles.title}><Text style={styles.titleText}>Modules <MaterialCommunityIcons name="calendar-text" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
         <AwesomeAlert
           show={showAlertRegister}
           showProgress={false}
@@ -181,6 +194,8 @@ export default class Craigslist extends Component {
               </TouchableOpacity>
             )
           }} />
+          </View>
+         }
       </View>
     );
   }
