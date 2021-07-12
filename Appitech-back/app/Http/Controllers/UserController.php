@@ -9,6 +9,7 @@ use App\Utils\Message;
 use App\Utils\JWT as UtilsJWT;
 use Illuminate\Support\Facades\Hash;
 use App\Utils\EpitechApi;
+use Firebase\JWT\JWT;
 
 class UserController extends Controller
 {
@@ -62,13 +63,12 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        // $jwtData = UtilsJWT::authorize($request);
-        // if (is_null($jwtData)) {
-        //     return Message::createMessage(403, "Pas autorisé");
-        // }
-        // $jwtData = (array) $jwtData;
-        // $user = User::firstWhere('login', $jwtData['login']);
-        $userId = 11;
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Pas autorisé");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
 
         if ($request->login) {
             $expectedUser = User::firstWhere('login', $request->login);
@@ -83,7 +83,7 @@ class UserController extends Controller
             if ($expectedUser)
                 return Message::createMessage(500, "User already exists");
 
-            USER::whereId($userId)->update(array('login' => $request->login));
+            USER::whereId($user['id'])->update(array('login' => $request->login));
         }
 
         if ($request->password) {
@@ -93,7 +93,7 @@ class UserController extends Controller
                 case ($plength < 8):
                     return Message::createMessage(500, "Password too short (min 8)!");
             }
-            USER::whereId($userId)->update(array('password' => Hash::make($request->password, ['rounds' => 10])));
+            USER::whereId($user['id'])->update(array('password' => Hash::make($request->password, ['rounds' => 10])));
         }
 
         if ($request->autologin) {
@@ -105,9 +105,11 @@ class UserController extends Controller
             if ($userExist && !isset($userExist['login'])) {
                 return Message::createMessage(400, "Wrong Autologin");
             }
-            USER::whereId($userId)->update(array('autologin' => EpitechApi::encrypt($request->autologin)));
+            USER::whereId($user['id'])->update(array('autologin' => EpitechApi::encrypt($request->autologin)));
         }
-        return Message::createMessage(200, "Profile edited !");
+        $user1 = User::firstWhere('id', $user['id']);
+        $jwt = JWT::encode(array("login" => $user1['login'], "autologin" => $user1['autologin']), env('JWT_SECRET'));
+        return Message::createMessage(200, array("token" => $jwt));
     }
 
     /**

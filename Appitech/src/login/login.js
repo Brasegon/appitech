@@ -62,6 +62,7 @@ export default function Login({ isConnected, onConnected, profil, onProfil }) {
         if (res.code == '200') {
             setModalVisible(!modalVisible);
             onLoading(false);
+            await AsyncStorage.setItem('@account', JSON.stringify(res.message));
         }
         else {
             onErrorMessage(res.message);
