@@ -15,6 +15,9 @@ class User extends Model
         'login',
         'password',
         'autologin',
+        'scolaryear',
+        'version',
+        'course_code',
         'epitech_mail',
         'reset_token'
     ];

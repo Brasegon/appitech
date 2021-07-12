@@ -9,6 +9,7 @@ use App\Utils\Message;
 use App\Utils\JWT as UtilsJWT;
 use Illuminate\Support\Facades\Hash;
 use App\Utils\EpitechApi;
+use App\Utils\Version;
 use Firebase\JWT\JWT;
 
 class UserController extends Controller
@@ -110,6 +111,32 @@ class UserController extends Controller
         $user1 = User::firstWhere('id', $user['id']);
         $jwt = JWT::encode(array("login" => $user1['login'], "autologin" => $user1['autologin']), env('JWT_SECRET'));
         return Message::createMessage(200, array("token" => $jwt));
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUserInfo(Request $request)
+    {
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Pas autorisé");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        $autologin = EpitechApi::decrypt($user->autologin);
+        $request1 = (array) EpitechApi::get("user", $autologin);
+        if ($user['version'] != Version::$version) {
+            USER::whereId($user['id'])->update(array(
+                "scolaryear" => $request1['scolaryear'],
+                "course_code" => $request1['course_code'],
+                "version" => Version::$version,
+            ));
+        }
+        
+        return Message::createMessage(200, "good");
     }
 
     /**

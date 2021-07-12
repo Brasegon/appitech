@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+ import React, { Component, useEffect } from 'react';
  import {
    StyleSheet,
    View,
@@ -20,6 +20,18 @@ const navigation = useNavigation();
 setTimeout(() => {
   redirect();
   }, 1000);
+
+  useAsync();
+    function useAsync() {
+        useEffect(() => {
+          if (isConnected == true)
+            update();
+        }, []);
+    }
+
+    async function update() {
+        console.log(await httpClient('/update', 'post'))
+    }
 
 function redirect () {
 if (isConnected == true) {
