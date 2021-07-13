@@ -30,9 +30,9 @@ class CalendarController extends Controller
         $modules = [];
         foreach ($calendar as $module) {
             array_push($modules, array(
-                "start date" => $module["start"],
-                "end date" => $module["end"],
-                "title activities" => $module["acti_title"],
+                "start" => $module["start"],
+                "end" => $module["end"],
+                "title" => $module["acti_title"],
                 "room" => $module["room"],
                 "register" => $module["event_registered"]
             ));
