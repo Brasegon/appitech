@@ -29,6 +29,16 @@ class CalendarController extends Controller
          $calendar = (array) $calendar;
         $modules = [];
         foreach ($calendar as $module) {
+            if (is_null($module["room"])) {
+                $module["room"] = array(
+                    "type" => "Non défini",
+                    "code" => "Non défini",
+                    "seats" => 0
+                );
+            } else if (!isset($module["room"]["code"])) {
+                $module["room"]["code"] = "Non défini";
+                $module["room"]["type"] = "Non défini";
+            }
             array_push($modules, array(
                 "start" => $module["start"],
                 "end" => $module["end"],
