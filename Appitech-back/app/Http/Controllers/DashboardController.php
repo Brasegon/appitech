@@ -29,7 +29,16 @@ class DashboardController extends Controller {
 
         return Message::createMessage(200, $request1);
     }
-
+    private static function orderByDate($a, $b) {
+        //retourner 0 en cas d'égalité
+        if ($a['end'] == $b['end']) {
+            return 0;
+        } else if ($a['end'] > $b['end']) {//retourner -1 en cas d’infériorité
+            return -1;
+        } else {//retourner 1 en cas de supériorité
+            return 1;
+        }
+    }
     public function getModules(Request $request) {
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {
@@ -60,7 +69,7 @@ class DashboardController extends Controller {
             ));
             $i += 1;
         }
-        Log::info($modules);
+        usort($listModules, array($this, 'orderByDate'));
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }

@@ -161,7 +161,7 @@ export default class Craigslist extends Component {
             columnWrapperStyle={styles.listContainer}
             data={this.state.data}
             keyExtractor={(item) => {
-              return item.id;
+              return item.name + "-" + item.id;
             }}
             renderItem={({ item }) => {
               return (

@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     name: {
         top : -30,
         fontSize: 15,
-        maxWidth: 300,
+        maxWidth: "75%",
         left: 90,
         color: "grey",
         fontWeight: "600",
