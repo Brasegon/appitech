@@ -33,11 +33,10 @@ class CalendarController extends Controller
                 "start date" => $module["start"],
                 "end date" => $module["end"],
                 "title activities" => $module["acti_title"],
-                "room" => $module["room"]["code"],
+                "room" => $module["room"],
                 "register" => $module["event_registered"]
             ));
         }
-        var_dump($modules);
          return Message::createMessage(200, $modules);
     }
 }
