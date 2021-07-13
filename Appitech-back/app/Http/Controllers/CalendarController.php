@@ -43,7 +43,7 @@ class CalendarController extends Controller
                 "start" => $module["start"],
                 "end" => $module["end"],
                 "title" => $module["acti_title"],
-                "summary" => $module["room"],
+                "summary" => $module["room"]["code"],
                 "register" => $module["event_registered"]
             ));
         }
