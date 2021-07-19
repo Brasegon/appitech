@@ -14,8 +14,12 @@ class EpitechApi
         return $response->json();
     }
 
-    public static function post() {
-
+    public static function post($path, String $data, $params = []) {
+        $url = "https://intra.epitech.eu/".$data."/".$path."?format=json";
+        $response = Http::withOptions([
+            'verify' => false,
+        ])->post($url);
+        return $response->json();
     }
 
     public static function encrypt($autologin) {
