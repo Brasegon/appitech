@@ -39,6 +39,8 @@ const Home = ({isConnected, onConnected}) => {
         }, []);
     }
 
+  
+
     async function getInfo() {
         var message = await httpClient('/messages', 'get');
         if (message.code === 5000) {
@@ -87,8 +89,9 @@ const Home = ({isConnected, onConnected}) => {
           <Text style={styles.partTitle}>Current projects</Text>
           <Carousel/>
           </View>
-        <Text style={styles.partTitle}>Last message</Text>
+        <Text style={styles.partTitle}>Last notification</Text>
         {resMessage.length > 0 && <LastMessage resMessage={resMessage}/>}
+        {resMessage.length == 0 && <Text style={{alignSelf:"center", paddingTop:20, paddingBottom:20, fontSize:20}}>No new notification</Text>}
       </View>
       </View>
 

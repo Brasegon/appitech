@@ -61,7 +61,7 @@ const BottomNavbar = ({ isConnected, onConnected }) => {
         ),
       }} />
       <Tab.Screen name="Message" children={() => <Message isConnected={isConnected} onConnected={onConnected} />} options={{
-        tabBarLabel: 'Message',
+        tabBarLabel: 'Notifications',
         tabBarBadge: 3,
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="message-processing" color={color} size={30} />

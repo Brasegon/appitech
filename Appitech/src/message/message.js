@@ -12,6 +12,8 @@ export default function Flag() {
     const [loading, onLoading] = React.useState(true);
     const [refreshing, setRefreshing] = React.useState(false);
     const [intra, onIntra] = useState(false);
+    const [res, onRes] = useState({});
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(false);
         onLoading(true);
@@ -26,6 +28,7 @@ export default function Flag() {
 
     async function getInfo() {
         var res = await httpClient('/messages', 'get');
+        onRes(res.message);
         if (res.code === 5000) {
             onIntra(true);
         }
@@ -62,11 +65,12 @@ export default function Flag() {
 
             {!loading && !intra &&
             <View>
-             <View style={styles.title}><Text style={styles.titleText}>Messages <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"}
+             <View style={styles.title}><Text style={styles.titleText}>Notifications <MaterialCommunityIcons name="cellphone-message" color={"#3f72af"}
              size={30}></MaterialCommunityIcons></Text></View>
              <View>
                 {html}
              </View>
+             {res.length == 0 && <View style={{paddingBottom:300, position:'relative', top:200, alignSelf:'center'}}><Image source = {require('../../Asset/NoNotifications.png')}   style={{ width: 450, height: 200}}/></View>}
             </View>
             }
             {!loading && intra &&
