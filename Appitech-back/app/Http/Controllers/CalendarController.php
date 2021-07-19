@@ -49,4 +49,42 @@ class CalendarController extends Controller
         }
          return Message::createMessage(200, $modules);
     }
+    
+    public function registerToModule (Request $request) {
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Unauthorized");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        $autologin = EpitechApi::decrypt($user->autologin);
+
+        $codeacti = $request->input("codeacti");
+        $codeevent = $request->input("codeevent");
+        $codeinstance = $request->input("codeinstance");
+        $scholaryear = $request->input("scholaryear");
+        $codemodule = $request->input("codemodule");
+
+        $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/register";
+        return Message::createMessage(200, EpitechApi::post($path, $autologin));
+    }
+
+    public function unregisterToModule (Request $request) {
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Unauthorized");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        $autologin = EpitechApi::decrypt($user->autologin);
+
+        $codeacti = $request->input("codeacti");
+        $codeevent = $request->input("codeevent");
+        $codeinstance = $request->input("codeinstance");
+        $scholaryear = $request->input("scholaryear");
+        $codemodule = $request->input("codemodule");
+
+        $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/unregister";
+        return Message::createMessage(200, EpitechApi::post($path, $autologin));
+    }
 }

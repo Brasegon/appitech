@@ -27,7 +27,9 @@ Route::post("/resetPassword", [ConnectionController::class, "resetPassword"]);
 
 Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
 
-Route::get("/calendar", [CalendarController::class, "getCalendar"]); 
+Route::get("/calendar", [CalendarController::class, "getCalendar"]);
+Route::post("/moduleRegister", [CalendarController::class, "registerToModule"]);
+Route::post("/moduleUnregister", [CalendarController::class, "unregisterToModule"]);
 
 Route::get("/messages", [MessageController::class, "getMessages"]);
 
