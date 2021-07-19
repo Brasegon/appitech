@@ -44,14 +44,15 @@ const Home = ({isConnected, onConnected}) => {
   function modifyUsername(username)
   {
     const arr = username.split(" ");
+    var i = 0;
     arr[0] = arr[0].charAt(0).toUpperCase() + arr[0].slice(1);
-    setUsername(arr[0]);
+    return arr[0].replace(/\-[a-z]/g, match => match.toUpperCase());
   }
 
     async function getInfo() {
         var message = await httpClient('/messages', 'get');
         var dash = await httpClient('/dashboard', 'get');
-        modifyUsername(dash.message.userName);
+        setUsername(modifyUsername(dash.message.userName));
         setProject(dash.message.projects);
         if (message.code === 5000) {
           onIntra(true);
