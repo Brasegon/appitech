@@ -30,8 +30,8 @@ class DashboardController extends Controller {
             $request1['board']['projets'][$key]['timeline_end'] = explode(",", $projet['timeline_end'])[0];
         }
         foreach($request1['board']['activites'] as $key => $projet) {
-            $request1['board']['activites'][$key]['timeline_start'] = explode(",", $projet['timeline_start'])[0];
-            $request1['board']['activites'][$key]['timeline_end'] = explode(",", $projet['timeline_end'])[0];
+            $request1['board']['activites'][$key]['timeline_hour_start'] = explode(",", $projet['timeline_start'])[1];
+            $request1['board']['activites'][$key]['timeline_hour_end'] = explode(",", $projet['timeline_end'])[1];
         }
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
