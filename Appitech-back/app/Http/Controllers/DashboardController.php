@@ -25,7 +25,10 @@ class DashboardController extends Controller {
         $request1 = (array) EpitechApi::get($path, EpitechApi::decrypt($user->autologin));
         $reg = explode('@', $user['epitech_mail']);
         $reg2 = explode('.', $reg[0]);
-        
+        foreach($request1['board']['projets'] as $key => $projet) {
+            $request1['board']['projets'][$key]['timeline_start'] = explode(",", $projet['timeline_start'])[0];
+            $request1['board']['projets'][$key]['timeline_end'] = explode(",", $projet['timeline_end'])[0];
+        }
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }

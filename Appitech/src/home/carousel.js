@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Text, 
   View,
-  SafeAreaView } from 'react-native';
+  SafeAreaView, ProgressBarAndroid, StyleSheet} from 'react-native';
 
 import Carousel from 'react-native-snap-carousel';
 
@@ -11,26 +11,7 @@ export default class carousel extends React.Component {
  
     constructor(props){
         super(props);
-        this.state = {
-          activeIndex:0,
-          carouselItems: [
-          {
-              title:"E-Commerce",
-              module: "T6 - PHP Framework",
-              credits: "6 available credits"
-          },
-          {
-              title:"Epicture",
-              module: "T6 - App Development",
-              credits: "6 available credits"
-          },
-          {
-              title:"E-Commerce",
-              module: "T6 - Php Symfony development",
-              credits: "6 available credits"
-          }
-        ]
-      }
+        // console.log(props.project, 'teeeeeeeeeeeeeeeeeeeeest');
     }
 
     _renderItem({item,index}){
@@ -44,7 +25,7 @@ export default class carousel extends React.Component {
               marginLeft: 20,
             marginRight: 0,
           }}>
-            <Text style={{ fontSize: 25, color: 'white', top: -28, left: -20, fontWeight: 'bold' }}>{item.title}</Text>
+            <Text style={{ fontSize: 23, color: 'white', top: -28, left: -20, fontWeight: 'bold', width:230 }}>{item.title}</Text>
             <View
               style={{
                 borderBottomColor: 'black',
@@ -55,7 +36,7 @@ export default class carousel extends React.Component {
                 opacity : 0.3
               }}
             />
-            <Text style={{width : 230, top : 10, left: -20, color :'white', opacity:0.8}}>{item.module}</Text>
+            <Text style={{width : 230, top : 10, left: -20, color :'white', opacity:0.8}}>{item.timeline_start} - {item.timeline_end}</Text>
             <View
               style={{
                 borderBottomColor: 'white',
@@ -66,17 +47,15 @@ export default class carousel extends React.Component {
                 opacity : 0.3
               }}
             />
-            <Text style={{width : 180, top : 40, left: -20, color :'white', opacity:0.8}}>{item.credits}</Text>
-            <View
-              style={{
-                borderBottomColor: 'white',
-                borderBottomWidth: 2,
-                left: -20,
-                top : 50,
-                width : 300,
-                opacity : 0.3
-              }}
-            />
+                <View>
+                      <ProgressBarAndroid
+                        style={styles.bar}
+                        styleAttr="Horizontal"
+                        indeterminate={false}
+                        progress={item.timeline_barre / 100}
+                        color="white"
+                      />
+                    </View>
           </View>
 
         )
@@ -89,7 +68,7 @@ export default class carousel extends React.Component {
                 <Carousel
                   layout={"default"}
                   ref={ref => this.carousel = ref}
-                  data={this.state.carouselItems}
+                  data={this.props.project}
                   sliderWidth={300}
                   itemWidth={300}
                   renderItem={this._renderItem}
@@ -99,3 +78,11 @@ export default class carousel extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+  bar: {
+    paddingTop: 80,
+    marginBottom: -10,
+    width: 200
+  }
+});

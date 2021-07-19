@@ -21,6 +21,8 @@ const { height } = Dimensions.get('window');
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [resMessage, setResMessage] = useState([]);
+  const [username, setUsername] = useState("");
+  const [project, setProject] = useState([]);
   const [intra, onIntra] = useState(false);
   const navigation = useNavigation();
   const [loading, onLoading] = React.useState(true);
@@ -39,10 +41,19 @@ const Home = ({isConnected, onConnected}) => {
         }, []);
     }
 
-  
+  function modifyUsername(username)
+  {
+    const arr = username.split(" ");
+    var i = 0;
+    arr[0] = arr[0].charAt(0).toUpperCase() + arr[0].slice(1);
+    return arr[0].replace(/\-[a-z]/g, match => match.toUpperCase());
+  }
 
     async function getInfo() {
         var message = await httpClient('/messages', 'get');
+        var dash = await httpClient('/dashboard', 'get');
+        setUsername(modifyUsername(dash.message.userName));
+        setProject(dash.message.projects);
         if (message.code === 5000) {
           onIntra(true);
         }
@@ -72,7 +83,7 @@ const Home = ({isConnected, onConnected}) => {
         <View style={{ backgroundColor: 'white', flex: 1 }}>
         <View >
         <LinearGradient colors={['#2F80ED', '#56CCF2']} style={styles.top}>
-          <Text style={styles.title}>Hey Valentin,</Text>
+          <Text style={styles.title}>Hey {username},</Text>
           <Text style={styles.subTitle}>Have a good day!</Text>
           </LinearGradient>
         </View>
@@ -87,7 +98,7 @@ const Home = ({isConnected, onConnected}) => {
         </View>
         <View style={{top:-45}}>
           <Text style={styles.partTitle}>Current projects</Text>
-          <Carousel/>
+          {project.length > 0 && <Carousel project={project}/>}
           </View>
         <Text style={styles.partTitle}>Last notification</Text>
         {resMessage.length > 0 && <LastMessage resMessage={resMessage}/>}

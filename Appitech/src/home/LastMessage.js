@@ -46,11 +46,10 @@ import {
     name: {
         top : -30,
         fontSize: 15,
-        maxWidth: 300,
         left: 90,
         color: "grey",
         fontWeight: "600",
-        maxWidth : 280
+        maxWidth : 250
     },
 
     informations: {
