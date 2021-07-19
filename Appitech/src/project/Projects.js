@@ -24,6 +24,7 @@ export default class Craigslist extends Component {
       modalVisible: false,
       loading: true,
       userSelected: [],
+      tmp: "register",
       data: [
         //   { id: 1, name: "T6 - Part-time job", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29', count: 0, register: false},
         //   { id: 2, name: "T6 - PCP Development", image: "https://img.icons8.com/bubbles/1000/000000/module.png", start: '2021-06-29', end: '2021-06-29',  count: 1, register: false },
@@ -55,10 +56,16 @@ export default class Craigslist extends Component {
     console.log(this.state.loading, 'loadign');
   }
 
-  showAlertRegister = (data) => {
+  showAlertRegister = (data, tmp) => {
+    if (data.register == false) {
+      tmp = "register";
+    } else {
+      tmp = "unregister";
+    }
     this.setState({
       showAlertRegister: true,
-      titre: data.name
+      titre: data.name,
+      status: tmp
     });
   };
 
@@ -95,6 +102,7 @@ export default class Craigslist extends Component {
     const { project_titre } = this.state;
     const { project_start } = this.state;
     const { project_end } = this.state;
+    const {status} = this.state;
     const progressStyles = StyleSheet.create({
       containerStyle: {
         flex: 1,
@@ -121,13 +129,13 @@ export default class Craigslist extends Component {
             showProgress={false}
             data={this.state.data}
             title={titre}
-            message="You are Not Registered"
+            message=""
             closeOnTouchOutside={true}
             closeOnHardwareBackPress={false}
             showCancelButton={true}
             showConfirmButton={true}
-            cancelText="Ok"
-            confirmText="Register Me"
+            cancelText="Close"
+            confirmText={status}
             confirmButtonColor="#008080"
             onCancelPressed={() => {
               this.hideAlertRegister();
