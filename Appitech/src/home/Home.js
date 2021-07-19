@@ -17,12 +17,14 @@ import LastMessage from './LastMessage';
 import AnimatedLoader from "react-native-animated-loader";
 import Down from "../down/IntraDown"
 import { Dimensions } from 'react-native';
+import { act } from 'react-test-renderer';
 const { height } = Dimensions.get('window');
 const Home = ({isConnected, onConnected}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [resMessage, setResMessage] = useState([]);
   const [username, setUsername] = useState("");
   const [project, setProject] = useState([]);
+  const [activity, setActivity] = useState([]);
   const [intra, onIntra] = useState(false);
   const navigation = useNavigation();
   const [loading, onLoading] = React.useState(true);
@@ -54,7 +56,8 @@ const Home = ({isConnected, onConnected}) => {
         var dash = await httpClient('/dashboard', 'get');
         setUsername(modifyUsername(dash.message.userName));
         setProject(dash.message.projects);
-        console.log(dash.message);
+        setActivity(dash.message.activities[0]);
+        console.log(dash.message.activities);
         if (message.code === 5000) {
           onIntra(true);
         }
@@ -92,9 +95,10 @@ const Home = ({isConnected, onConnected}) => {
           <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
             <View style={{top:15}}>
               <MaterialCommunityIcons name="calendar-blank-multiple" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 20, left: 20 }} />
-              <Text style={{ fontSize: 17, left: 90, top: 15, width: 250, paddingBottom: 5 }}>Review projet de fin d'année</Text>
-              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>Salle Scifi <MaterialCommunityIcons name="sign-direction" color={"grey"} size={15} /></Text>
-              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>11h30 <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
+              <Text style={{ fontSize: 17, left: 90, top: 15, width: 250, paddingBottom: 5 }}>{activity.title}</Text>
+              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.salle} <MaterialCommunityIcons name="sign-direction" color={"grey"} size={15} /></Text>
+              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_start} <MaterialCommunityIcons name="calendar-month-outline" color={"grey"} size={15} /></Text>
+              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_hour_start} -{activity.timeline_hour_end} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
           </View>
         </View>
         <View style={{top:-45}}>
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     position:'relative',
     backgroundColor: 'white',
     top : -80,
-    height: 150,
+    height: 160,
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 20,
