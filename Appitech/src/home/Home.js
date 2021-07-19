@@ -94,7 +94,7 @@ const Home = ({isConnected, onConnected}) => {
         <View style={styles.containerTop}>
           <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
             <View style={{top:15}}>
-              <MaterialCommunityIcons name="calendar-blank-multiple" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 20, left: 20 }} />
+              <MaterialCommunityIcons name="calendar-blank-multiple" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 30, left: 20 }} />
               <Text style={{ fontSize: 17, left: 90, top: 15, width: 250, paddingBottom: 5 }}>{activity.title}</Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.salle} <MaterialCommunityIcons name="sign-direction" color={"grey"} size={15} /></Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_start} <MaterialCommunityIcons name="calendar-month-outline" color={"grey"} size={15} /></Text>
