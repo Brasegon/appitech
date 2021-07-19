@@ -22,8 +22,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post("/register", [ConnectionController::class, "register"]);
-
 Route::post("/login", [ConnectionController::class, "login"]);
+Route::post("/resetPassword", [ConnectionController::class, "resetPassword"]);
 
 Route::get("/dashboard", [DashboardController::class, "getDashboard"]);
 

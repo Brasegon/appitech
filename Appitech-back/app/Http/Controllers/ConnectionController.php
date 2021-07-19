@@ -81,7 +81,7 @@ class ConnectionController extends Controller
         if ($login && $password) {
             $user = User::firstWhere('login', $login);
             if (!$user) {
-                return Message::createMessage(500, "Identifiants incorrects, veuillez rééssayer.");
+                return Message::createMessage(500, "Invalid credentials, please try again.");
             }
             if (Hash::check($password, $user['password'])) {
                 $key = env('JWT_SECRET');
@@ -90,5 +90,27 @@ class ConnectionController extends Controller
             }
         }
         return Message::createMessage(500, "Invalid credentials, please try again.");
+    }
+    
+    /**
+     * Sends an email to reset the current password
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetPassword (Request $request) {
+        $email = $request["epitech_mail"];
+        $user = User::firstWhere('epitech_mail', $email);
+        if (!$user) {
+            return Message::createMessage(500, "The user searched doesn't exist.");
+        }
+        $password = uniqid('appitech_');
+        $hashedPassword = Hash::make($password, ['rounds' => 10]);
+        USER::whereId($user['id'])->update(array('password' => $hashedPassword));
+        $to      = $user["epitech_mail"];
+        $subject = 'Resetting your password';
+        $message = 'Hello ! here is your new password please don\'t forget it ! '. $password;
+        $headers = 'From: noreply@appitech.eu';
+        mail($to, $subject, $message, $headers);
+        return Message::createMessage(200, "The mail has been sent!");
     }
 }
