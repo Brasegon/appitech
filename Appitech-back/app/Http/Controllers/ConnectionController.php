@@ -35,7 +35,7 @@ class ConnectionController extends Controller
 
             switch ($ulength) {
                 case ($ulength < 5):
-                    return Message::createMessage(500, "Login too court (min 5)!");
+                    return Message::createMessage(500, "Login too short (min 5)!");
                 case ($ulength > 40):
                     return Message::createMessage(500, "Login too long (max 40)!");
             }

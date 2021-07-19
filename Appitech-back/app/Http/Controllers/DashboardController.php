@@ -57,7 +57,7 @@ class DashboardController extends Controller {
     public function getModules(Request $request) {
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {
-            return Message::createMessage(403, "Pas autorisé");
+            return Message::createMessage(403, "Unauthorized");
         }
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
