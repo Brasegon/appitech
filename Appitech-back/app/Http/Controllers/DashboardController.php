@@ -23,11 +23,19 @@ class DashboardController extends Controller {
         $jwtData = (array) $jwtData;
         $user = User::firstWhere('login', $jwtData['login']);
         $request1 = (array) EpitechApi::get($path, EpitechApi::decrypt($user->autologin));
+        $reg = explode('@', $user['epitech_mail']);
+        $reg2 = explode('.', $reg[0]);
+        
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }
+        $dashboard = array(
+            "projects" => $request1['board']['projets'],
+            "activities" => $request1['board']['projets'],
+            "userName" => $reg2[0]." ".$reg2[1]
+        );
 
-        return Message::createMessage(200, $request1);
+        return Message::createMessage(200, $dashboard);
     }
     private static function orderByDate($a, $b) {
         //retourner 0 en cas d'égalité
