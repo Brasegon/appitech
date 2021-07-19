@@ -56,32 +56,19 @@ export default class Craigslist extends Component {
     console.log(this.state.loading, 'loadign');
   }
 
-  showAlertRegister = (data, tmp) => {
+  showAlertModule = (data, tmp) => {
     if (data.register == false) {
       tmp = "register";
     } else {
       tmp = "unregister";
     }
     this.setState({
-      showAlertRegister: true,
-      titre: data.name,
-      status: tmp
-    });
-  };
-
-  hideAlertRegister = () => {
-    this.setState({
-      showAlertRegister: false
-    });
-  };
-
-  showAlertModule = (data) => {
-    this.setState({
       showAlertModule: true,
       titre: data.name,
       project_titre: data.project,
       project_start: data.start_project,
-      project_end: data.end_project
+      project_end: data.end_project,
+      status: tmp
     });
   };
 
@@ -91,12 +78,7 @@ export default class Craigslist extends Component {
     });
   };
 
-  clickEventListener = (item) => {
-    Alert.alert('Unit description : ' + item.name, 'Binary Security:\n\nTOPICS COVERED:\n\nA study of the vulnerabilities associated with application development. A non-exhaustive list of areas covered:\n\n\t* Reverse Engineering:\n\t* Anti-debugging techniques (Corrupted ELF format, stripped binaries, Packing, checksum on the binary itself, stack corruption, ptrace etc.)\n\t* Different Architectures/Formats: Elf, PE, x86, x64, ARM\n\t* Exploitation\n\t* Vulnerabilities\n\t* Buffer Overflow\n\t* Stack Based\n\t* Heap Based\n\t* Integer Overflow\n\t* Use after free\n\t* Format string\n\t* Techniques\n\t* Debugging (r2 / GDB)\n\t* Ret-to-X (code, libc etc.), Stack pivot, ROP\n\t* Loading binaries (auxvv, GOT / PLT)\n\t* Bypassing protections (NX, ASLR, ASCII-Armor etc.)\n\t* Malloc Des-Maleficarum Houses\n\nTIMELINE:\n\nThere is only one project for this unit. Over the course of the projects duration, the goal is to take advantage of the weaknesses and obtain the permissions or informations for the infrastructures that were set up for the project. It is a platform in which groups of students compete and try to obtain the highest score, sometimes at the cost of the other teams.\n\nBefore the project, some conference held by security experts will be accessible to help you enter into the world of binary security.\n\nVALIDATION CRITERIA:\n\nA broad knowledge of reverse and detecting and exploiting applicative vulnerabilities will be among the criteria needed to validate the unit.')
-  };
-
   render() {
-    const { showAlertRegister } = this.state;
     const { showAlertModule } = this.state;
     const { titre } = this.state;
     const { project_titre } = this.state;
@@ -125,26 +107,6 @@ export default class Craigslist extends Component {
         <View style={styles.container}>
           <View style={styles.title}><Text style={styles.titleText}>Modules <MaterialCommunityIcons name="calendar-text" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
           <AwesomeAlert
-            show={showAlertRegister}
-            showProgress={false}
-            data={this.state.data}
-            title={titre}
-            message=""
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="Close"
-            confirmText={status}
-            confirmButtonColor="#008080"
-            onCancelPressed={() => {
-              this.hideAlertRegister();
-            }}
-            onConfirmPressed={() => {
-              this.hideAlertRegister();
-            }}
-          />
-          <AwesomeAlert
             show={showAlertModule}
             showProgress={false}
             data={this.state.data}
@@ -154,9 +116,9 @@ export default class Craigslist extends Component {
             closeOnHardwareBackPress={false}
             showCancelButton={true}
             showConfirmButton={true}
-            cancelText="Ok"
-            confirmText="Unregister"
-            confirmButtonColor="#800000"
+            cancelText="Close"
+            confirmText={status}
+            confirmButtonColor="#2ca9e7"
             onCancelPressed={() => {
               this.hideAlertModule();
             }}
@@ -174,11 +136,11 @@ export default class Craigslist extends Component {
             renderItem={({ item }) => {
               return (
 
-                <TouchableOpacity style={styles.card} onPress={() => { this.clickEventListener(item) }}>
-                  <TouchableOpacity onPress={() => { this.showAlertRegister(item); }}>
+                <View style={styles.card} >
+                  <View>
                     {item.register && <View><Image style={styles.image} source={{ uri: "https://img.icons8.com/clouds/1000/000000/module.png" }} /><Text style={{ fontSize: 10, color: '#85CFCC', alignSelf: 'center' }}>Registered</Text></View>}
                     {!item.register && <View><Image style={styles.image} source={{ uri: "https://img.icons8.com/bubbles/1000/000000/module.png" }} /><Text style={{ fontSize: 10, color: '#FBCD59', alignSelf: 'center' }}>Not Registered</Text></View>}
-                  </TouchableOpacity>
+                  </View>
                   <View style={styles.cardContent}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.count}>{item.count} credit(s)</Text>
@@ -198,7 +160,7 @@ export default class Craigslist extends Component {
                     </TouchableOpacity>
 
                   </View>
-                </TouchableOpacity>
+                </View>
               )
             }} />
         </View>)
