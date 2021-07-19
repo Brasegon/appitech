@@ -37,7 +37,7 @@ export default class carousel extends React.Component {
               }}
             />
             <Text style={{width : 230, top : 10, left: -20, color :'white', opacity:0.8}}>{item.timeline_start} - {item.timeline_end}</Text>
-            <View
+            {/* <View
               style={{
                 borderBottomColor: 'white',
                 borderBottomWidth: 2,
@@ -46,7 +46,7 @@ export default class carousel extends React.Component {
                 width : 300,
                 opacity : 0.3
               }}
-            />
+            /> */}
                 <View>
                       <ProgressBarAndroid
                         style={styles.bar}
@@ -81,8 +81,9 @@ export default class carousel extends React.Component {
 
 const styles = StyleSheet.create({
   bar: {
-    paddingTop: 80,
+    paddingTop: 20,
     marginBottom: -10,
+    left : -20,
     width: 200
   }
 });

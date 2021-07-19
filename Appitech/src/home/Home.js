@@ -54,6 +54,7 @@ const Home = ({isConnected, onConnected}) => {
         var dash = await httpClient('/dashboard', 'get');
         setUsername(modifyUsername(dash.message.userName));
         setProject(dash.message.projects);
+        console.log(dash.message);
         if (message.code === 5000) {
           onIntra(true);
         }
