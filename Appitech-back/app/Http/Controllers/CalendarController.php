@@ -44,7 +44,12 @@ class CalendarController extends Controller
                 "end" => $module["end"],
                 "title" => $module["acti_title"],
                 "summary" => $module["room"]["code"],
-                "register" => $module["event_registered"]
+                "register" => $module["event_registered"],
+                "codeacti" => $module["codeacti"],
+                "codeevent" => $module["codeevent"],
+                "codeinstance" => $module["codeinstance"],
+                "codemodule" => $module["codeinstance"],
+                "scolaryear" => $module["scolaryear"],
             ));
         }
          return Message::createMessage(200, $modules);
