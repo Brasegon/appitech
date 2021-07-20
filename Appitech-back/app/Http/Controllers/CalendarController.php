@@ -25,19 +25,19 @@ class CalendarController extends Controller
          $calendar = EpitechApi::get($path, $autologin);
          if (is_null($calendar)) {
             return Message::createMessage(5000, "Intra is down");
-        } 
+        }
          $calendar = (array) $calendar;
         $modules = [];
         foreach ($calendar as $module) {
             if (is_null($module["room"])) {
                 $module["room"] = array(
-                    "type" => "Non défini",
-                    "code" => "Non défini",
+                    "type" => "Undefined room",
+                    "code" => "Undefined room",
                     "seats" => 0
                 );
             } else if (!isset($module["room"]["code"])) {
-                $module["room"]["code"] = "Non défini";
-                $module["room"]["type"] = "Non défini";
+                $module["room"]["code"] = "Undefined room";
+                $module["room"]["type"] = "Undefined room";
             }
             array_push($modules, array(
                 "start" => $module["start"],
@@ -54,7 +54,7 @@ class CalendarController extends Controller
         }
          return Message::createMessage(200, $modules);
     }
-    
+
     public function registerToModule (Request $request) {
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {

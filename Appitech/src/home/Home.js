@@ -56,8 +56,10 @@ const Home = ({isConnected, onConnected}) => {
         var dash = await httpClient('/dashboard', 'get');
         setUsername(modifyUsername(dash.message.userName));
         setProject(dash.message.projects);
+        if (!dash.message.activities[0].salle) {
+          dash.message.activities[0].salle = 'Undefined room';
+        }
         setActivity(dash.message.activities[0]);
-        console.log(dash.message.activities);
         if (message.code === 5000) {
           onIntra(true);
         }
@@ -98,7 +100,7 @@ const Home = ({isConnected, onConnected}) => {
               <Text style={{ fontSize: 17, left: 90, top: 15, width: 250, paddingBottom: 5 }}>{activity.title}</Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.salle} <MaterialCommunityIcons name="sign-direction" color={"grey"} size={15} /></Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_start} <MaterialCommunityIcons name="calendar-month-outline" color={"grey"} size={15} /></Text>
-              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_hour_start} -{activity.timeline_hour_end} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
+              <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_hour_start} - {activity.timeline_hour_end} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
           </View>
         </View>
         <View style={{top:-45}}>
