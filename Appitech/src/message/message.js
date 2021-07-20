@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 8,
         backgroundColor: 'white',
-        height: 150
     },
     messageCard: {
         backgroundColor : 'white'
