@@ -108,4 +108,33 @@ class DashboardController extends Controller {
 
         return $day2 / $day1;
     }
+
+    public function getProjectModules(Request $request) {
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Unauthorized");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        $autologin = EpitechApi::decrypt($user->autologin);
+
+        $codeinstance = $request->query("codeinstance");
+        $scholaryear = $request->query("scholaryear");
+        $codemodule = $request->query("codemodule");
+
+        $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/";
+        $projects = (array) EpitechApi::get($path, $autologin);
+        $array = [];
+        foreach($projects['activites'] as $project) {
+            array_push($array, array(
+                "title" => $project['title'],
+                "start" => $project['start'],
+                "end" => $project['end'],
+                "registered" => ($project['nb_group'] > 0) ? true : false,
+                "register_link" => $path.$project['codeacti']."/project/register",
+                "unregister_link" => $path.$project['codeacti']."/project/unregister"
+            ));
+        }
+        return Message::createMessage(200, $array);
+    }
 }
