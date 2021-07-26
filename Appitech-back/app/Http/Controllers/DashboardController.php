@@ -109,6 +109,18 @@ class DashboardController extends Controller {
         return $day2 / $day1;
     }
 
+    public function postLink(Request $request) {
+        $jwtData = UtilsJWT::authorize($request);
+        if (is_null($jwtData)) {
+            return Message::createMessage(403, "Unauthorized");
+        }
+        $jwtData = (array) $jwtData;
+        $user = User::firstWhere('login', $jwtData['login']);
+        $autologin = EpitechApi::decrypt($user->autologin);
+        $link = $request->input("link");
+        return Message::createMessage(200, EpitechApi::post($link, $autologin));
+    }
+
     public function getProjectModules(Request $request) {
         $jwtData = UtilsJWT::authorize($request);
         if (is_null($jwtData)) {

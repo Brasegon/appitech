@@ -37,6 +37,7 @@ Route::get("/profile", [ProfileController::class, "getProfile"]);
 
 Route::put("/editProfile", [UserController::class, "edit"]);
 Route::get("/modules", [DashboardController::class, "getModules"]);
+Route::post("/link", [DashboardController::class, "postLink"]);
 Route::get("/modules/projects", [DashboardController::class, "getProjectModules"]);
 Route::post("/update", [UserController::class, "updateUserInfo"]);
 
