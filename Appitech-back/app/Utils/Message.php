@@ -10,6 +10,6 @@ class Message
         return response(array(
             "code" => $code,
             "message" => $message
-        ));
+        ), $code);
     }
 }
