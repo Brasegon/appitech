@@ -67,7 +67,7 @@ class CalendarController extends Controller
         $codeacti = $request->input("codeacti");
         $codeevent = $request->input("codeevent");
         $codeinstance = $request->input("codeinstance");
-        $scholaryear = $request->input("scholaryear");
+        $scholaryear = $request->input("scolaryear");
         $codemodule = $request->input("codemodule");
 
         $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/register";
@@ -86,7 +86,7 @@ class CalendarController extends Controller
         $codeacti = $request->input("codeacti");
         $codeevent = $request->input("codeevent");
         $codeinstance = $request->input("codeinstance");
-        $scholaryear = $request->input("scholaryear");
+        $scholaryear = $request->input("scolaryear");
         $codemodule = $request->input("codemodule");
 
         $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/unregister";
