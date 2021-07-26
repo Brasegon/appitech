@@ -108,7 +108,8 @@ const Home = ({isConnected, onConnected}) => {
         {!activity && <View style={styles.containerTop}>
           <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
             <View style={{top:15}}>
-            <Text>Pas de prochaine activitée</Text>
+            <MaterialCommunityIcons name="calendar-remove-outline" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 30, left: 20 }} />
+            <Text style={{ fontSize: 17, left: 90, top: 40, width: 250, paddingBottom: 5 }}>No incoming activity</Text>
             </View>
         </View> }
         <View style={{top:-45}}>
