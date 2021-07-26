@@ -24,7 +24,7 @@ const Home = ({isConnected, onConnected}) => {
   const [resMessage, setResMessage] = useState([]);
   const [username, setUsername] = useState("");
   const [project, setProject] = useState([]);
-  const [activity, setActivity] = useState([]);
+  const [activity, setActivity] = useState(null);
   const [intra, onIntra] = useState(false);
   const navigation = useNavigation();
   const [loading, onLoading] = React.useState(true);
@@ -56,10 +56,12 @@ const Home = ({isConnected, onConnected}) => {
         var dash = await httpClient('/dashboard', 'get');
         setUsername(modifyUsername(dash.message.userName));
         setProject(dash.message.projects);
-        if (!dash.message.activities[0].salle) {
-          dash.message.activities[0].salle = 'Undefined room';
+        if (dash.message && dash.message.activities[0]) {
+          if (!dash.message.activities[0].salle) {
+            dash.message.activities[0].salle = 'Undefined room';
+          }
+          setActivity(dash.message.activities[0]);
         }
-        setActivity(dash.message.activities[0]);
         if (message.code === 5000) {
           onIntra(true);
         }
@@ -93,7 +95,7 @@ const Home = ({isConnected, onConnected}) => {
           <Text style={styles.subTitle}>Have a good day!</Text>
           </LinearGradient>
         </View>
-        <View style={styles.containerTop}>
+        {activity && <View style={styles.containerTop}>
           <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
             <View style={{top:15}}>
               <MaterialCommunityIcons name="calendar-blank-multiple" color={"#0f4c75"} size={50} style={{ position: "absolute", top: 30, left: 20 }} />
@@ -102,7 +104,13 @@ const Home = ({isConnected, onConnected}) => {
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_start} <MaterialCommunityIcons name="calendar-month-outline" color={"grey"} size={15} /></Text>
               <Text style={{ fontSize: 13, left: 90, top: 15, width: 250, color: 'grey' }}>{activity.timeline_hour_start} - {activity.timeline_hour_end} <MaterialCommunityIcons name="clock-time-eight-outline" color={"grey"} size={15} /></Text>
           </View>
-        </View>
+        </View> }
+        {!activity && <View style={styles.containerTop}>
+          <Text style={{ fontSize: 25,  color: '#053742', fontWeight: 'bold', top: 15, left: 25 }}> Next Activity</Text>
+            <View style={{top:15}}>
+            <Text>Pas de prochaine activitée</Text>
+            </View>
+        </View> }
         <View style={{top:-45}}>
           <Text style={styles.partTitle}>Current projects</Text>
           {project.length > 0 && <Carousel project={project}/>}
