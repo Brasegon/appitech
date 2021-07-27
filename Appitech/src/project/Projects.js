@@ -64,7 +64,9 @@ export default class Craigslist extends Component {
   }
 
   async showAlertModule(data, tmp) {
+    this.setState({ loading: true });
     var projects = await httpClient('/modules/projects?codeinstance=' + data.codeinstance + '&scholaryear=' + data.scolaryear + '&codemodule=' + data.code, 'get');
+    this.setState({ loading: false });
     console.log(projects.message);
 
     this.setState({
@@ -178,6 +180,17 @@ export default class Craigslist extends Component {
           </View>)
       }
       else {
+        if (this.state.loading) {
+          return (<View style={styles.container}>
+            {this.state.loading &&
+              <AnimatedLoader
+                visible={this.state.loading}
+                overlayColor="rgba(255,255,255,0.75)"
+                source={require("../login/loader.json")}
+                animationStyle={styles.lottie}
+                speed={1}
+              />}</View>)
+        } else {
         return (
           <View style={styles.container}>
            
@@ -233,7 +246,7 @@ export default class Craigslist extends Component {
 
 
           </View>
-        );
+        ); }
       };
     }
   }
