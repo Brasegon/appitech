@@ -148,8 +148,8 @@ class DashboardController extends Controller {
             }
             array_push($array, array(
                 "title" => $project['title'],
-                "start" => $project['start'],
-                "end" => $project['end'],
+                "start" => explode(" ", $project['start'])[0],
+                "end" => explode(" ", $project['end'])[0],
                 "registered" => $isRegistered,
                 "register_link" => $path.$project['codeacti']."/project/register",
                 "unregister_link" => $path.$project['codeacti']."/project/unregister",
