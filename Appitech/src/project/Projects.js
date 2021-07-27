@@ -63,12 +63,16 @@ export default class Craigslist extends Component {
     this.setState({ loading: false });
   }
 
+  async registerOrUnregisterProject(link)
+  {
+    var res = await httpClient('/link', 'post', {link:link});
+    console.log(res);
+  }
+
   async showAlertModule(data, tmp) {
     this.setState({ loading: true });
     var projects = await httpClient('/modules/projects?codeinstance=' + data.codeinstance + '&scholaryear=' + data.scolaryear + '&codemodule=' + data.code, 'get');
     this.setState({ loading: false });
-    console.log(projects.message);
-
     this.setState({
       titre: data.name,
       isProject: true,
@@ -239,6 +243,13 @@ export default class Craigslist extends Component {
                       <Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20} /></Text>
                       <Text style={styles.calendarEnd}>{item.end}</Text>
 
+                      {item.registered && <TouchableOpacity style={styles.followButtonRegisterProject} onPress={() => { this.registerOrUnregisterProject(item.unregister_link); }}>
+                        <Text style={styles.followButtonText}>Unregister</Text>
+                      </TouchableOpacity> }
+
+                      {!item.registered && <TouchableOpacity style={styles.followButtonRegisterTrueProject} onPress={() => { this.registerOrUnregisterProject(item.register_link); }}>
+                        <Text style={styles.followButtonTextTrue}>Register</Text>
+                      </TouchableOpacity> }
                     </View>
                   </View>
                 )
@@ -391,6 +402,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "green",
   },
+  followButtonRegisterProject: {
+    marginTop: 10,
+    height: 35,
+    width: 100,
+    padding: 10,
+    left : 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  followButtonRegisterTrueProject: {
+    marginTop: 10,
+    height: 35,
+    width: 100,
+    padding: 10,
+    left : 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "green",
+  },
   followButtonText: {
     color: "red",
     fontSize: 12,
@@ -420,9 +457,8 @@ const styles = StyleSheet.create({
   titleTextProject: {
     fontSize: 20,
     color: '#3f72af',
-    top: 30,
-    width : 300,
-    left : 80
+    textAlign: 'center',
+    top: 25
   },
   subTitleTextProject: {
     fontSize: 20,
