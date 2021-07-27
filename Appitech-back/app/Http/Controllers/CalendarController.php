@@ -71,7 +71,11 @@ class CalendarController extends Controller
         $codemodule = $request->input("codemodule");
 
         $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/register";
-        return Message::createMessage(200, EpitechApi::post($path, $autologin));
+        $apiRequest = EpitechApi::post($path, $autologin);
+        if (is_null($apiRequest)) {
+            return Message::createMessage(500, "Registering to the module failed");
+        }
+        return Message::createMessage(200, $apiRequest);
     }
 
     public function unregisterToModule (Request $request) {
@@ -90,6 +94,10 @@ class CalendarController extends Controller
         $codemodule = $request->input("codemodule");
 
         $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/".$codeacti."/".$codeevent."/unregister";
-        return Message::createMessage(200, EpitechApi::post($path, $autologin));
+        $apiRequest = EpitechApi::post($path, $autologin);
+        if (is_null($apiRequest)) {
+            return Message::createMessage(500, "Unregistering to the module failed");
+        }
+        return Message::createMessage(200, $apiRequest);
     }
 }
