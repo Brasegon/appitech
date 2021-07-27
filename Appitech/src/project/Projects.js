@@ -16,6 +16,7 @@ import {
   ScrollView
 } from 'react-native';
 import SpinkitButton from 'react-native-spinkit-button';
+import { IconButton, Colors } from 'react-native-paper';
 
 export default class Craigslist extends Component {
   constructor(props) {
@@ -65,16 +66,11 @@ export default class Craigslist extends Component {
   async showAlertModule(data, tmp) {
     var projects = await httpClient('/modules/projects?codeinstance=' + data.codeinstance + '&scholaryear=' + data.scolaryear + '&codemodule=' + data.code, 'get');
     console.log(projects.message);
-    if (data.register == false) {
-      tmp = "Register";
-    } else {
-      tmp = "Unregister";
-    }
+
     this.setState({
       titre: data.name,
       isProject: true,
       projects : projects.message,
-      status: tmp,
     });
   };
 
@@ -164,8 +160,15 @@ export default class Craigslist extends Component {
                       <Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20} /></Text>
                       <Text style={styles.calendarEnd}>{item.end}</Text>
                       <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item); }}>
-                        <Text style={styles.followButtonText}>Project(s)</Text>
+                        <Text style={styles.followButtonTextBase}>Project(s)</Text>
                       </TouchableOpacity>
+                      {item.register && <TouchableOpacity style={styles.followButtonRegister} onPress={() => { this.showAlertModule(item); }}>
+                        <Text style={styles.followButtonText}>Unregister</Text>
+                      </TouchableOpacity> }
+
+                      {!item.register && <TouchableOpacity style={styles.followButtonRegisterTrue} onPress={() => { this.showAlertModule(item); }}>
+                        <Text style={styles.followButtonTextTrue}>Register</Text>
+                      </TouchableOpacity> }
 
                     </View>
                   </View>
@@ -180,46 +183,16 @@ export default class Craigslist extends Component {
            
             <View style={styles.titleProject}>
               <View style={{marginBottom:30}}></View>
-            <SpinkitButton
-                        borderRadius={11}
-                        top={20}
-                        onPress={redirectModule}
-                        buttonStyle={styles.button}
-                        label={'Back to modules'}
-                        labelStyle={styles.textButtonStyle}
-                        labelAndTextContainer={styles.labelAndTextContainer}
-                        iconComponent={
-                                <MaterialCommunityIcons name="arrow-left-thick" color={"#3f72af"} size={25} style={{position:'absolute', top : 15}}></MaterialCommunityIcons>
-                        }
-                        size={15}
-                        type={'Bounce'}
-                        color={'#FFFFFF'}
-                        animationDuration={300}
-                    />
-                  <SpinkitButton
-                        borderRadius={11}
-                        top={20}
-                        onPress={redirectModule}
-                        buttonStyle={styles.button}
-                        label={this.state.status}
-                        labelStyle={styles.textButtonStyle1}
-                        labelAndTextContainer={styles.labelAndTextContainer1}
-                        size={15}
-                        type={'Bounce'}
-                        color={'#FFFFFF'}
-                        animationDuration={300}
-                    />
-              <Text style={styles.subTitleTextProject}>Projects in</Text>
-              <View
-              style={{
-                position : 'absolute',
-                borderBottomColor: '#2887CB',
-                borderBottomWidth: 2,
-                left: 200,
-                top : 70,
-                width : 110,
-              }}
-            />
+    
+
+              <IconButton
+                                icon="arrow-left-thick"
+                                color="#0f4c75"
+                                size={35}
+                                style={styles.logout}
+                                onPress={redirectModule}
+                            />
+
               <Text style={styles.titleTextProject}>{this.state.titre}</Text>
 
             </View>
@@ -368,6 +341,7 @@ const styles = StyleSheet.create({
     height: 35,
     width: 100,
     padding: 10,
+    left : -30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -376,8 +350,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#dcdcdc",
   },
+  followButtonRegister: {
+    marginTop: -35,
+    height: 35,
+    width: 100,
+    padding: 10,
+    left : 80,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  followButtonRegisterTrue: {
+    marginTop: -35,
+    height: 35,
+    width: 100,
+    padding: 10,
+    left : 80,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "green",
+  },
   followButtonText: {
+    color: "red",
+    fontSize: 12,
+  },
+  followButtonTextBase: {
     color: "#6e6e6e",
+    fontSize: 12,
+  },
+  followButtonTextTrue: {
+    color: "green",
     fontSize: 12,
   },
   title: {
@@ -386,7 +396,7 @@ const styles = StyleSheet.create({
 
   }, titleProject: {
     backgroundColor: '#f6f9fb',
-    height: 160,
+    height: 130,
   },
   titleText: {
     fontSize: 25,
@@ -395,24 +405,32 @@ const styles = StyleSheet.create({
     top: 18
   },
   titleTextProject: {
-    position : 'absolute',
-    fontSize: 20,
-    color: '#3f72af',
-    top: 85,
-    width : 200,
-    left : 200,
-  },
-  subTitleTextProject: {
-    position : 'absolute',
     fontSize: 20,
     color: '#3f72af',
     top: 30,
+    width : 300,
+    left : 80
+  },
+  subTitleTextProject: {
+    fontSize: 20,
+    color: '#3f72af',
+    top: 10,
     width : 200,
-    left : 200,
+    left : 50,
   },
   button: {
+    marginTop: -10,
+    height: 35,
+    width: 100,
+    padding: 10,
+    left : 15,
+    flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom : 30
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "green",
 },
 textButtonStyle: {
     flex : 1,
@@ -441,5 +459,10 @@ labelAndTextContainer1: {
     height : 60,
     borderColor: "#FFAA4C",
     borderRadius: 40,
+},
+logout: {
+  position : 'absolute',
+  left : 0,
+  top : 0,
 }
 });
