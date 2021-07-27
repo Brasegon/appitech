@@ -139,11 +139,18 @@ class DashboardController extends Controller {
         $array = [];
         foreach($projects['activites'] as $project) {
             $advance = $this->getAdvance($project['begin'], $project['end']);
+            $paths = $path.$project['codeacti']."/";
+            $isRegistered = (array) EpitechApi::get($paths, $autologin);
+            if (isset($isRegistered['student_registered'])) {
+                $isRegistered = ($isRegistered['student_registered']['registered'] == '1') ? true : false;
+            } else {
+                $isRegistered = ($project['register'] == 1) ? true : false;
+            }
             array_push($array, array(
                 "title" => $project['title'],
                 "start" => $project['start'],
                 "end" => $project['end'],
-                "registered" => ($project['nb_group'] > 0) ? true : false,
+                "registered" => $isRegistered,
                 "register_link" => $path.$project['codeacti']."/project/register",
                 "unregister_link" => $path.$project['codeacti']."/project/unregister",
                 "advance" => $advance
