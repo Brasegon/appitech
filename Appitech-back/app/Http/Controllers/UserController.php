@@ -133,6 +133,7 @@ class UserController extends Controller
                 "scolaryear" => $request1['scolaryear'],
                 "course_code" => $request1['course_code'],
                 "version" => Version::$version,
+                "location" => $request1['location'],
             ));
         }
 
