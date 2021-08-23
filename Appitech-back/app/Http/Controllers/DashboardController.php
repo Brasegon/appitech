@@ -66,7 +66,7 @@ class DashboardController extends Controller {
         $path = "course/filter";
         $autologin = EpitechApi::decrypt($user->autologin);
         $request1 = (array) EpitechApi::get("/ping", $autologin);
-        $modules = (array) EpitechApi::get($path, $autologin, "&course=".$user['course_code']."&scolaryear=".$user['scolaryear']);
+        $modules = (array) EpitechApi::get($path, $autologin, "&location=".$user['location']."&course=".$user['course_code']."&scolaryear=".$user['scolaryear']);
         $listModules = [];
         $i = 0;
         
