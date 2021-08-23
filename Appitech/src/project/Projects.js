@@ -80,6 +80,12 @@ export default class Craigslist extends Component {
     });
   };
 
+  async registerOrUnregisterModule(link)
+  {
+    var res = await httpClient('/link', 'post', {link:link});
+    console.log(res);
+  }
+
   render() {
     const { showAlertModule } = this.state;
     const { titre } = this.state;
@@ -168,11 +174,11 @@ export default class Craigslist extends Component {
                       <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item); }}>
                         <Text style={styles.followButtonTextBase}>Project(s)</Text>
                       </TouchableOpacity>
-                      {item.register && <TouchableOpacity style={styles.followButtonRegister} onPress={() => { this.showAlertModule(item); }}>
+                      {item.register && <TouchableOpacity style={styles.followButtonRegister} onPress={() => { this.registerOrUnregisterModule(item.unregister_link); }}>
                         <Text style={styles.followButtonText}>Unregister</Text>
                       </TouchableOpacity> }
 
-                      {!item.register && <TouchableOpacity style={styles.followButtonRegisterTrue} onPress={() => { this.showAlertModule(item); }}>
+                      {!item.register && <TouchableOpacity style={styles.followButtonRegisterTrue} onPress={() => { this.registerOrUnregisterModule(item.register_link); }}>
                         <Text style={styles.followButtonTextTrue}>Register</Text>
                       </TouchableOpacity> }
 

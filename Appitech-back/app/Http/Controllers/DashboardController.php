@@ -69,9 +69,10 @@ class DashboardController extends Controller {
         $modules = (array) EpitechApi::get($path, $autologin, "&course=".$user['course_code']."&scolaryear=".$user['scolaryear']);
         $listModules = [];
         $i = 0;
-
+        
         foreach($modules as $module) {
             $advance = $this->getAdvance($module['begin'], $module['end']);
+            $link_path = "module/".$module['scolaryear']."/".$module['code']."/".$module['codeinstance']."/";
             array_push($listModules, array(
                 "id" => $i,
                 "name" => $module['title'],
@@ -82,6 +83,8 @@ class DashboardController extends Controller {
                 "scolaryear" => $module['scolaryear'],
                 "code" => $module['code'],
                 "codeinstance" => $module['codeinstance'],
+                "register_link" => $link_path."register",
+                "unregister_link" => $link_path."unregister",
                 "advance" => $advance
             ));
             $i += 1;
