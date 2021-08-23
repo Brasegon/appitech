@@ -80,10 +80,28 @@ export default class Craigslist extends Component {
     });
   };
 
-  async registerOrUnregisterModule(link)
+  async registerOrUnregisterModule(link, index)
   {
     var res = await httpClient('/link', 'post', {link:link});
     console.log(res);
+    if (res.message && res.message.message) {
+      Alert.alert(
+        "Modules",
+        res.message.message,
+        [
+          { text: "OK"}
+        ]
+      );
+    } else {
+      Alert.alert(
+        "Modules",
+        "Register/Unregister successfully",
+        [
+          { text: "OK"}
+        ]
+      );
+    }
+    
   }
 
   render() {
@@ -122,26 +140,6 @@ export default class Craigslist extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.title}><Text style={styles.titleText}>Modules <MaterialCommunityIcons name="folder-open-outline" color={"#3f72af"} size={30}></MaterialCommunityIcons></Text></View>
-            <AwesomeAlert
-              show={showAlertModule}
-              showProgress={false}
-              data={this.state.data}
-              title={titre}
-              message={"Project : " + project_titre + "\n\tStart : " + project_start + "\n\tEnd : " + project_end}
-              closeOnTouchOutside={true}
-              closeOnHardwareBackPress={false}
-              showCancelButton={true}
-              showConfirmButton={true}
-              cancelText="Close"
-              confirmText={status}
-              confirmButtonColor="#2ca9e7"
-              onCancelPressed={() => {
-                this.hideAlertModule();
-              }}
-              onConfirmPressed={() => {
-                this.hideAlertModule();
-              }}
-            />
             <FlatList
               style={styles.contentList}
               columnWrapperStyle={styles.listContainer}
@@ -149,7 +147,7 @@ export default class Craigslist extends Component {
               keyExtractor={(item) => {
                 return item.name + "-" + item.id;
               }}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 return (
 
                   <View style={styles.card} >
@@ -171,14 +169,14 @@ export default class Craigslist extends Component {
                       </View>
                       <Text style={styles.calendarStart}>{item.start} <MaterialCommunityIcons name="clock-start" color={"grey"} size={20} /></Text>
                       <Text style={styles.calendarEnd}>{item.end}</Text>
-                      <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item); }}>
+                      <TouchableOpacity style={styles.followButton} onPress={() => { this.showAlertModule(item, index); }}>
                         <Text style={styles.followButtonTextBase}>Project(s)</Text>
                       </TouchableOpacity>
-                      {item.register && <TouchableOpacity style={styles.followButtonRegister} onPress={() => { this.registerOrUnregisterModule(item.unregister_link); }}>
+                      {item.register && <TouchableOpacity style={styles.followButtonRegister} onPress={() => { this.registerOrUnregisterModule(item.unregister_link, index); }}>
                         <Text style={styles.followButtonText}>Unregister</Text>
                       </TouchableOpacity> }
 
-                      {!item.register && <TouchableOpacity style={styles.followButtonRegisterTrue} onPress={() => { this.registerOrUnregisterModule(item.register_link); }}>
+                      {!item.register && <TouchableOpacity style={styles.followButtonRegisterTrue} onPress={() => { this.registerOrUnregisterModule(item.register_link, index); }}>
                         <Text style={styles.followButtonTextTrue}>Register</Text>
                       </TouchableOpacity> }
 
