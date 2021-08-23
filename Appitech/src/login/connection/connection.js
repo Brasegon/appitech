@@ -82,8 +82,6 @@ export default function registerPage({isConnected, onConnected}) {
                         animationDuration={300}
                     />
 
-                    <Text onPress={() => navigation.navigate('EmailPswd')} style={{ textDecorationLine: 'underline', color: '#006DFD', fontSize: 12 }}>Forgot password ?</Text>
-
                 </View>
             <AwesomeAlert
                     show={showAlert}
