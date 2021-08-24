@@ -149,7 +149,26 @@ class DashboardController extends Controller {
         $codeinstance = $request->query("codeinstance");
         $scholaryear = $request->query("scholaryear");
         $codemodule = $request->query("codemodule");
-
+        if ($codemodule == "TEST") {
+            array_push($array, array(
+                "title" => "Projet Register",
+                "start" => "2020-12-07",
+                "end" => "2022-09-05",
+                "registered" => true,
+                "register_link" => "test/project/register",
+                "unregister_link" => "test/project/unregister",
+                "advance" => 0.5
+            ));
+            array_push($array, array(
+                "title" => "Projet Unregister",
+                "start" => "2020-12-07",
+                "end" => "2022-09-05",
+                "registered" => false,
+                "register_link" => "test/project/register",
+                "unregister_link" => "test/project/unregister",
+                "advance" => 0.5
+            )); 
+        }
         $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/";
         $projects = (array) EpitechApi::get($path, $autologin);
         $array = [];
