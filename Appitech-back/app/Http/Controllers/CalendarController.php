@@ -34,6 +34,8 @@ class CalendarController extends Controller
                 "end"=> "2021-08-31 11:30:00",
                 "title"=> "Tournoi Baby Foot",
                 "summary"=> "FR/MAR/Batiment-principal/BDE",
+                "register_link" => "test/register",
+                "unregister_link" => "test/unregister",
                 "register"=>"registered",
                 "codeacti"=> "acti-431599",
                 "codeevent"=> "event-439804",
