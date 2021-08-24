@@ -161,7 +161,7 @@ class DashboardController extends Controller {
         $array = [];
         if ($codeinstance == "TEST") {
             array_push($array, array(
-                "title" => "Projet Register",
+                "title" => "Projet Demo",
                 "start" => "2020-12-07",
                 "end" => "2022-09-05",
                 "registered" => true,
@@ -169,15 +169,6 @@ class DashboardController extends Controller {
                 "unregister_link" => "test/unregister",
                 "advance" => 0.5
             ));
-            array_push($array, array(
-                "title" => "Projet Unregister",
-                "start" => "2020-12-07",
-                "end" => "2022-09-05",
-                "registered" => false,
-                "register_link" => "test/register",
-                "unregister_link" => "test/unregister",
-                "advance" => 0.5
-            )); 
         }
         if (isset($projects) && isset($projects['activites'])) {
             foreach($projects['activites'] as $project) {

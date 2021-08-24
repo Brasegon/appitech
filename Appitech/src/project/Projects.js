@@ -67,6 +67,45 @@ export default class Craigslist extends Component {
   {
     var res = await httpClient('/link', 'post', {link:link});
     console.log(res);
+    if (res.message.error === "Page not found") {
+      res.message.message = "You cannot unregister";
+      Alert.alert(
+        "Modules",
+        res.message.message,
+        [
+          { text: "OK"}
+        ]
+      );
+    } else if (res.message.error) {
+      Alert.alert(
+        "Modules",
+        res.message.error,
+        [
+          { text: "OK"}
+        ]
+      );
+    } else {
+      Alert.alert(
+        "Modules",
+        res.message.message,
+        [
+          { text: "OK"}
+        ]
+      );
+      if (res.message.type === "register") {
+        var projects = this.state.projects;
+        projects[0].registered = true;
+        this.setState({
+          projects: projects
+        });
+      } else if (res.message.type === "unregister") {
+        var projects = this.state.projects;
+        projects[0].registered = false;
+        this.setState({
+          projects: projects
+        });
+      }
+    }
   }
 
   async showAlertModule(data, tmp) {
@@ -78,13 +117,26 @@ export default class Craigslist extends Component {
       isProject: true,
       projects : projects.message,
     });
+    
   };
 
   async registerOrUnregisterModule(link, index)
   {
     var res = await httpClient('/link', 'post', {link:link});
-    console.log(res);
     if (res.message && res.message.message) {
+      if (res.message.type === "register") {
+        var data = this.state.data;
+        data[0].register = true;
+        this.setState({
+          data: data
+        });
+      } else if (res.message.type === "unregister") {
+        var data = this.state.data;
+        data[0].register = false;
+        this.setState({
+          data: data
+        });
+      }
       Alert.alert(
         "Modules",
         res.message.message,
