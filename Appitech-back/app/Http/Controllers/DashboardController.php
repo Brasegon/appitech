@@ -134,7 +134,13 @@ class DashboardController extends Controller {
         $user = User::firstWhere('login', $jwtData['login']);
         $autologin = EpitechApi::decrypt($user->autologin);
         $link = $request->input("link");
-        return Message::createMessage(200, EpitechApi::post($link, $autologin));
+        if ($link === "test/register") {
+            return Message::createMessage(200, array('message' =>"Register successfully", 'type' => 'register'));
+        } else if ($link === "test/unregister") {
+            return Message::createMessage(200, array('message' =>"Unregister successfully", 'type' => 'unregister'));
+        } else {
+            return Message::createMessage(200, EpitechApi::post($link, $autologin));
+        }
     }
 
     public function getProjectModules(Request $request) {
