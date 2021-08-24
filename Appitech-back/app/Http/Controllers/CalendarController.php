@@ -30,8 +30,8 @@ class CalendarController extends Controller
         $modules = [];
         
         array_push($modules, array(
-            "start" => "2021-09-31 9:00:00",
-            "end" => "2021-09-31 12:00:00",
+            "start" => "2021-08-31 9:00:00",
+            "end" => "2021-08-31 12:00:00",
             "title" => "Tournoi baby foot",
             "summary" => "BDE",
             "register" => false,
