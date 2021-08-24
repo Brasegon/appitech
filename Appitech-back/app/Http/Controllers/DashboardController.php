@@ -138,7 +138,7 @@ class DashboardController extends Controller {
             return Message::createMessage(200, array('message' =>"Register successfully", 'type' => 'register'));
         } else if ($link === "test/unregister") {
             return Message::createMessage(200, array('message' =>"Unregister successfully", 'type' => 'unregister'));
-        } else {
+        }  else {
             return Message::createMessage(200, EpitechApi::post($link, $autologin));
         }
     }
@@ -165,8 +165,8 @@ class DashboardController extends Controller {
                 "start" => "2020-12-07",
                 "end" => "2022-09-05",
                 "registered" => true,
-                "register_link" => "test/project/register",
-                "unregister_link" => "test/project/unregister",
+                "register_link" => "test/register",
+                "unregister_link" => "test/unregister",
                 "advance" => 0.5
             ));
             array_push($array, array(
@@ -174,8 +174,8 @@ class DashboardController extends Controller {
                 "start" => "2020-12-07",
                 "end" => "2022-09-05",
                 "registered" => false,
-                "register_link" => "test/project/register",
-                "unregister_link" => "test/project/unregister",
+                "register_link" => "test/register",
+                "unregister_link" => "test/unregister",
                 "advance" => 0.5
             )); 
         }
