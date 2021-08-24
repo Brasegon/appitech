@@ -173,7 +173,8 @@ class DashboardController extends Controller {
                 "advance" => 0.5
             )); 
         }
-        if ($projects && $projects['activites']) {
+        var_dump($projects);
+        if ($projects && isset($projects['activites'])) {
             foreach($projects['activites'] as $project) {
                 $advance = $this->getAdvance($project['begin'], $project['end']);
                 $paths = $path.$project['codeacti']."/";
