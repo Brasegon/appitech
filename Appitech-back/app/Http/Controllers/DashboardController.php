@@ -173,24 +173,26 @@ class DashboardController extends Controller {
                 "advance" => 0.5
             )); 
         }
-        foreach($projects['activites'] as $project) {
-            $advance = $this->getAdvance($project['begin'], $project['end']);
-            $paths = $path.$project['codeacti']."/";
-            $isRegistered = (array) EpitechApi::get($paths, $autologin);
-            if (isset($isRegistered['student_registered'])) {
-                $isRegistered = ($isRegistered['student_registered']['registered'] == '1') ? true : false;
-            } else {
-                $isRegistered = ($project['register'] == 1) ? true : false;
+        if ($projects && $projects['activites']) {
+            foreach($projects['activites'] as $project) {
+                $advance = $this->getAdvance($project['begin'], $project['end']);
+                $paths = $path.$project['codeacti']."/";
+                $isRegistered = (array) EpitechApi::get($paths, $autologin);
+                if (isset($isRegistered['student_registered'])) {
+                    $isRegistered = ($isRegistered['student_registered']['registered'] == '1') ? true : false;
+                } else {
+                    $isRegistered = ($project['register'] == 1) ? true : false;
+                }
+                array_push($array, array(
+                    "title" => $project['title'],
+                    "start" => explode(" ", $project['start'])[0],
+                    "end" => explode(" ", $project['end'])[0],
+                    "registered" => $isRegistered,
+                    "register_link" => $path.$project['codeacti']."/project/register",
+                    "unregister_link" => $path.$project['codeacti']."/project/unregister",
+                    "advance" => $advance
+                ));
             }
-            array_push($array, array(
-                "title" => $project['title'],
-                "start" => explode(" ", $project['start'])[0],
-                "end" => explode(" ", $project['end'])[0],
-                "registered" => $isRegistered,
-                "register_link" => $path.$project['codeacti']."/project/register",
-                "unregister_link" => $path.$project['codeacti']."/project/unregister",
-                "advance" => $advance
-            ));
         }
         return Message::createMessage(200, $array);
     }
