@@ -149,6 +149,10 @@ class DashboardController extends Controller {
         $codeinstance = $request->query("codeinstance");
         $scholaryear = $request->query("scholaryear");
         $codemodule = $request->query("codemodule");
+        
+        $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/";
+        $projects = (array) EpitechApi::get($path, $autologin);
+        $array = [];
         if ($codeinstance == "TEST") {
             array_push($array, array(
                 "title" => "Projet Register",
@@ -169,10 +173,6 @@ class DashboardController extends Controller {
                 "advance" => 0.5
             )); 
         }
-        $path = "module/".$scholaryear."/".$codemodule."/".$codeinstance."/";
-        $projects = (array) EpitechApi::get($path, $autologin);
-        $array = [];
-        
         foreach($projects['activites'] as $project) {
             $advance = $this->getAdvance($project['begin'], $project['end']);
             $paths = $path.$project['codeacti']."/";
