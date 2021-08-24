@@ -28,6 +28,19 @@ class CalendarController extends Controller
         }
          $calendar = (array) $calendar;
         $modules = [];
+        
+        array_push($modules, array(
+            "start" => "2021-09-31 9:00:00",
+            "end" => "2021-09-31 12:00:00",
+            "title" => "Tournoi baby foot",
+            "summary" => "BDE",
+            "register" => false,
+            "codeacti" => "TEST",
+            "codeevent" => "TEST",
+            "codeinstance" =>"TEST",
+            "codemodule" =>"TEST",
+            "scolaryear" => 2020,
+        ));
         foreach ($calendar as $module) {
             if (is_null($module["room"])) {
                 $module["room"] = array(
