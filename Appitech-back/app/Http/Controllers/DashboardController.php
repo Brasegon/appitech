@@ -81,7 +81,7 @@ class DashboardController extends Controller {
             "codeinstance" => "TEST",
             "register_link" => "test/register",
             "unregister_link" => "test/unregister",
-            "advance" => "TEST"
+            "advance" => 0.5
         ));
         foreach($modules as $module) {
             $advance = $this->getAdvance($module['begin'], $module['end']);
