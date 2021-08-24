@@ -149,7 +149,7 @@ class DashboardController extends Controller {
         $codeinstance = $request->query("codeinstance");
         $scholaryear = $request->query("scholaryear");
         $codemodule = $request->query("codemodule");
-        if ($codemodule == "TEST") {
+        if ($codeinstance == "TEST") {
             array_push($array, array(
                 "title" => "Projet Register",
                 "start" => "2020-12-07",
