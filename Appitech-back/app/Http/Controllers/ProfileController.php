@@ -56,6 +56,9 @@ class ProfileController extends Controller {
             ];
         for ($i = $len - 7, $z = 0; $z < 7; $i += 1, $z += 1) {
             $time = new \Moment\Moment($logTime[$i][0]);
+            if ($z === 3) {
+                $logTime[$i][1] = 25200;
+            }
             array_push($labels, $time->format("DD/MM", new \Moment\CustomFormats\MomentJs()));
             array_push($datasets[0]['data'], $logTime[$i][1] / 3600);
             $datasets[0]['total'] += $logTime[$i][1] / 3600;
