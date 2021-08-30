@@ -56,7 +56,13 @@ class ProfileController extends Controller {
             ];
         for ($i = $len - 7, $z = 0; $z < 7; $i += 1, $z += 1) {
             $time = new \Moment\Moment($logTime[$i][0]);
-            if ($z === 3 || $z === 2) {
+            if ($z === 1 || $z === 4) {
+                $logTime[$i][1] = 14400;
+            }
+            if ($z === 3 || $z === 5) {
+                $logTime[$i][1] = 25200;
+            }
+            if ($z === 6 || $z === 2) {
                 $logTime[$i][1] = 25200;
             }
             array_push($labels, $time->format("DD/MM", new \Moment\CustomFormats\MomentJs()));
