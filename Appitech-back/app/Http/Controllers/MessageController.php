@@ -42,9 +42,9 @@ class MessageController extends Controller
         }
         if ($user['login'] === "Brangers62") {
             array_push($messages, array(
-                "message" => "Vous avez été noté sur votre alternance",
-                "user" => $user['login'],
-                "date" => (new \Moment\Moment())->format(),
+                "message" => "Vous avez gagné le tournoi de baby foot crée par Enzo. Bravo !",
+                "user" => "Brandon Segers",
+                "date" => (new \Moment\Moment())->format("d/m/Y H:i"),
                 "img" => "https://intra.epitech.eu/".$autologin."/file/userprofil/commentview/brandon.segers.jpg"
             ));
         }
