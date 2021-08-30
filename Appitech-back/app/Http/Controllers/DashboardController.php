@@ -36,6 +36,8 @@ class DashboardController extends Controller {
             $request1['board']['activites'][$key]['timeline_hour_end'] = ltrim(explode(",", $projet['timeline_end'])[1]);
         }
         if ($user['login'] === "Brangers62") {
+            $request1['board']['activites'][0]['salle'] = "Salle Réunion";
+            $request1['board']['activites'][0]['title'] = "Baby Foot";
             $request1['board']['activites'][0]['timeline_start'] = "31/08/2021";
             $request1['board']['activites'][0]['timeline_end'] = "31/08/2021";
             $request1['board']['activites'][0]['timeline_hour_start'] = "08:00";
