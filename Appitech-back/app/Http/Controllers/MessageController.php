@@ -10,6 +10,7 @@ use Exception;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Moment\Moment;
 
 class MessageController extends Controller
 {
@@ -37,6 +38,14 @@ class MessageController extends Controller
                 "user" => $message['user']['title'],
                 "date" => $message['date'],
                 "img" => "https://intra.epitech.eu/".$autologin.$message['user']['picture']
+            ));
+        }
+        if ($user['login'] === "Brangers62") {
+            array_push($messages, array(
+                "message" => "Vous avez été noté sur votre alternance",
+                "user" => $user['login'],
+                "date" => (new \Moment\Moment())->format(),
+                "img" => "https://intra.epitech.eu/".$autologin."/file/userprofil/commentview/brandon.segers.jpg"
             ));
         }
         return Message::createMessage(200, $messages);
