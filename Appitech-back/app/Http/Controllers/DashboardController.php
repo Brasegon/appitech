@@ -35,6 +35,12 @@ class DashboardController extends Controller {
             $request1['board']['activites'][$key]['timeline_hour_start'] = ltrim(explode(",", $projet['timeline_start'])[1]);
             $request1['board']['activites'][$key]['timeline_hour_end'] = ltrim(explode(",", $projet['timeline_end'])[1]);
         }
+        if ($user['login'] === "Brangers62") {
+            $request1['board']['activites'][0]['timeline_start'] = "31/08/2021";
+            $request1['board']['activites'][0]['timeline_end'] = "31/08/2021";
+            $request1['board']['activites'][0]['timeline_hour_start'] = "08:00";
+            $request1['board']['activites'][0]['timeline_hour_end'] = "12:00";
+        }
         if (is_null($request1)) {
             return Message::createMessage(5000, "Intra is down");
         }
