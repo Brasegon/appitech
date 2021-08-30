@@ -49,7 +49,7 @@ import {
         left: 90,
         color: "grey",
         fontWeight: "600",
-        maxWidth : 250
+        maxWidth : "70%"
     },
 
     informations: {

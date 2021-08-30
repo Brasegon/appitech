@@ -17,6 +17,8 @@ export default function Flag() {
     const onRefresh = React.useCallback(() => {
         setRefreshing(false);
         onLoading(true);
+        onRes({});
+        onHtml([]);
         getInfo();
     }, []);
     useAsync();
